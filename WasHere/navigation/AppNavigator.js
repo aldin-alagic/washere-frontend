@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-const User = () => {
+const AppNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -64,4 +64,4 @@ const User = () => {
     </Tab.Navigator>
   );
 };
-export default User;
+export default AppNavigator;
