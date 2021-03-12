@@ -6,6 +6,7 @@ import Feed from '../screens/user/Feed';
 import NewPost from '../screens/user/NewPost';
 import Search from '../screens/user/Search';
 import Profile from '../screens/user/Profile';
+import NewPostButton from '../screens/user/NewPostButton';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -22,7 +23,9 @@ const AppNavigator = () => {
         name="Map"
         component={Map}
         options={{
-          tabBarIcon: ({color}) => <Icon name="map" color={color} size={25} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="map-outline" color={color} size={25} />
+          ),
         }}
       />
       <Tab.Screen
@@ -38,9 +41,7 @@ const AppNavigator = () => {
         name="Add"
         component={NewPost}
         options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="add-circle-outline" color={color} size={29} />
-          ),
+          tabBarIcon: ({color}) => <NewPostButton color={color} />,
         }}
       />
       <Tab.Screen
