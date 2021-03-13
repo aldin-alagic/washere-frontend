@@ -6,12 +6,13 @@ import Feed from '../screens/user/Feed';
 import NewPost from '../screens/user/NewPost';
 import Search from '../screens/user/Search';
 import Profile from '../screens/user/Profile';
+import NewPostButton from '../screens/user/NewPostButton';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-const User = () => {
+const AppNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -22,7 +23,9 @@ const User = () => {
         name="Map"
         component={Map}
         options={{
-          tabBarIcon: ({color}) => <Icon name="map" color={color} size={25} />,
+          tabBarIcon: ({color}) => (
+            <Icon name="map-outline" color={color} size={25} />
+          ),
         }}
       />
       <Tab.Screen
@@ -38,9 +41,7 @@ const User = () => {
         name="Add"
         component={NewPost}
         options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="add-circle-outline" color={color} size={29} />
-          ),
+          tabBarIcon: ({color}) => <NewPostButton color={color} />,
         }}
       />
       <Tab.Screen
@@ -64,4 +65,4 @@ const User = () => {
     </Tab.Navigator>
   );
 };
-export default User;
+export default AppNavigator;
