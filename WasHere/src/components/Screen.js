@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, View, StatusBar } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, View, StatusBar } from 'react-native';
 
-function Screen({ children, style }) {
+const Screen = ({ children, style }) => {
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={[styles.screen, style]}>
+    <View style={[styles.screen, style, { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : insets.top }]}>
       <View style={[styles.view, style]}>{children}</View>
-    </SafeAreaView>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   screen: {
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     flex: 1,
   },
   view: {
