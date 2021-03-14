@@ -17,7 +17,7 @@ const Welcome = ({ navigation }) => {
         style={styles.image}
         source={require('../assets/images/welcome-white.png')}
       />
-      <AppText style={styles.text}>
+      <AppText style={styles.description}>
         WasHere is a lorem ipsum dolor sit amet, consectetur adipiscing elit,
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
         enim ad minim veniam
@@ -66,7 +66,7 @@ const Welcome = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: colors.white,
     padding: 10,
   },
@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+  },
+  description: {
+    textAlign: 'center',
+    marginTop: 40,
+    marginBottom: 30,
   },
   underlined: {
     textDecorationLine: 'underline',
