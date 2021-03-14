@@ -1,12 +1,12 @@
-import React, {useCallback, useMemo, useRef} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
-import {AnimatedBackgroundColorView} from 'react-native-animated-background-color-view';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { StyleSheet, View, Text, Image } from 'react-native';
+import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
 import BottomSheet from '@gorhom/bottom-sheet';
 import * as Yup from 'yup';
 
 import Screen from './../components/Screen';
 import AppButton from './../components/Button';
-import {Form, FormField, Heading, SubmitButton} from '../components/form';
+import { Form, FormField, Heading, SubmitButton } from '../components/form';
 import routes from '../navigation/routes';
 
 import colors from '../config/colors';
@@ -16,36 +16,25 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label('Password'),
 });
 
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   const bottomSheetRef = useRef(null);
 
-  const snapPoints = useMemo(() => ['40%','50%','70%'], []);
+  const snapPoints = useMemo(() => ['40%', '50%', '70%'], []);
 
   const handleSheetChanges = useCallback((index) => {
     console.log('handleSheetChanges', index);
   }, []);
 
   return (
-    <AnimatedBackgroundColorView
-      initialColor={colors.white}
-      color={colors.primary}
-      style={styles.container}>
+    <AnimatedBackgroundColorView initialColor={colors.white} color={colors.primary} style={styles.container}>
       <Screen>
         <Text style={styles.title}>WasHere</Text>
-        <Image
-          style={styles.image}
-          source={require('../assets/images/welcome-green.png')}
-        />
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={0}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-          animateOnMount>
+        <Image style={styles.image} source={require('../assets/images/welcome-green.png')} />
+        <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints} onChange={handleSheetChanges} animateOnMount>
           <View style={styles.sheet}>
-            <Heading title="Sing in" onPress={() => navigation.navigate(routes.REGISTER)}/>
+            <Heading title="Sing in" onPress={() => navigation.navigate(routes.REGISTER)} />
             <Form
-              initialValues={{email: '', password: ''}}
+              initialValues={{ email: '', password: '' }}
               onSubmit={(values) => console.log(values)}
               validationSchema={validationSchema}>
               <FormField
@@ -71,11 +60,7 @@ const Login = ({navigation}) => {
             <AppButton
               text
               textColor="black"
-              title={
-                <Text style={styles.underlined}>
-                  Did you forget your password?
-                </Text>
-              }
+              title={<Text style={styles.underlined}>Did you forget your password?</Text>}
               onPress={() => navigation.navigate(routes.LOGIN)}
             />
           </View>
@@ -91,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: 10,
   },
-  sheet: {paddingHorizontal: 30},
+  sheet: { paddingHorizontal: 30 },
   title: {
     fontFamily: 'BalooBhai2-Medium',
     fontSize: 42,
