@@ -1,12 +1,12 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Map from '../screens/user/Map';
-import Feed from '../screens/user/Feed';
-import NewPost from '../screens/user/NewPost';
-import Search from '../screens/user/Search';
-import Profile from '../screens/user/Profile';
-import NewPostButton from '../screens/user/NewPostButton';
+import Map from '../screens/Map';
+import Feed from '../screens/Feed';
+import NewPost from '../screens/NewPost';
+import Search from '../screens/Search';
+import Profile from '../screens/Profile';
+import NewPostButton from '../screens/NewPostButton';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -23,7 +23,7 @@ const AppNavigator = () => {
         name="Map"
         component={Map}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="map-outline" color={color} size={25} />
           ),
         }}
@@ -32,7 +32,7 @@ const AppNavigator = () => {
         name="Feed"
         component={Feed}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="location-outline" color={color} size={25} />
           ),
         }}
@@ -41,14 +41,14 @@ const AppNavigator = () => {
         name="Add"
         component={NewPost}
         options={{
-          tabBarIcon: ({color}) => <NewPostButton color={color} />,
+          tabBarIcon: ({ color }) => <NewPostButton color={color} />,
         }}
       />
       <Tab.Screen
         name="Search"
         component={Search}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="search-outline" color={color} size={25} />
           ),
         }}
@@ -57,7 +57,7 @@ const AppNavigator = () => {
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({color}) => (
+          tabBarIcon: ({ color }) => (
             <Icon name="person-outline" color={color} size={25} />
           ),
         }}
