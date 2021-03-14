@@ -32,7 +32,7 @@ const Login = ({ navigation }) => {
         <Image style={styles.image} source={require('../assets/images/welcome-green.png')} />
         <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints} onChange={handleSheetChanges} animateOnMount>
           <View style={styles.sheet}>
-            <Heading title="Sing in" onPress={() => navigation.navigate(routes.REGISTER)} />
+            <Heading title="Sign in" onPress={() => navigation.navigate(routes.REGISTER)} />
             <Form
               initialValues={{ email: '', password: '' }}
               onSubmit={(values) => console.log(values)}
@@ -55,12 +55,12 @@ const Login = ({ navigation }) => {
                 secureTextEntry
                 textContentType="password"
               />
-              <SubmitButton title="Sing in" />
+              <SubmitButton title="Sign in" />
             </Form>
             <AppButton
               text
               textColor="black"
-              title={<Text style={styles.underlined}>Did you forget your password?</Text>}
+              title={<Text style={styles.underlined}>Forgot your password?</Text>}
               onPress={() => navigation.navigate(routes.LOGIN)}
             />
           </View>

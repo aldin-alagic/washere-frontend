@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
 
 import Screen from '../components/Screen';
 import AppButton from '../components/Button';
@@ -13,48 +13,27 @@ const Welcome = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
       <Text style={styles.title}>WasHere</Text>
-      <Image
-        style={styles.image}
-        source={require('../assets/images/welcome-white.png')}
-      />
+      <Image style={styles.image} source={require('../assets/images/welcome-white.png')} />
       <AppText style={styles.description}>
-        WasHere is a lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-        enim ad minim veniam
+        WasHere is a lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+        aliqua. Ut enim ad minim veniam
       </AppText>
       <View style={styles.buttonsContainer}>
         {Platform.OS === 'android' && (
-          <AppButton
-            title="Continue with Apple"
-            color="black"
-            onPress={() => navigation.navigate(routes.REGISTER)}
-          />
+          <AppButton title="Continue with Apple" color="black" onPress={() => navigation.navigate(routes.REGISTER)} />
         )}
-        <AppButton
-          title="Continue with Facebook"
-          color="facebook"
-          onPress={() => navigation.navigate(routes.REGISTER)}
-        />
-        <AppButton
-          title="Continue with Google"
-          color="google"
-          onPress={() => navigation.navigate(routes.REGISTER)}
-        />
+        <AppButton title="Continue with Facebook" color="facebook" onPress={() => navigation.navigate(routes.REGISTER)} />
+        <AppButton title="Continue with Google" color="google" onPress={() => navigation.navigate(routes.REGISTER)} />
         <AppText style={styles.text}>or</AppText>
-        <AppButton
-          title="Sign up with E-mail"
-          color="white"
-          textColor="black"
-          onPress={() => navigation.navigate(routes.REGISTER)}
-        />
+        <AppButton title="Sign up with E-mail" color="white" textColor="black" onPress={() => navigation.navigate(routes.REGISTER)} />
         <AppButton
           text
           textColor="black"
           title={
-            <Text>
-              Already have an WasHere account?
-              <Text style={styles.underlined}> Sing in</Text>
-            </Text>
+            <>
+              <Text>Already have a WasHere account?{'\n'}</Text>
+              <Text style={[styles.underlined, styles.centered]}>Sign in</Text>
+            </>
           }
           onPress={() => navigation.navigate(routes.LOGIN)}
         />
@@ -66,7 +45,7 @@ const Welcome = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     backgroundColor: colors.white,
     padding: 10,
   },
@@ -86,6 +65,9 @@ const styles = StyleSheet.create({
   },
   underlined: {
     textDecorationLine: 'underline',
+  },
+  centered: {
+    textAlign: 'center',
   },
   buttonsContainer: {
     padding: 20,
