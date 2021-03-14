@@ -10,7 +10,7 @@ function AppButton({ title, onPress, color = 'primary', textColor = "white", tex
     <TouchableOpacity
       style={buttonStyle}
       onPress={onPress}>
-      <Text style={styles.text, { color: colors[textColor] }}>{title}</Text>
+      <Text style={[styles.text, { color: colors[textColor] }]}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -21,19 +21,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
-
+    marginVertical: 10,
   },
   button: {
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 12,
+    padding: 16,
     width: '100%',
     marginVertical: 10,
   },
   text: {
-    fontSize: 15,
-    textDecorationLine: 'underline',
+    fontSize: 18,
   },
 });
 
