@@ -19,9 +19,6 @@ const Welcome = ({ navigation }) => {
         aliqua. Ut enim ad minim veniam
       </AppText>
       <View style={styles.buttonsContainer}>
-        {Platform.OS === 'android' && (
-          <AppButton title="Continue with Apple" color="black" onPress={() => navigation.navigate(routes.REGISTER)} />
-        )}
         <AppButton title="Continue with Facebook" color="facebook" onPress={() => navigation.navigate(routes.REGISTER)} />
         <AppButton title="Continue with Google" color="google" onPress={() => navigation.navigate(routes.REGISTER)} />
         <AppText style={styles.text}>or</AppText>
