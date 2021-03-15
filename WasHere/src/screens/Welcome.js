@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import Screen from '../components/Screen';
 import AppButton from '../components/Button';
@@ -8,7 +8,6 @@ import routes from '../navigation/routes';
 import colors from '../config/colors';
 import AppText from './../components/Text';
 import WelcomeScreenWhite from '../assets/images/welcome-white.svg';
-import { Platform } from 'react-native';
 
 const Welcome = ({ navigation }) => {
   return (

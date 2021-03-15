@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
 import BottomSheet from '@gorhom/bottom-sheet';
 import * as Yup from 'yup';
