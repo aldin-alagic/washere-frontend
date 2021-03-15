@@ -7,13 +7,14 @@ import routes from '../navigation/routes';
 
 import colors from '../config/colors';
 import AppText from './../components/Text';
+import WelcomeScreenWhite from '../assets/images/welcome-white.svg';
 import { Platform } from 'react-native';
 
 const Welcome = ({ navigation }) => {
   return (
     <Screen style={styles.container}>
       <Text style={styles.title}>WasHere</Text>
-      <Image style={styles.image} source={require('../assets/images/welcome-white.png')} />
+      <WelcomeScreenWhite style={styles.image} />
       <AppText style={styles.description}>
         WasHere is a lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
         aliqua. Ut enim ad minim veniam
