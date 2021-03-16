@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
 import BottomSheet from '@gorhom/bottom-sheet';
 import * as Yup from 'yup';
@@ -10,6 +10,7 @@ import { Form, FormField, Heading, SubmitButton } from '../components/form';
 import routes from '../navigation/routes';
 
 import colors from '../config/colors';
+import WelcomeScreenGreen from '../assets/images/welcome-green.svg';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -29,7 +30,7 @@ const Login = ({ navigation }) => {
     <AnimatedBackgroundColorView initialColor={colors.white} color={colors.primary} style={styles.container}>
       <Screen>
         <Text style={styles.title}>WasHere</Text>
-        <Image style={styles.image} source={require('../assets/images/welcome-green.png')} />
+        <WelcomeScreenGreen style={styles.image} />
         <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints} onChange={handleSheetChanges} animateOnMount>
           <View style={styles.sheet}>
             <Heading title="Sign in" onPress={() => navigation.navigate(routes.REGISTER)} />
