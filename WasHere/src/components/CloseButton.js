@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import colors from '../config/colors';
@@ -7,9 +7,23 @@ import colors from '../config/colors';
 const CloseButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Icon name="close-circle-outline" color={colors.black} size={38} />
+      <View style={styles.closeContainer}>
+        <Icon name="close-outline" color={colors.black} size={23} />
+      </View>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  closeContainer: {
+    backgroundColor: colors.light,
+    borderRadius: 20,
+    padding: 3,
+    height: 40,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default CloseButton;
