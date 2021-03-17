@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 
 import Screen from '../components/Screen';
 import AppButton from '../components/Button';
 import routes from '../navigation/routes';
 
+
 import colors from '../config/colors';
 import AppText from './../components/Text';
-import { Platform } from 'react-native';
 
 const Welcome = ({ navigation }) => {
   return (
@@ -27,10 +27,10 @@ const Welcome = ({ navigation }) => {
           text
           textColor="black"
           title={
-            <>
-              <Text>Already have a WasHere account?{'\n'}</Text>
-              <Text style={[styles.underlined, styles.centered]}>Sign in</Text>
-            </>
+            <View style={styles.centered}>
+              <AppText>Already have a WasHere account?</AppText>
+              <AppText style={styles.underlined}>Sign in</AppText>
+            </View>
           }
           onPress={() => navigation.navigate(routes.LOGIN)}
         />
@@ -64,7 +64,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   centered: {
-    textAlign: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonsContainer: {
     padding: 20,
