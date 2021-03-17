@@ -8,7 +8,7 @@ const AppTextInput = ({ icon, width = '100%', ...otherProps }) => {
   return (
     <View style={[styles.container, { width }]}>
       {icon && <Icon name={icon} size={20} color={defaultStyles.colors.medium} style={styles.icon} />}
-      <TextInput placeholderTextColor={defaultStyles.colors.medium} style={defaultStyles.text} {...otherProps} />
+      <TextInput placeholderTextColor={defaultStyles.colors.medium} style={[defaultStyles.text, styles.textInput]} {...otherProps} />
     </View>
   );
 };
@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginHorizontal: 10,
+  },
+  textInput: {
+    paddingVertical: 4,
   },
 });
 
