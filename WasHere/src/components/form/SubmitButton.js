@@ -1,12 +1,15 @@
 import React from 'react';
+import { ActivityIndicator } from 'react-native';
 import { useFormikContext } from 'formik';
 
 import AppButton from '../Button';
 
-const SubmitButton = ({ title }) => {
+import colors from '../../config/colors';
+
+const SubmitButton = ({ title, loading }) => {
   const { handleSubmit } = useFormikContext();
 
-  return <AppButton title={title} onPress={handleSubmit} />;
+  return loading ? <ActivityIndicator style={{ marginTop: 10 }} size="large" color={colors.primary} /> : <AppButton title={title} onPress={handleSubmit} />;
 };
 
 export default SubmitButton;
