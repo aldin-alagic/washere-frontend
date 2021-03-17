@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
+    marginVertical: 15,
   },
   title: {
     fontSize: 30,

@@ -1,15 +1,16 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
-import BottomSheet from '@gorhom/bottom-sheet';
 import * as Yup from 'yup';
 
 import Screen from './../components/Screen';
 import AppButton from './../components/Button';
 import { Form, FormField, Heading, SubmitButton } from '../components/form';
 import routes from '../navigation/routes';
+import BottomSheet from '../components/BottomSheet';
 
 import colors from '../config/colors';
+import WelcomeScreenGreen from '../assets/images/welcome-green.svg';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -17,22 +18,14 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = ({ navigation }) => {
-  const bottomSheetRef = useRef(null);
-
-  const snapPoints = useMemo(() => ['40%', '50%', '70%'], []);
-
-  const handleSheetChanges = useCallback((index) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   return (
     <AnimatedBackgroundColorView initialColor={colors.white} color={colors.primary} style={styles.container}>
       <Screen>
         <Text style={styles.title}>WasHere</Text>
-        <Image style={styles.image} source={require('../assets/images/welcome-green.png')} />
-        <BottomSheet ref={bottomSheetRef} index={0} snapPoints={snapPoints} onChange={handleSheetChanges} animateOnMount>
+        <WelcomeScreenGreen style={styles.image} />
+        <BottomSheet onClose={() => navigation.goBack()}>
           <View style={styles.sheet}>
-            <Heading title="Sign in" onPress={() => navigation.navigate(routes.REGISTER)} />
+            <Heading title="Sign in" onPress={() => navigation.goBack()} />
             <Form
               initialValues={{ email: '', password: '' }}
               onSubmit={(values) => console.log(values)}
@@ -76,7 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: 10,
   },
-  sheet: { paddingHorizontal: 30 },
+  sheet: {
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+  },
   title: {
     fontFamily: 'BalooBhai2-Medium',
     fontSize: 42,
