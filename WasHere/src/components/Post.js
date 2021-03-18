@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
@@ -9,7 +10,7 @@ const Post = () => {
     <View style={styles.container}>
       <View style={styles.userContainer}>
         <View style={styles.userImage}></View>
-        <View style={{ justifyContent: 'space-between', padding: 4 }}>
+        <View style={styles.textContainer}>
           <Text style={[defaultStyles.text, styles.name]}>
             John Wick
             <Text style={styles.washere}> was here</Text>
@@ -18,6 +19,16 @@ const Post = () => {
         </View>
       </View>
       <View style={styles.map}></View>
+      <View style={styles.footerContainer}>
+        <View style={styles.footerSection}>
+          <Icon name="heart" style={styles.icon} />
+          <Text>5 likes</Text>
+        </View>
+        <View style={styles.footerSection}>
+          <Icon name="chatbubble" style={styles.icon} />
+          <Text>2 comments</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -39,13 +50,13 @@ const styles = StyleSheet.create({
   },
   userContainer: {
     flexDirection: 'row',
-    marginBottom: 12,
   },
   map: {
     width: '100%',
     backgroundColor: 'gray',
     height: 150,
     borderRadius: 15,
+    marginVertical: 13,
   },
   userImage: {
     borderRadius: 50,
@@ -56,6 +67,21 @@ const styles = StyleSheet.create({
   },
   time: {
     color: colors.medium,
+  },
+  footerContainer: {
+    flexDirection: 'row',
+  },
+  icon: {
+    fontSize: 16,
+    marginRight: 6,
+  },
+  footerSection: {
+    flexDirection: 'row',
+    marginRight: 15,
+  },
+  textContainer: {
+    justifyContent: 'space-between',
+    padding: 4,
   },
 });
 
