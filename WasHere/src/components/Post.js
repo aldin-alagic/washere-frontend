@@ -26,7 +26,11 @@ const Post = () => {
           longitude: -122.4324,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}>
+        }}
+        pitchEnabled={false}
+        rotateEnabled={false}
+        zoomEnabled={false}
+        scrollEnabled={false}>
         <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
       </MapView>
       <View style={styles.footerContainer}>
