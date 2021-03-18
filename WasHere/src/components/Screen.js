@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StyleSheet, View, StatusBar } from 'react-native';
+import colors from '../config/colors';
 
 const Screen = ({ children, style }) => {
   const insets = useSafeAreaInsets();
@@ -14,6 +15,7 @@ const Screen = ({ children, style }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    backgroundColor: colors.white,
   },
   view: {
     flex: 1,
