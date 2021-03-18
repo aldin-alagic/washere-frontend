@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MapView, { Marker } from 'react-native-maps';
 
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
@@ -18,7 +19,16 @@ const Post = () => {
           <Text style={styles.time}>5 mins ago</Text>
         </View>
       </View>
-      <View style={styles.map}></View>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}>
+        <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
+      </MapView>
       <View style={styles.footerContainer}>
         <View style={styles.footerSection}>
           <Icon name="heart" style={styles.icon} />
@@ -53,7 +63,6 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    backgroundColor: 'gray',
     height: 150,
     borderRadius: 15,
     marginVertical: 13,
