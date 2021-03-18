@@ -5,7 +5,6 @@ import Screen from '../components/Screen';
 import AppButton from '../components/Button';
 import routes from '../navigation/routes';
 
-
 import colors from '../config/colors';
 import AppText from './../components/Text';
 
@@ -64,8 +63,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   centered: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   },
   buttonsContainer: {
