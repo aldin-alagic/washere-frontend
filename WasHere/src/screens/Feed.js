@@ -7,18 +7,24 @@ import Screen from '../components/Screen';
 const POSTS = [
   {
     id: '1',
-    user: 'John Wick',
+    name: 'John Wick',
     createdAt: '5 mins ago',
+    latitude: 37.78825,
+    longitude: -122.4324,
   },
   {
     id: '2',
-    user: 'Jane Doe',
+    name: 'Jane Doe',
     createdAt: '27 mins ago',
+    latitude: 37.78825,
+    longitude: -122.4324,
   },
   {
     id: '3',
-    user: 'Nick Johnson',
+    name: 'Nick Johnson',
     createdAt: '1 hour ago',
+    latitude: 37.78825,
+    longitude: -122.4324,
   },
 ];
 

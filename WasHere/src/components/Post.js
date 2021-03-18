@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { Marker } from 'react-native-maps';
@@ -6,14 +6,20 @@ import MapView, { Marker } from 'react-native-maps';
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
 
-const Post = () => {
+const Post = ({ data }) => {
+  const mapRef = useRef();
+
+  useEffect(() => {
+    mapRef.current.animateToRegion({ latitude: data.latitude, longitude: data.longitude, latitudeDelta: 0.01, longitudeDelta: 0.01 });
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
         <View style={styles.userImage}></View>
         <View style={styles.textContainer}>
           <Text style={[defaultStyles.text, styles.name]}>
-            John Wick
+            {data.name}
             <Text style={styles.washere}> was here</Text>
           </Text>
           <Text style={styles.time}>5 mins ago</Text>
@@ -21,17 +27,18 @@ const Post = () => {
       </View>
       <MapView
         style={styles.map}
+        ref={mapRef}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          latitudeDelta: 0.03,
+          longitudeDelta: 0.03,
         }}
         pitchEnabled={false}
         rotateEnabled={false}
         zoomEnabled={false}
         scrollEnabled={false}>
-        <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
+        <Marker coordinate={{ latitude: data.latitude, longitude: data.longitude }} />
       </MapView>
       <View style={styles.footerContainer}>
         <View style={styles.footerSection}>
