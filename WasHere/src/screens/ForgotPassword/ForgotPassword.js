@@ -1,75 +1,25 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Screen from '../../components/Screen';
-import Text from '../../components/Text';
+import React, { useState } from 'react';
 
-import colors from '../../config/colors';
+import ResetForm from './components/ResetForm';
+import CodeForm from './components/CodeForm';
+import NewPasswordForm from './components/NewPasswordForm';
 
-import { Form, FormField, Heading, SubmitButton } from '../../components/form';
-import WelcomeScreenGreen from '../../assets/images/welcome-green.svg';
-import BottomSheet from '../../components/BottomSheet';
-import * as Yup from 'yup';
-
-const validationSchema = Yup.object({
-  email: Yup.string().email('You need to enter a valid email!').required('This field is required!'),
-});
+export const stages = {
+  REQUEST_CODE: 'REQUEST_CODE',
+  VERIFY_CODE: 'VERIFY_CODE',
+  CHANGE_PASSWORD: 'CHANGE_PASSWORD',
+};
 
 const ForgotPassword = ({ navigation }) => {
+  const [stage, setStage] = useState(stages.REQUEST_CODE);
+  const [resetCode, setResetCode] = useState('');
   return (
-    <Screen>
-      <Text style={styles.title}>WasHere</Text>
-      <WelcomeScreenGreen style={styles.image} />
-      <BottomSheet onClose={() => navigation.goBack()}>
-        <View style={styles.sheet}>
-          <Heading title="Forgot password" onPress={() => navigation.goBack()} />
-          <Text style={styles.helperText}>
-            Please provide your e-mail address to request a password reset code. You will receive your code to your e-mail address if it is
-            valid.
-          </Text>
-          <Form initialValues={{ email: '', password: '' }} onSubmit={(values) => console.log(values)} validationSchema={validationSchema}>
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="mail-outline"
-              keyboardType="email-address"
-              name="email"
-              placeholder="Email"
-              textContentType="emailAddress"
-            />
-
-            <SubmitButton title="Request code" />
-          </Form>
-        </View>
-      </BottomSheet>
-    </Screen>
+    <>
+      {stage === stages.REQUEST_CODE && <ResetForm setStage={setStage} />}
+      {stage === stages.VERIFY_CODE && <CodeForm setStage={setStage} setResetCode={setResetCode} />}
+      {stage === stages.CHANGE_PASSWORD && <NewPasswordForm setStage={setStage} resetCode={resetCode} navigation={navigation} />}
+    </>
   );
 };
 
 export default ForgotPassword;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    paddingTop: 10,
-  },
-  sheet: {
-    paddingHorizontal: 30,
-    paddingTop: 10,
-    paddingBottom: 50,
-  },
-  helperText: {
-    textAlign: 'justify',
-  },
-  title: {
-    fontFamily: 'BalooBhai2-Medium',
-    fontSize: 42,
-    textAlign: 'center',
-    color: colors.white,
-  },
-  image: {
-    margin: 20,
-    marginBottom: 20,
-    alignSelf: 'center',
-  },
-});
