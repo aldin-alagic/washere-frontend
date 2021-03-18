@@ -1,7 +1,11 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MapView, { Marker } from 'react-native-maps';
+import days from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+days.extend(relativeTime);
 
 import defaultStyles from '../config/styles';
 import colors from '../config/colors';
@@ -10,44 +14,51 @@ const Post = ({ data }) => {
   const mapRef = useRef();
 
   useEffect(() => {
-    mapRef.current.animateToRegion({ latitude: data.latitude, longitude: data.longitude, latitudeDelta: 0.01, longitudeDelta: 0.01 });
+    mapRef.current.animateToRegion({
+      latitude: data.location.latitude,
+      longitude: data.location.longitude,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    });
   }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
-        <View style={styles.userImage}></View>
+        <Image style={styles.userImage} source={{ uri: data.user.photoURL }} />
         <View style={styles.textContainer}>
           <Text style={[defaultStyles.text, styles.name]}>
-            {data.name}
+            {data.user.name}
             <Text style={styles.washere}> was here</Text>
           </Text>
-          <Text style={styles.time}>5 mins ago</Text>
+          <Text style={styles.time}>{days(data.createdAt).fromNow()}</Text>
         </View>
       </View>
-      <MapView
-        style={styles.map}
-        ref={mapRef}
-        initialRegion={{
-          latitude: data.latitude,
-          longitude: data.longitude,
-          latitudeDelta: 0.03,
-          longitudeDelta: 0.03,
-        }}
-        pitchEnabled={false}
-        rotateEnabled={false}
-        zoomEnabled={false}
-        scrollEnabled={false}>
-        <Marker coordinate={{ latitude: data.latitude, longitude: data.longitude }} />
-      </MapView>
+      <TouchableOpacity onPress={() => console.log('Open post')}>
+        <MapView
+          style={styles.map}
+          ref={mapRef}
+          initialRegion={{
+            latitude: data.location.latitude,
+            longitude: data.location.longitude,
+            latitudeDelta: 0.03,
+            longitudeDelta: 0.03,
+          }}
+          pitchEnabled={false}
+          rotateEnabled={false}
+          zoomEnabled={false}
+          scrollEnabled={false}>
+          <Marker coordinate={{ latitude: data.location.latitude, longitude: data.location.longitude }} />
+        </MapView>
+      </TouchableOpacity>
       <View style={styles.footerContainer}>
         <View style={styles.footerSection}>
           <Icon name="heart" style={styles.icon} />
-          <Text>5 likes</Text>
+          <Text>{data.likes} likes</Text>
         </View>
         <View style={styles.footerSection}>
           <Icon name="chatbubble" style={styles.icon} />
-          <Text>2 comments</Text>
+          <Text>{data.comments} comments</Text>
         </View>
       </View>
     </View>
@@ -80,9 +91,8 @@ const styles = StyleSheet.create({
   },
   userImage: {
     borderRadius: 50,
-    height: 50,
-    width: 50,
-    backgroundColor: 'gray',
+    height: 45,
+    width: 45,
     marginRight: 10,
   },
   time: {
@@ -101,7 +111,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     justifyContent: 'space-between',
-    padding: 4,
+    padding: 2,
   },
 });
 
