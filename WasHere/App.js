@@ -1,14 +1,17 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
 
-import AuthNavigator from './src/navigation/AuthNavigator';
-import { navigationRef } from './src/navigation/rootNavigation';
+import configureStore from './src/store/configureStore';
+
+import Navigator from './src/navigation/Navigator';
 
 const App = () => {
+  const store = configureStore();
+
   return (
-    <NavigationContainer ref={navigationRef}>
-      <AuthNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <Navigator />
+    </Provider>
   );
 };
 

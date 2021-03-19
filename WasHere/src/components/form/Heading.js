@@ -3,11 +3,11 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import CloseButton from '../CloseButton';
 
-const Heading = ({ title, onPress }) => {
+const Heading = ({ title, onClose }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <CloseButton onPress={onPress} />
+      <CloseButton onPress={onClose} />
     </View>
   );
 };
