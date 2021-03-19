@@ -34,7 +34,7 @@ const Post = ({ data }) => {
           <Text style={styles.time}>{days(data.createdAt).fromNow()}</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={() => console.log('Open post')}>
+      <TouchableOpacity style={styles.mapContainer} onPress={() => console.log('Open post')}>
         <MapView
           style={styles.map}
           ref={mapRef}
@@ -53,7 +53,7 @@ const Post = ({ data }) => {
       </TouchableOpacity>
       <View style={styles.footerContainer}>
         <View style={styles.footerSection}>
-          <Icon name="heart" style={styles.icon} />
+          <Icon name="heart" color="red" style={styles.icon} />
           <Text>{data.likes} likes</Text>
         </View>
         <View style={styles.footerSection}>
@@ -83,11 +83,15 @@ const styles = StyleSheet.create({
   userContainer: {
     flexDirection: 'row',
   },
+  mapContainer: {
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    overflow: 'hidden',
+    marginTop: 13,
+  },
   map: {
     width: '100%',
     height: 150,
-    borderRadius: 15,
-    marginVertical: 13,
   },
   userImage: {
     borderRadius: 50,
@@ -100,6 +104,10 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     flexDirection: 'row',
+    backgroundColor: '#FAFAFAFA',
+    padding: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   icon: {
     fontSize: 16,
