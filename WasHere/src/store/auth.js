@@ -22,7 +22,6 @@ const slice = createSlice({
     initialStateSet: (auth, action) => {
       auth.token = action.payload.token;
       auth.user = action.payload.user;
-      console.log("store set", auth.token);
     },
 
     requestStarted: (auth, action) => {
