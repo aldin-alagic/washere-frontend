@@ -27,10 +27,10 @@ const Welcome = ({ navigation }) => {
           text
           textColor="black"
           title={
-            <>
-              <Text>Already have a WasHere account?{'\n'}</Text>
-              <Text style={[styles.underlined, styles.centered]}>Sign in</Text>
-            </>
+            <View style={styles.centered}>
+              <AppText>Already have a WasHere account?</AppText>
+              <AppText style={styles.underlined}>Sign in</AppText>
+            </View>
           }
           onPress={() => navigation.navigate(routes.LOGIN)}
         />
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   centered: {
-    textAlign: 'center',
+    alignItems: 'center',
   },
   buttonsContainer: {
     padding: 20,
