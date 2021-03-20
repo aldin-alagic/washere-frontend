@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
 import * as Yup from 'yup';
 
@@ -8,16 +9,24 @@ import AppButton from './../components/Button';
 import { Form, FormField, Heading, SubmitButton } from '../components/form';
 import routes from '../navigation/routes';
 import BottomSheet from '../components/BottomSheet';
+import { login } from '../store/auth';
 
 import colors from '../config/colors';
 import WelcomeScreenGreen from '../assets/images/welcome-green.svg';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
-  password: Yup.string().required().min(4).label('Password'),
+  password: Yup.string().required().min(8).label('Password'),
 });
 
 const Login = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
+
+  const handleSubmit = (values) => {
+    dispatch(login(values.email, values.password));
+  };
+
   return (
     <AnimatedBackgroundColorView initialColor={colors.white} color={colors.primary} style={styles.container}>
       <Screen>
@@ -25,18 +34,15 @@ const Login = ({ navigation }) => {
         <WelcomeScreenGreen style={styles.image} />
         <BottomSheet onClose={() => navigation.goBack()}>
           <View style={styles.sheet}>
-            <Heading title="Sign in" onPress={() => navigation.goBack()} />
-            <Form
-              initialValues={{ email: '', password: '' }}
-              onSubmit={(values) => console.log(values)}
-              validationSchema={validationSchema}>
+            <Heading title="Sign in" onClose={() => navigation.navigate(routes.WELCOME)} />
+            <Form initialValues={{ email: '', password: '' }} onSubmit={handleSubmit} validationSchema={validationSchema}>
               <FormField
                 autoCapitalize="none"
                 autoCorrect={false}
                 icon="mail-outline"
                 keyboardType="email-address"
                 name="email"
-                placeholder="Email"
+                placeholder="E-mail"
                 textContentType="emailAddress"
               />
               <FormField
@@ -48,7 +54,7 @@ const Login = ({ navigation }) => {
                 secureTextEntry
                 textContentType="password"
               />
-              <SubmitButton title="Sign in" />
+              <SubmitButton title="Sign in" loading={loading} />
             </Form>
             <AppButton
               text
