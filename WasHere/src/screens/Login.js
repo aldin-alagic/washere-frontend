@@ -1,22 +1,22 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
-import * as Yup from 'yup';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { AnimatedBackgroundColorView } from "react-native-animated-background-color-view";
+import * as Yup from "yup";
 
-import Screen from './../components/Screen';
-import AppButton from './../components/Button';
-import { Form, FormField, Heading, SubmitButton } from '../components/form';
-import routes from '../navigation/routes';
-import BottomSheet from '../components/BottomSheet';
-import { login } from '../store/auth';
+import Screen from "./../components/Screen";
+import AppButton from "./../components/Button";
+import { Form, FormField, Heading, SubmitButton } from "../components/form";
+import routes from "../navigation/routes";
+import BottomSheet from "../components/BottomSheet";
+import { login } from "../store/auth";
 
-import colors from '../config/colors';
-import WelcomeScreenGreen from '../assets/images/welcome-green.svg';
+import colors from "../config/colors";
+import WelcomeScreenGreen from "../assets/images/welcome-green.svg";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label('Email'),
-  password: Yup.string().required().min(8).label('Password'),
+  email: Yup.string().required().email().label("Email"),
+  password: Yup.string().required().min(8).label("Password"),
 });
 
 const Login = ({ navigation }) => {
@@ -35,14 +35,14 @@ const Login = ({ navigation }) => {
         <BottomSheet onClose={() => navigation.goBack()}>
           <View style={styles.sheet}>
             <Heading title="Sign in" onClose={() => navigation.navigate(routes.WELCOME)} />
-            <Form initialValues={{ email: '', password: '' }} onSubmit={handleSubmit} validationSchema={validationSchema}>
+            <Form initialValues={{ email: "", password: "" }} onSubmit={handleSubmit} validationSchema={validationSchema}>
               <FormField
                 autoCapitalize="none"
                 autoCorrect={false}
                 icon="mail-outline"
                 keyboardType="email-address"
                 name="email"
-                placeholder="E-mail"
+                placeholder="Email"
                 textContentType="emailAddress"
               />
               <FormField
@@ -72,7 +72,7 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     paddingTop: 10,
   },
   sheet: {
@@ -80,17 +80,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   title: {
-    fontFamily: 'BalooBhai2-Medium',
+    fontFamily: "BalooBhai2-Medium",
     fontSize: 42,
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.white,
   },
   underlined: {
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   image: {
     flexShrink: 1,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });
 
