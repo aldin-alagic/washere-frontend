@@ -48,6 +48,18 @@ const slice = createSlice({
       auth.loading = false;
     },
 
+    registered: (auth, action) => {
+      const { success, message } = action.payload;
+      if (success) {
+        auth.apiResult = {
+          success,
+          message,
+        };
+      }
+      Alert.alert(message);
+      auth.loading = false;
+    },
+
     loggedOut: (auth, action) => {
       auth.token = '';
       auth.user = {};
@@ -60,7 +72,7 @@ const slice = createSlice({
   },
 });
 
-export const { initialStateSet, requestStarted, loggedIn, loggedOut, requestFailed } = slice.actions;
+export const { initialStateSet, requestStarted, loggedIn, registered, loggedOut, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const login = (email, password) =>
@@ -70,5 +82,15 @@ export const login = (email, password) =>
     data: { email, password },
     onStart: requestStarted.type,
     onSuccess: loggedIn.type,
+    onError: requestFailed.type,
+  });
+
+export const register = (fullname, username, email, password) =>
+  apiCallBegan({
+    url: '/user',
+    method: 'POST',
+    data: { role_id: 1, fullname, username, email, password, newsletter: true },
+    onStart: requestStarted.type,
+    onSuccess: registered.type,
     onError: requestFailed.type,
   });
