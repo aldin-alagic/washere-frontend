@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     padding: 6,
     marginVertical: 10,
     alignItems: 'center',
+    overflow: 'hidden',
   },
   icon: {
     marginHorizontal: 10,
