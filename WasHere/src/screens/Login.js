@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatedBackgroundColorView } from 'react-native-animated-background-color-view';
@@ -89,8 +89,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   image: {
-    margin: 20,
-    marginBottom: 20,
+    flexShrink: 1,
     alignSelf: 'center',
   },
 });
