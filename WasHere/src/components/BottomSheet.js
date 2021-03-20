@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 
 const BottomSheet = ({ children, onClose }) => {
@@ -14,12 +15,20 @@ const BottomSheet = ({ children, onClose }) => {
       ref={modalizeRef}
       handlePosition="inside"
       adjustToContentHeight
-      style={{ flex: 1 }}
+      childrenStyle={styles.content}
       keyboardAvoidingBehavior="padding"
       onClose={onClose}>
       {children}
     </Modalize>
   );
 };
+
+const styles = StyleSheet.create({
+  content: {
+    paddingHorizontal: 30,
+    paddingTop: 10,
+    paddingBottom: 25,
+  },
+});
 
 export default BottomSheet;
