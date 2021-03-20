@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   image: {
     flexShrink: 1,
     alignSelf: 'center',
+    marginBottom: 25,
   },
   description: {
     textAlign: 'center',
