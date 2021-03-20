@@ -60,7 +60,7 @@ const Login = ({ navigation }) => {
               text
               textColor="black"
               title={<Text style={styles.underlined}>Forgot your password?</Text>}
-              onPress={() => navigation.navigate(routes.FORGOT_PASSWORD)}
+              onPress={() => navigation.navigate(routes.RESET_PASSWORD_FORM)}
             />
           </View>
         </BottomSheet>
