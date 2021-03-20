@@ -35,7 +35,7 @@ const Register = ({ navigation }) => {
 
   const handleSubmit = ({ fullname, username, email, password }) => {
     dispatch(register(fullname, username, email, password));
-    navigation.navigate(routes.WELCOME)
+    navigation.navigate(routes.WELCOME);
   };
 
   return (
@@ -79,7 +79,7 @@ const Register = ({ navigation }) => {
                 secureTextEntry
                 textContentType="password"
               />
-              <SubmitButton title="Sing up" loading={loading} />
+              <SubmitButton title="Sign up" loading={loading} />
             </Form>
             <AppButton
               text
