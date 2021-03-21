@@ -103,14 +103,14 @@ const slice = createSlice({
           message,
         };
         auth.passwordResetSuccessful = true;
+        showMessage({
+          message: 'Success!',
+          description: message,
+          type: 'success',
+          autoHide: true,
+        });
       }
       auth.loading = false;
-      showMessage({
-        message: 'Success!',
-        description: message,
-        type: 'success',
-        autoHide: true,
-      });
     },
 
     requestFailed: (auth, action) => {
