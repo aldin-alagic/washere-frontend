@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
@@ -20,10 +20,11 @@ const ResetForm = ({ navigation }) => {
   const dispatch = useDispatch();
   const { loading, resetCodeSent } = useSelector((state) => state.auth);
 
-  if (resetCodeSent) {
-    navigation.navigate(routes.RESET_CODE_FORM);
-  }
-
+  useEffect(() => {
+    if (resetCodeSent) {
+      navigation.push(routes.RESET_CODE_FORM);
+    }
+  }, [resetCodeSent]);
   const handleSubmit = (values) => {
     dispatch(requestResetCode(values.email));
   };
@@ -33,7 +34,7 @@ const ResetForm = ({ navigation }) => {
       <WelcomeScreenGreen style={styles.image} />
       <BottomSheet onClose={() => navigation.goBack()}>
         <View style={styles.sheet}>
-          <Heading title="Forgot password" onPress={() => navigation.goBack()} />
+          <Heading title="Forgot password" onClose={() => navigation.goBack()} />
           <Text style={styles.helperText}>
             Please provide your e-mail address to request a password reset code. You will receive your code to your e-mail address if it is
             valid.

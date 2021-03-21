@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import BlankSpacer from 'react-native-blank-spacer';
@@ -28,6 +28,11 @@ const ChangePasswordForm = ({ navigation }) => {
   const dispatch = useDispatch();
   const { loading, resetCode, passwordResetSuccessful } = useSelector((state) => state.auth);
 
+  useEffect(() => {
+    if (passwordResetSuccessful) {
+      navigation.navigate(routes.LOGIN);
+    }
+  }, [passwordResetSuccessful]);
   const formik = useFormik({
     initialValues: {
       password: '',
@@ -38,57 +43,56 @@ const ChangePasswordForm = ({ navigation }) => {
       dispatch(resetPassword(resetCode, values.password));
     },
   });
-  if (passwordResetSuccessful) {
-    navigation.navigate(routes.LOGIN);
-  }
 
   return (
     <Screen style={styles.container}>
       <Text style={styles.title}>WasHere</Text>
       <WelcomeScreenGreen style={styles.image} />
-      <BottomSheet onClose={() => navigation.goBack()}>
-        <View style={styles.sheet}>
-          <Heading title="Reset Password" onPress={() => navigation.navigate(routes.LOGIN)} />
-          <Text style={styles.helperText}>Set the new password for your account so you can login and access all the features.</Text>
-          <BlankSpacer height={15} />
+      {passwordResetSuccessful == false && (
+        <BottomSheet onClose={() => navigation.goBack()}>
+          <View style={styles.sheet}>
+            <Heading title="Reset Password" onClose={() => navigation.goBack()} />
+            <Text style={styles.helperText}>Set the new password for your account so you can login and access all the features.</Text>
+            <BlankSpacer height={15} />
 
-          <TextBox
-            autoCapitalize="none"
-            autoCorrect={false}
-            name="password"
-            value={formik.password}
-            placeholder="New password"
-            textContentType="newPassword"
-            onChangeText={formik.handleChange('password')}
-            onBlur={formik.handleBlur('password')}
-            secureTextEntry={true}
-            containerStyles={styles.passwordInput}
-            inputStyle={defaultStyles.text}
-          />
-          <Text visible={formik.errors.password} style={styles.errorText}>
-            {formik.errors.password}
-          </Text>
-          <BlankSpacer height={15} />
-          <TextBox
-            autoCapitalize="none"
-            autoCorrect={false}
-            name="confirmPassword"
-            value={formik.confirmPassword}
-            placeholder="Repeat new password"
-            textContentType="none"
-            onChangeText={formik.handleChange('confirmPassword')}
-            onBlur={formik.handleBlur('confirmPassword')}
-            secureTextEntry={true}
-            containerStyles={styles.passwordInput}
-            inputStyle={defaultStyles.text}
-          />
-          <Text visible={formik.errors.confirmPassword} style={styles.errorText}>
-            {formik.errors.confirmPassword}
-          </Text>
-          {loading ? <ActivityIndicator /> : <AppButton title="Reset password" color="primary" onPress={formik.handleSubmit} />}
-          <BlankSpacer height={10} />
-        </View>
-      </BottomSheet>
+            <TextBox
+              autoCapitalize="none"
+              autoCorrect={false}
+              name="password"
+              value={formik.password}
+              placeholder="New password"
+              textContentType="newPassword"
+              onChangeText={formik.handleChange('password')}
+              onBlur={formik.handleBlur('password')}
+              secureTextEntry={true}
+              containerStyles={[styles.passwordInput]}
+              inputStyle={[defaultStyles.text]}
+            />
+            <Text visible={formik.errors.password} style={styles.errorText}>
+              {formik.errors.password}
+            </Text>
+            <BlankSpacer height={15} />
+            <TextBox
+              autoCapitalize="none"
+              autoCorrect={false}
+              name="confirmPassword"
+              value={formik.confirmPassword}
+              placeholder="Repeat new password"
+              textContentType="none"
+              onChangeText={formik.handleChange('confirmPassword')}
+              onBlur={formik.handleBlur('confirmPassword')}
+              secureTextEntry={true}
+              containerStyles={[styles.passwordInput]}
+              inputStyle={[defaultStyles.text]}
+            />
+            <Text visible={formik.errors.confirmPassword} style={styles.errorText}>
+              {formik.errors.confirmPassword}
+            </Text>
+            {loading ? <ActivityIndicator /> : <AppButton title="Reset password" color="primary" onPress={formik.handleSubmit} />}
+            <BlankSpacer height={10} />
+          </View>
+        </BottomSheet>
+      )}
     </Screen>
   );
 };

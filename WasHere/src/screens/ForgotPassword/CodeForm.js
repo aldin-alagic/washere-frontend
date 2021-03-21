@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Keyboard, StyleSheet, View, ActivityIndicator } from 'react-native';
 import BlankSpacer from 'react-native-blank-spacer';
@@ -20,14 +20,15 @@ const CodeForm = ({ navigation }) => {
   const handleVerifyCode = () => {
     Keyboard.dismiss();
   };
-
+  useEffect(() => {
+    if (resetCode) {
+      navigation.push(routes.RESET_CHANGE_PASSWORD_FORM);
+    }
+  }, [resetCode]);
   const resendCode = () => {
     dispatch(requestResetCode(recoveryEmail));
   };
 
-  if (resetCode) {
-    navigation.navigate(routes.RESET_CHANGE_PASSWORD_FORM);
-  }
   return (
     <Screen style={styles.container}>
       <KeyboardAwareScrollView style={styles.content}>
@@ -52,6 +53,7 @@ const CodeForm = ({ navigation }) => {
             cellSpacing={12}
             onTextChange={(code) => setOtpCode(code)}
             onFulfill={handleVerifyCode}
+            textStyle={styles.pinCode}
             cellStyle={styles.cellStyle}
             containerStyle={styles.centered}
           />
@@ -98,6 +100,10 @@ const styles = StyleSheet.create({
   cellStyle: {
     backgroundColor: colors.light,
     borderRadius: 15,
+  },
+  pinCode: {
+    fontSize: 20,
+    color: colors.dark,
   },
 });
 
