@@ -26,8 +26,8 @@ const POSTS = [
       photoURL: 'https://i.pravatar.cc/150?img=26',
     },
     location: {
-      latitude: 37.78825,
-      longitude: -122.4324,
+      latitude: 37.78025,
+      longitude: -122.4524,
     },
     createdAt: '2021-03-18 13:05',
     likes: 12,
@@ -40,8 +40,8 @@ const POSTS = [
       photoURL: 'https://i.pravatar.cc/150?img=27',
     },
     location: {
-      latitude: 37.78825,
-      longitude: -122.4324,
+      latitude: 37.78225,
+      longitude: -122.4824,
     },
     createdAt: '2021-03-17 16:28',
     likes: 4,
