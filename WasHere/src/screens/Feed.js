@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import Post from '../components/Post';
 
+import Post from '../components/Post/';
 import Screen from '../components/Screen';
 
 const POSTS = [
