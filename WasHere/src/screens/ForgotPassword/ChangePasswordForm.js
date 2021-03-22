@@ -33,12 +33,13 @@ const ChangePasswordForm = ({ navigation }) => {
       navigation.navigate(routes.LOGIN);
     }
   }, [passwordResetSuccessful]);
+
   const formik = useFormik({
     initialValues: {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: (values) => {
       dispatch(resetPassword(resetCode, values.password));
     },

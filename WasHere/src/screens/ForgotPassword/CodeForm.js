@@ -17,14 +17,13 @@ const CodeForm = ({ navigation }) => {
   const dispatch = useDispatch();
   const { loading, resetCode, recoveryEmail } = useSelector((state) => state.auth);
   const [otpCode, setOtpCode] = useState('');
-  const handleVerifyCode = () => {
-    Keyboard.dismiss();
-  };
+
   useEffect(() => {
     if (resetCode) {
       navigation.push(routes.RESET_CHANGE_PASSWORD_FORM);
     }
   }, [resetCode]);
+
   const resendCode = () => {
     dispatch(requestResetCode(recoveryEmail));
   };
@@ -52,7 +51,7 @@ const CodeForm = ({ navigation }) => {
             codeLength={6}
             cellSpacing={12}
             onTextChange={(code) => setOtpCode(code)}
-            onFulfill={handleVerifyCode}
+            onFulfill={Keyboard.dismiss}
             textStyle={styles.pinCode}
             cellStyle={styles.cellStyle}
             containerStyle={styles.centered}

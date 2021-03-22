@@ -25,9 +25,11 @@ const ResetForm = ({ navigation }) => {
       navigation.push(routes.RESET_CODE_FORM);
     }
   }, [resetCodeSent]);
+
   const handleSubmit = (values) => {
     dispatch(requestResetCode(values.email));
   };
+
   return (
     <Screen style={styles.container}>
       <Text style={styles.title}>WasHere</Text>
