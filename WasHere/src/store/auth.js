@@ -103,6 +103,9 @@ const slice = createSlice({
           message,
         };
         auth.passwordResetSuccessful = true;
+        auth.recoveryEmail = null;
+        auth.resetCodeSent = false;
+        auth.resetCode = null;
         showMessage({
           message: 'Success!',
           description: message,
@@ -111,6 +114,13 @@ const slice = createSlice({
         });
       }
       auth.loading = false;
+    },
+
+    cancelPasswordReset: (auth, action) => {
+      auth.passwordResetSuccessful = true;
+      auth.recoveryEmail = null;
+      auth.resetCodeSent = false;
+      auth.resetCode = null;
     },
 
     requestFailed: (auth, action) => {
@@ -134,6 +144,7 @@ export const {
   resetCodeRequested,
   resetCodeVerified,
   passwordReset,
+  cancelPasswordReset,
 } = slice.actions;
 export default slice.reducer;
 
