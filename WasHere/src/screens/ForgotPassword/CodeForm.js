@@ -11,18 +11,21 @@ import Screen from '../../components/Screen';
 import Text from '../../components/Text';
 import colors from '../../config/colors';
 import routes from '../../navigation/routes';
-import { verifyResetCode, requestResetCode } from '../../store/auth';
+import { verifyResetCode, requestResetCode, cancelPasswordReset } from '../../store/auth';
 
 const CodeForm = ({ navigation }) => {
   const dispatch = useDispatch();
   const { loading, resetCode, recoveryEmail } = useSelector((state) => state.auth);
   const [otpCode, setOtpCode] = useState('');
-
+  console.log('EMAIL', recoveryEmail);
   useEffect(() => {
     if (resetCode) {
-      navigation.push(routes.RESET_CHANGE_PASSWORD_FORM);
+      navigation.navigate(routes.RESET_CHANGE_PASSWORD_FORM);
     }
-  }, [resetCode]);
+    if (!recoveryEmail) {
+      navigation.navigate(routes.LOGIN);
+    }
+  }, [resetCode, recoveryEmail]);
 
   const resendCode = () => {
     dispatch(requestResetCode(recoveryEmail));
@@ -69,11 +72,22 @@ const CodeForm = ({ navigation }) => {
         <BlankSpacer height={5} />
         <Text style={styles.centered}>or</Text>
         <BlankSpacer height={5} />
-        {loading ? (
-          <ActivityIndicator style={{ marginTop: 10 }} size="large" color={colors.primary} />
-        ) : (
-          <AppButton title="Resend" color="mediumlight" textColor="black" onPress={resendCode} />
-        )}
+        <View style={styles.buttons}>
+          {loading ? (
+            <ActivityIndicator style={{ marginTop: 10 }} size="large" color={colors.primary} />
+          ) : (
+            <AppButton title="Resend" color="mediumlight" textColor="black" onPress={resendCode} style />
+          )}
+          <BlankSpacer width={20} />
+          <AppButton
+            title="Cancel"
+            color="mediumlight"
+            textColor="black"
+            onPress={() => {
+              dispatch(cancelPasswordReset());
+            }}
+          />
+        </View>
       </KeyboardAwareScrollView>
     </Screen>
   );
@@ -89,6 +103,7 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   },
   image: {
+    flexShrink: 1,
     alignSelf: 'center',
     margin: 15,
   },
@@ -103,6 +118,10 @@ const styles = StyleSheet.create({
   pinCode: {
     fontSize: 20,
     color: colors.dark,
+  },
+  buttons: {
+    flexDirection: 'row',
+    width: '47%',
   },
 });
 
