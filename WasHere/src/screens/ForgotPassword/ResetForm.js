@@ -22,7 +22,7 @@ const ResetForm = ({ navigation }) => {
 
   useEffect(() => {
     if (resetCodeSent) {
-      navigation.push(routes.RESET_CODE_FORM);
+      navigation.navigate(routes.RESET_CODE_FORM);
     }
   }, [resetCodeSent]);
 
@@ -63,6 +63,8 @@ const ResetForm = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
+    justifyContent: 'flex-start',
+    paddingTop: 10,
   },
   sheet: {
     paddingHorizontal: 30,
