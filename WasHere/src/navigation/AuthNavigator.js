@@ -10,12 +10,12 @@ import ChangePasswordForm from '../screens/ForgotPassword/ChangePasswordForm';
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator headerMode="none" screenOptions={{ animationEnabled: false }}>
-    <Stack.Screen name="Welcome" component={Welcome} />
-    <Stack.Screen name="Login" component={Login} />
-    <Stack.Screen name="ResetPasswordForm" component={ResetForm} />
-    <Stack.Screen name="CodeForm" component={CodeForm} />
-    <Stack.Screen name="ResetChangePasswordForm" component={ChangePasswordForm} />
+  <Stack.Navigator screenOptions={{ animationEnabled: false }}>
+    <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+    <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+    <Stack.Screen name="ResetPasswordForm" component={ResetForm} options={{ headerShown: false }} />
+    <Stack.Screen name="CodeForm" component={CodeForm} options={{ title: 'Verify reset code' }} />
+    <Stack.Screen name="ResetChangePasswordForm" component={ChangePasswordForm} options={{ headerShown: false }} />
   </Stack.Navigator>
 );
 
