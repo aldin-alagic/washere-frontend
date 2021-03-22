@@ -116,6 +116,10 @@ const slice = createSlice({
       auth.loading = false;
     },
 
+    finishPasswordReset: (auth, action) => {
+      auth.passwordResetSuccessful = false;
+    },
+
     cancelPasswordReset: (auth, action) => {
       auth.passwordResetSuccessful = true;
       auth.recoveryEmail = null;
@@ -144,6 +148,7 @@ export const {
   resetCodeRequested,
   resetCodeVerified,
   passwordReset,
+  finishPasswordReset,
   cancelPasswordReset,
 } = slice.actions;
 export default slice.reducer;
