@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import jwt_decode from 'jwt-decode';
 import { Alert } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 
 import { apiCallBegan } from './api';
 
@@ -16,6 +17,10 @@ const slice = createSlice({
       success: false,
       message: '',
     },
+    recoveryEmail: null,
+    resetCodeSent: false,
+    resetCode: null,
+    passwordResetSuccessful: false,
   },
 
   reducers: {
@@ -53,14 +58,99 @@ const slice = createSlice({
       auth.user = {};
     },
 
+    resetCodeRequested: (auth, action) => {
+      const { success, data, message } = action.payload;
+      if (success) {
+        auth.apiResult = {
+          success,
+          message,
+        };
+        auth.resetCodeSent = true;
+        auth.recoveryEmail = data;
+      }
+      auth.loading = false;
+      showMessage({
+        message: 'Success!',
+        description: message,
+        type: 'success',
+        autoHide: true,
+      });
+    },
+
+    resetCodeVerified: (auth, action) => {
+      const { success, data, message } = action.payload;
+      if (success) {
+        auth.apiResult = {
+          success,
+          message,
+        };
+        auth.resetCode = data;
+      }
+      auth.loading = false;
+      showMessage({
+        message: 'Success!',
+        description: message,
+        type: 'success',
+        autoHide: true,
+      });
+    },
+
+    passwordReset: (auth, action) => {
+      const { success, message } = action.payload;
+      if (success) {
+        auth.apiResult = {
+          success,
+          message,
+        };
+        auth.passwordResetSuccessful = true;
+        auth.recoveryEmail = null;
+        auth.resetCodeSent = false;
+        auth.resetCode = null;
+        showMessage({
+          message: 'Success!',
+          description: message,
+          type: 'success',
+          autoHide: true,
+        });
+      }
+      auth.loading = false;
+    },
+
+    finishPasswordReset: (auth, action) => {
+      auth.passwordResetSuccessful = false;
+    },
+
+    cancelPasswordReset: (auth, action) => {
+      auth.passwordResetSuccessful = true;
+      auth.recoveryEmail = null;
+      auth.resetCodeSent = false;
+      auth.resetCode = null;
+    },
+
     requestFailed: (auth, action) => {
       auth.loading = false;
-      Alert.alert(API_ERROR_MESSAGE, action.payload);
+      showMessage({
+        message: API_ERROR_MESSAGE,
+        description: action.payload,
+        type: 'warning',
+        autoHide: true,
+      });
     },
   },
 });
 
-export const { initialStateSet, requestStarted, loggedIn, loggedOut, requestFailed } = slice.actions;
+export const {
+  initialStateSet,
+  requestStarted,
+  loggedIn,
+  loggedOut,
+  requestFailed,
+  resetCodeRequested,
+  resetCodeVerified,
+  passwordReset,
+  finishPasswordReset,
+  cancelPasswordReset,
+} = slice.actions;
 export default slice.reducer;
 
 export const login = (email, password) =>
@@ -70,5 +160,35 @@ export const login = (email, password) =>
     data: { email, password },
     onStart: requestStarted.type,
     onSuccess: loggedIn.type,
+    onError: requestFailed.type,
+  });
+
+export const requestResetCode = (email) =>
+  apiCallBegan({
+    url: '/user/reset-code',
+    method: 'POST',
+    data: { email },
+    onStart: requestStarted.type,
+    onSuccess: resetCodeRequested.type,
+    onError: requestFailed.type,
+  });
+
+export const verifyResetCode = (code) =>
+  apiCallBegan({
+    url: '/user/verify-reset-code',
+    method: 'POST',
+    data: { resetCode: code },
+    onStart: requestStarted.type,
+    onSuccess: resetCodeVerified.type,
+    onError: requestFailed.type,
+  });
+
+export const resetPassword = (code, password) =>
+  apiCallBegan({
+    url: '/user/reset-password',
+    method: 'POST',
+    data: { resetCode: code, password },
+    onStart: requestStarted.type,
+    onSuccess: passwordReset.type,
     onError: requestFailed.type,
   });

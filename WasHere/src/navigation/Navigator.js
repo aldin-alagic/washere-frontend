@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import jwt_decode from 'jwt-decode';
+import FlashMessage from 'react-native-flash-message';
 
 import AuthNavigator from './AuthNavigator';
 import AppNavigator from './AppNavigator';
@@ -24,7 +25,12 @@ const Navigator = () => {
 
   if (!isReady) return <Loading />;
 
-  return <NavigationContainer>{token ? <AppNavigator /> : <AuthNavigator />}</NavigationContainer>;
+  return (
+    <NavigationContainer>
+      {token ? <AppNavigator /> : <AuthNavigator />}
+      <FlashMessage position="top" />
+    </NavigationContainer>
+  );
 };
 
 export default Navigator;

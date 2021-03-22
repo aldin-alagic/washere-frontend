@@ -33,34 +33,36 @@ const Login = ({ navigation }) => {
         <Text style={styles.title}>WasHere</Text>
         <WelcomeScreenGreen style={styles.image} />
         <BottomSheet onClose={() => navigation.goBack()}>
-          <Heading title="Sign in" onClose={() => navigation.navigate(routes.WELCOME)} />
-          <Form initialValues={{ email: '', password: '' }} onSubmit={handleSubmit} validationSchema={validationSchema}>
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="mail-outline"
-              keyboardType="email-address"
-              name="email"
-              placeholder="E-mail"
-              textContentType="emailAddress"
+          <View style={styles.sheet}>
+            <Heading title="Sign in" onClose={() => navigation.navigate(routes.WELCOME)} />
+            <Form initialValues={{ email: '', password: '' }} onSubmit={handleSubmit} validationSchema={validationSchema}>
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                icon="mail-outline"
+                keyboardType="email-address"
+                name="email"
+                placeholder="E-mail"
+                textContentType="emailAddress"
+              />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                icon="lock-closed-outline"
+                name="password"
+                placeholder="Password"
+                secureTextEntry
+                textContentType="password"
+              />
+              <SubmitButton title="Sign in" loading={loading} />
+            </Form>
+            <AppButton
+              text
+              textColor="black"
+              title={<Text style={styles.underlined}>Forgot your password?</Text>}
+              onPress={() => navigation.navigate(routes.RESET_PASSWORD_FORM)}
             />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="lock-closed-outline"
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-              textContentType="password"
-            />
-            <SubmitButton title="Sign in" loading={loading} />
-          </Form>
-          <AppButton
-            text
-            textColor="black"
-            title={<Text style={styles.underlined}>Forgot your password?</Text>}
-            onPress={() => navigation.navigate(routes.LOGIN)}
-          />
+          </View>
         </BottomSheet>
       </Screen>
     </AnimatedBackgroundColorView>
@@ -72,6 +74,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     paddingTop: 10,
+  },
+  sheet: {
+    paddingVertical: 10,
   },
   title: {
     fontFamily: 'BalooBhai2-Medium',

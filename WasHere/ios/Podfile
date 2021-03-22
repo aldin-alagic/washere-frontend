@@ -8,7 +8,10 @@ target 'WasHere' do
   use_unimodules!
   config = use_native_modules!
 
-  use_react_native!(:path => config["reactNativePath"])
+  use_react_native!(:path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
 
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
