@@ -20,7 +20,7 @@
     "expo-secure-store": "^10.0.0",
     "dayjs": "^1.10.4",
     "formik": "^2.2.6",
-    "immer": "^8.0.1",
+    "immer": "^9.0.1",
     "jwt-decode": "^3.1.2",
     "react": "^17.0.1",
     "react-native": "^0.64.0",
