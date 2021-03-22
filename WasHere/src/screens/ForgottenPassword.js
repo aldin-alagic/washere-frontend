@@ -3,14 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-import WelcomeScreenGreen from '../../assets/images/welcome-green.svg';
-import BottomSheet from '../../components/BottomSheet';
-import { Form, FormField, Heading, SubmitButton } from '../../components/form';
-import Screen from '../../components/Screen';
-import Text from '../../components/Text';
-import colors from '../../config/colors';
-import routes from '../../navigation/routes';
-import { requestResetCode, cancelPasswordReset } from '../../store/auth';
+import WelcomeScreenGreen from '../assets/images/welcome-green.svg';
+import BottomSheet from '../components/BottomSheet';
+import { Form, FormField, Heading, SubmitButton } from '../components/form';
+import Screen from '../components/Screen';
+import Text from '../components/Text';
+import colors from '../config/colors';
+import routes from '../navigation/routes';
+import { requestResetCode, cancelPasswordReset } from '../store/auth';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('You need to enter a valid email!').required('This field is required!'),
