@@ -10,7 +10,7 @@ import Screen from '../../components/Screen';
 import Text from '../../components/Text';
 import colors from '../../config/colors';
 import routes from '../../navigation/routes';
-import { requestResetCode } from '../../store/auth';
+import { requestResetCode, cancelPasswordReset } from '../../store/auth';
 
 const validationSchema = Yup.object({
   email: Yup.string().email('You need to enter a valid email!').required('This field is required!'),
@@ -36,7 +36,13 @@ const ResetForm = ({ navigation }) => {
       <WelcomeScreenGreen style={styles.image} />
       <BottomSheet onClose={() => navigation.goBack()}>
         <View style={styles.sheet}>
-          <Heading title="Forgot password" onClose={() => navigation.goBack()} />
+          <Heading
+            title="Forgot password"
+            onClose={() => {
+              dispatch(cancelPasswordReset());
+              navigation.goBack();
+            }}
+          />
           <Text style={styles.helperText}>
             Please provide your e-mail address to request a password reset code. You will receive your code to your e-mail address if it is
             valid.
