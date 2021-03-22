@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
   },
   helperText: {
     textAlign: 'justify',
+    marginBottom: 10,
   },
   title: {
     fontFamily: 'BalooBhai2-Medium',
