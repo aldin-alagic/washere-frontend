@@ -6,7 +6,7 @@ const Screen = ({ children, style, noTopPadding }) => {
   const insets = useSafeAreaInsets();
   return (
     <View
-      style={[styles.screen, style, { paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : noTopPadding ? 0 : insets.top }]}>
+      style={[styles.screen, style, { paddingTop: noTopPadding ? 0 : Platform.OS === 'android' ? StatusBar.currentHeight : insets.top }]}>
       <View style={[styles.view, style]}>{children}</View>
     </View>
   );
