@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { AnimatedBackgroundColorView } from "react-native-animated-background-color-view";
@@ -10,7 +10,7 @@ import AppText from "../components/Text";
 import { Form, FormField, Heading, SubmitButton } from "../components/form";
 import routes from "../navigation/routes";
 import BottomSheet from "../components/BottomSheet";
-import { register } from "../store/auth";
+import { register, stateReset } from "../store/auth";
 
 import colors from "../config/colors";
 import WelcomeScreenGreen from "../assets/images/welcome-green.svg";
@@ -23,7 +23,7 @@ const validationSchema = Yup.object().shape({
     .required()
     .matches(
       /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, one number and one special case character",
+      "Password must contain at least 8 characters, one uppercase, one number and one special character",
     )
     .label("Password"),
   passwordConfirmation: Yup.string().oneOf([Yup.ref("password"), null], "Passwords must match"),
@@ -31,11 +31,11 @@ const validationSchema = Yup.object().shape({
 
 const Register = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, apiResult } = useSelector((state) => state.auth);
+  if (apiResult.success) navigation.navigate(routes.WELCOME);
 
   const handleSubmit = ({ fullname, username, email, password }) => {
     dispatch(register(fullname, username, email, password));
-    navigation.navigate(routes.WELCOME);
   };
 
   return (
@@ -50,8 +50,8 @@ const Register = ({ navigation }) => {
               initialValues={{ fullname: "", username: "", email: "", password: "", passwordConfirmation: "" }}
               onSubmit={handleSubmit}
               validationSchema={validationSchema}>
-              <FormField autoCorrect={false} icon="person-outline" name="fullname" placeholder="Full name" />
-              <FormField autoCorrect={false} icon="desktop-outline" name="username" placeholder="Username" />
+              <FormField autoCapitalize="words" autoCorrect={false} icon="person-outline" name="fullname" placeholder="Full name" />
+              <FormField autoCapitalize="none" autoCorrect={false} icon="desktop-outline" name="username" placeholder="Username" />
               <FormField
                 autoCapitalize="none"
                 autoCorrect={false}

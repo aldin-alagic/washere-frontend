@@ -6,18 +6,19 @@ import { apiCallBegan } from './api';
 
 import { API_ERROR_MESSAGE } from '../config/config.json';
 
+const initialState = {
+  token: null,
+  user: null,
+  loading: false,
+  apiResult: {
+    success: false,
+    message: '',
+  },
+};
+
 const slice = createSlice({
   name: 'auth',
-  initialState: {
-    token: null,
-    user: null,
-    loading: false,
-    apiResult: {
-      success: false,
-      message: '',
-    },
-  },
-
+  initialState,
   reducers: {
     initialStateSet: (auth, action) => {
       auth.token = action.payload.token;
@@ -50,12 +51,10 @@ const slice = createSlice({
 
     registered: (auth, action) => {
       const { success, message } = action.payload;
-      if (success) {
-        auth.apiResult = {
-          success,
-          message,
-        };
-      }
+      auth.apiResult = {
+        success,
+        message,
+      };
       Alert.alert(message);
       auth.loading = false;
     },
@@ -65,14 +64,22 @@ const slice = createSlice({
       auth.user = {};
     },
 
+    stateReset: (auth, action) => {
+      auth = initialState;
+    },
+
     requestFailed: (auth, action) => {
-      auth.loading = false;
+      auth.apiResult = {
+        success: false,
+        API_ERROR_MESSAGE,
+      };
       Alert.alert(API_ERROR_MESSAGE, action.payload);
+      auth.loading = false;
     },
   },
 });
 
-export const { initialStateSet, requestStarted, loggedIn, registered, loggedOut, requestFailed } = slice.actions;
+export const { initialStateSet, requestStarted, loggedIn, registered, loggedOut, stateReset, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const login = (email, password) =>
