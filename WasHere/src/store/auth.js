@@ -4,6 +4,8 @@ import { Alert } from 'react-native';
 import { showMessage } from 'react-native-flash-message';
 
 import { apiCallBegan } from './api';
+import * as RootNavigation from '../navigation/RootNavigation';
+import routes from '../navigation/routes';
 
 import { API_ERROR_MESSAGE } from '../config/config.json';
 
@@ -22,7 +24,6 @@ const slice = createSlice({
     resetCode: null,
     passwordResetSuccessful: false,
   },
-
   reducers: {
     initialStateSet: (auth, action) => {
       auth.token = action.payload.token;
@@ -51,6 +52,15 @@ const slice = createSlice({
       }
       Alert.alert(message);
       auth.loading = false;
+    },
+
+    registered: (auth, action) => {
+      const { success, message } = action.payload;
+      auth.loading = false;
+      Alert.alert(message);
+      if (success) {
+        RootNavigation.navigate(routes.WELCOME);
+      }
     },
 
     loggedOut: (auth, action) => {
@@ -147,6 +157,7 @@ export const {
   requestFailed,
   resetCodeRequested,
   resetCodeVerified,
+  registered,
   passwordReset,
   finishPasswordReset,
   cancelPasswordReset,
@@ -190,5 +201,14 @@ export const resetPassword = (code, password) =>
     data: { resetCode: code, password },
     onStart: requestStarted.type,
     onSuccess: passwordReset.type,
+  });
+
+export const register = (fullname, username, email, password) =>
+  apiCallBegan({
+    url: '/user',
+    method: 'POST',
+    data: { role_id: 1, fullname, username, email, password, newsletter: true },
+    onStart: requestStarted.type,
+    onSuccess: registered.type,
     onError: requestFailed.type,
   });

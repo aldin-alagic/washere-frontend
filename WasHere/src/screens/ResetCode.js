@@ -45,6 +45,7 @@ const CodeForm = ({ navigation }) => {
               ref={this.pinInput}
               value={otpCode}
               codeLength={6}
+              autoFocused={true}
               cellSpacing={6}
               onTextChange={(code) => setOtpCode(code)}
               onFulfill={Keyboard.dismiss}

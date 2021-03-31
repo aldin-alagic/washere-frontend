@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import Screen from '../components/Screen';
 import AppButton from '../components/Button';
@@ -20,7 +20,7 @@ const Welcome = ({ navigation }) => {
       <AppButton title="Continue with Facebook" color="facebook" onPress={() => navigation.navigate(routes.REGISTER)} />
       <AppButton title="Continue with Google" color="google" onPress={() => navigation.navigate(routes.REGISTER)} />
       <AppText style={styles.centered}>or</AppText>
-      <AppButton title="Sign up with E-mail" color="white" textColor="black" onPress={() => navigation.navigate(routes.REGISTER)} />
+      <AppButton title="Sign up with Email" color="white" textColor="black" onPress={() => navigation.navigate(routes.REGISTER)} />
       <AppButton
         text
         textColor="black"
