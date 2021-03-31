@@ -3,6 +3,8 @@ import jwt_decode from 'jwt-decode';
 import { Alert } from 'react-native';
 
 import { apiCallBegan } from './api';
+import * as RootNavigation from '../navigation/RootNavigation';
+import routes from '../navigation/routes';
 
 import { API_ERROR_MESSAGE } from '../config/config.json';
 
@@ -51,12 +53,11 @@ const slice = createSlice({
 
     registered: (auth, action) => {
       const { success, message } = action.payload;
-      auth.apiResult = {
-        success,
-        message,
-      };
-      Alert.alert(message);
       auth.loading = false;
+      Alert.alert(message);
+      if (success) {
+        RootNavigation.navigate(routes.WELCOME);
+      }
     },
 
     loggedOut: (auth, action) => {
