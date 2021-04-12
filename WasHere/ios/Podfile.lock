@@ -1,13 +1,13 @@
 PODS:
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
-  - EXConstants (10.1.0):
+  - EXConstants (10.1.1):
     - UMConstantsInterface
     - UMCore
   - EXFileSystem (11.0.0):
     - UMCore
     - UMFileSystemInterface
-  - EXImageLoader (2.1.0):
+  - EXImageLoader (2.1.1):
     - React-Core
     - UMCore
     - UMImageLoaderInterface
@@ -290,7 +290,7 @@ PODS:
     - React
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNReanimated (2.0.1):
+  - RNReanimated (2.1.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -319,7 +319,7 @@ PODS:
     - React-RCTVibration
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (2.18.1):
+  - RNScreens (3.1.0):
     - React-Core
   - RNSVG (12.1.0):
     - React
@@ -339,7 +339,7 @@ PODS:
   - UMImageLoaderInterface (6.1.0)
   - UMPermissionsInterface (6.1.0):
     - UMCore
-  - UMReactNativeAdapter (6.2.0):
+  - UMReactNativeAdapter (6.2.1):
     - React-Core
     - UMCore
     - UMFontInterface
@@ -524,9 +524,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
-  EXConstants: 7b62561d1c9d786492e13472ff5b868ba8628086
+  EXConstants: 7c75e5019483e84cc658c133f48607c951652465
   EXFileSystem: 56e15a0484271771f92ccb8d75a0d77a8982fbc2
-  EXImageLoader: 52be46f86a52f79df445b73e165ed6244bca43de
+  EXImageLoader: da941c9399e01ec28f2d5b270bdd21f2c8ca596c
   EXPermissions: 67ff17d3c12ea06066492dde4242f8047658fd62
   EXSecureStore: 6ae3b88c67304ab64c63d44acc8fa31b1f5fb400
   FBLazyVector: 49cbe4b43e445b06bf29199b6ad2057649e4c8f5
@@ -559,8 +559,8 @@ SPEC CHECKSUMS:
   ReactCommon: cfe2b7fd20e0dbd2d1185cd7d8f99633fbc5ff05
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNReanimated: 7d2b97cf2dd7c8c69956080fe911edc08cf0a8c7
-  RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
+  RNReanimated: b8c8004b43446e3c2709fe64b2b41072f87428ad
+  RNScreens: 3ba2198ca3179f77f6158425fc31ba3c90a0d49f
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   UMAppLoader: fe2708bb0ac5cd70052bc207d06aa3b7e72b9e97
@@ -573,7 +573,7 @@ SPEC CHECKSUMS:
   UMFontInterface: 5843cff7db85a42ba629aaac53d33091c35524d3
   UMImageLoaderInterface: 9ddffeb644b3f45d4eb0c2f51a2fd95fd5c8d1a4
   UMPermissionsInterface: 40b72935a7d12a3f60dc6b7bb99ce47908380cb1
-  UMReactNativeAdapter: 6a62930f999e9d84d2a122b9ddb12506288a5a7d
+  UMReactNativeAdapter: bcb723a9fa9e934edd0be337788cad54b4771b0f
   UMSensorsInterface: a5e9db661e5d9ae214762033d725989880ae6993
   UMTaskManagerInterface: 203c11259d2699b5b3a4eda4adbc466f5cb5c561
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
