@@ -1,33 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
-import jwt_decode from 'jwt-decode';
-import { Alert } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
+import { createSlice } from "@reduxjs/toolkit";
+import jwt_decode from "jwt-decode";
+import { Alert } from "react-native";
+import { showMessage } from "react-native-flash-message";
 
-import { apiCallBegan } from './api';
-import * as RootNavigation from '../navigation/RootNavigation';
-import routes from '../navigation/routes';
+import { apiCallBegan } from "./api";
+import * as RootNavigation from "../navigation/RootNavigation";
+import routes from "../navigation/routes";
 
-import { API_ERROR_MESSAGE } from '../config/config.json';
+import { API_ERROR_MESSAGE } from "../config/config.json";
 
 const slice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     token: null,
     user: null,
     loading: false,
     apiResult: {
       success: false,
-      message: '',
+      message: "",
     },
     recoveryEmail: null,
     resetCodeSent: false,
     resetCode: null,
     passwordResetSuccessful: false,
+    passedWelcomeScreen: false,
   },
   reducers: {
     initialStateSet: (auth, action) => {
       auth.token = action.payload.token;
       auth.user = action.payload.user;
+    },
+
+    passedWelcomeScreen: (auth, action) => {
+      auth.passedWelcomeScreen = true;
     },
 
     requestStarted: (auth, action) => {
@@ -64,7 +69,7 @@ const slice = createSlice({
     },
 
     loggedOut: (auth, action) => {
-      auth.token = '';
+      auth.token = "";
       auth.user = {};
     },
 
@@ -80,9 +85,9 @@ const slice = createSlice({
       }
       auth.loading = false;
       showMessage({
-        message: 'Success!',
+        message: "Success!",
         description: message,
-        type: 'success',
+        type: "success",
         autoHide: true,
       });
     },
@@ -98,9 +103,9 @@ const slice = createSlice({
       }
       auth.loading = false;
       showMessage({
-        message: 'Success!',
+        message: "Success!",
         description: message,
-        type: 'success',
+        type: "success",
         autoHide: true,
       });
     },
@@ -117,9 +122,9 @@ const slice = createSlice({
         auth.resetCodeSent = false;
         auth.resetCode = null;
         showMessage({
-          message: 'Success!',
+          message: "Success!",
           description: message,
-          type: 'success',
+          type: "success",
           autoHide: true,
         });
       }
@@ -142,7 +147,7 @@ const slice = createSlice({
       showMessage({
         message: API_ERROR_MESSAGE,
         description: action.payload,
-        type: 'warning',
+        type: "warning",
         autoHide: true,
       });
     },
@@ -151,6 +156,7 @@ const slice = createSlice({
 
 export const {
   initialStateSet,
+  passedWelcomeScreen,
   requestStarted,
   loggedIn,
   loggedOut,
@@ -166,8 +172,8 @@ export default slice.reducer;
 
 export const login = (email, password) =>
   apiCallBegan({
-    url: '/user/login',
-    method: 'POST',
+    url: "/user/login",
+    method: "POST",
     data: { email, password },
     onStart: requestStarted.type,
     onSuccess: loggedIn.type,
@@ -176,8 +182,8 @@ export const login = (email, password) =>
 
 export const requestResetCode = (email) =>
   apiCallBegan({
-    url: '/user/reset-code',
-    method: 'POST',
+    url: "/user/reset-code",
+    method: "POST",
     data: { email },
     onStart: requestStarted.type,
     onSuccess: resetCodeRequested.type,
@@ -186,8 +192,8 @@ export const requestResetCode = (email) =>
 
 export const verifyResetCode = (code) =>
   apiCallBegan({
-    url: '/user/verify-reset-code',
-    method: 'POST',
+    url: "/user/verify-reset-code",
+    method: "POST",
     data: { resetCode: code },
     onStart: requestStarted.type,
     onSuccess: resetCodeVerified.type,
@@ -196,8 +202,8 @@ export const verifyResetCode = (code) =>
 
 export const resetPassword = (code, password) =>
   apiCallBegan({
-    url: '/user/reset-password',
-    method: 'POST',
+    url: "/user/reset-password",
+    method: "POST",
     data: { resetCode: code, password },
     onStart: requestStarted.type,
     onSuccess: passwordReset.type,
@@ -205,8 +211,8 @@ export const resetPassword = (code, password) =>
 
 export const register = (fullname, username, email, password) =>
   apiCallBegan({
-    url: '/user',
-    method: 'POST',
+    url: "/user",
+    method: "POST",
     data: { role_id: 1, fullname, username, email, password, newsletter: true },
     onStart: requestStarted.type,
     onSuccess: registered.type,

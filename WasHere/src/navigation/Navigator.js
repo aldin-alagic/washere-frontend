@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from './RootNavigation';
-import jwt_decode from 'jwt-decode';
-import FlashMessage from 'react-native-flash-message';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
+import { navigationRef } from "./RootNavigation";
+import jwt_decode from "jwt-decode";
+import FlashMessage from "react-native-flash-message";
 
-import AuthNavigator from './AuthNavigator';
-import AppNavigator from './AppNavigator';
-import { initialStateSet } from '../store/auth';
-import authStorage from '../store/storage';
-import Loading from '../screens/Loading';
+import AuthNavigator from "./AuthNavigator";
+import AppNavigator from "./AppNavigator";
+import auth, { initialStateSet, passedWelcomeScreen } from "../store/auth";
+import authStorage from "../store/storage";
+import Loading from "../screens/Loading";
 
 const Navigator = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,9 @@ const Navigator = () => {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    authStorage.getPassedWelcomeScreen().then((passedWelcome) => {
+      if (passedWelcome == "true") dispatch(passedWelcomeScreen());
+    });
     authStorage.getToken().then((token) => {
       if (token) dispatch(initialStateSet({ token, user: jwt_decode(token) }));
       setIsReady(true);

@@ -1,24 +1,30 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useSelector } from "react-redux";
 
-import Welcome from '../screens/Welcome';
-import Login from '../screens/Login';
-import ForgottenPassword from '../screens/ForgottenPassword';
-import ResetCode from '../screens/ResetCode';
-import ChangePassword from '../screens/ChangePassword';
-import Register from './../screens/Register';
+import Welcome from "../screens/Welcome";
+import Intro from "../screens/Intro";
+import Login from "../screens/Login";
+import ForgottenPassword from "../screens/ForgottenPassword";
+import ResetCode from "../screens/ResetCode";
+import ChangePassword from "../screens/ChangePassword";
+import Register from "./../screens/Register";
 
 const Stack = createStackNavigator();
 
-const AuthNavigator = () => (
-  <Stack.Navigator screenOptions={{ animationEnabled: false }}>
-    <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
-    <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-    <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-    <Stack.Screen name="ResetPasswordForm" component={ForgottenPassword} options={{ headerShown: false }} />
-    <Stack.Screen name="CodeForm" component={ResetCode} options={{ title: 'Verify reset code' }} />
-    <Stack.Screen name="ResetChangePasswordForm" component={ChangePassword} options={{ headerShown: false }} />
-  </Stack.Navigator>
-);
+const AuthNavigator = () => {
+  const { passedWelcomeScreen } = useSelector((state) => state.auth);
+  return (
+    <Stack.Navigator screenOptions={{ animationEnabled: false }}>
+      {passedWelcomeScreen != true ? <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} /> : null}
+      <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
+      <Stack.Screen name="ResetPasswordForm" component={ForgottenPassword} options={{ headerShown: false }} />
+      <Stack.Screen name="CodeForm" component={ResetCode} options={{ title: "Verify reset code" }} />
+      <Stack.Screen name="ResetChangePasswordForm" component={ChangePassword} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  );
+};
 
 export default AuthNavigator;
