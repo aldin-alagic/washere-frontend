@@ -7,7 +7,7 @@ import FlashMessage from "react-native-flash-message";
 
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
-import auth, { initialStateSet, passedWelcomeScreen } from "../store/auth";
+import { initialStateSet, passedWelcomeScreen } from "../store/auth";
 import authStorage from "../store/storage";
 import Loading from "../screens/Loading";
 
