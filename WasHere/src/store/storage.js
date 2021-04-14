@@ -1,4 +1,5 @@
 import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import jwtDecode from "jwt-decode";
 
 const key = "authToken";
@@ -32,4 +33,20 @@ const removeToken = async () => {
   }
 };
 
-export default { getToken, getUser, removeToken, storeToken };
+const setPassedWelcomeScreen = async () => {
+  try {
+    await AsyncStorage.setItem("passedWelcomeScreen", "true");
+  } catch (error) {
+    console.log("Error while trying to set welcome screen passed item", error);
+  }
+};
+
+const getPassedWelcomeScreen = async () => {
+  try {
+    return await AsyncStorage.getItem("passedWelcomeScreen");
+  } catch (error) {
+    return false;
+  }
+};
+
+export default { getToken, getUser, removeToken, storeToken, setPassedWelcomeScreen, getPassedWelcomeScreen };
