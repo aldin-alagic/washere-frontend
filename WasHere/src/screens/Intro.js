@@ -14,6 +14,7 @@ import authStorage from "../store/storage";
 
 const Intro = () => {
   const dispatch = useDispatch();
+
   const slides = [
     {
       key: "1",
@@ -45,6 +46,7 @@ const Intro = () => {
 
   const renderItem = ({ item }) => {
     const Image = item.image;
+
     return (
       <Screen style={styles.slide}>
         <View style={styles.content}>
@@ -62,7 +64,6 @@ const Intro = () => {
       data={slides}
       onDone={async () => {
         await authStorage.setPassedWelcomeScreen();
-        console.log("IM HERE");
         dispatch(passedWelcomeScreen());
       }}
       onSkip={async () => {
