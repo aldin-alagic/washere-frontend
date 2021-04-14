@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: "8%",
   },
   image: {
-    marginBottom: 20,
+    marginBottom: 40,
   },
   text: {
     color: "rgba(255, 255, 255, 0.8)",
