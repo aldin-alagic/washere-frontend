@@ -1,6 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import MapView from "react-native-maps";
+import Geolocation from "@react-native-community/geolocation";
+
 import PostCard from "../components/PostMarker";
 
 const POSTS = [
@@ -51,16 +53,22 @@ const POSTS = [
 const Map = () => {
   const mapRef = useRef();
 
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      ({ coords }) => {
+        mapRef.current.animateToRegion({
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        });
+      },
+      (error) => console.log(error),
+    );
+  }, []);
+
   return (
-    <MapView
-      style={styles.map}
-      ref={mapRef}
-      initialRegion={{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}>
+    <MapView style={styles.map} ref={mapRef}>
       {POSTS.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
