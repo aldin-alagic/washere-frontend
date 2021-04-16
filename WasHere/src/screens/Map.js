@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 
 import PostCard from "../components/PostMarker";
+import Slider from "../components/Slider";
 
 const POSTS = [
   {
@@ -67,18 +68,35 @@ const Map = () => {
     );
   }, []);
 
+  const handleSliderValueChange = (min, max) => {
+    console.log(min, max);
+  };
+
   return (
-    <MapView style={styles.map} ref={mapRef}>
-      {POSTS.map((post) => (
-        <PostCard key={post.id} post={post} />
-      ))}
-    </MapView>
+    <View style={styles.screen}>
+      <MapView style={styles.map} ref={mapRef}>
+        {POSTS.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </MapView>
+      <View style={styles.sliderContainer}>
+        <Slider handleValueChange={handleSliderValueChange} />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   map: {
     flex: 1,
+  },
+  sliderContainer: {
+    position: "absolute",
+    bottom: "5%",
+    width: "100%",
   },
 });
 
