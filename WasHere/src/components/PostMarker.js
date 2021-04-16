@@ -11,8 +11,8 @@ const PostMarker = ({ post }) => {
   return (
     <Marker
       coordinate={{
-        latitude: post.latitude,
-        longitude: post.longitude,
+        latitude: parseFloat(post.latitude),
+        longitude: parseFloat(post.longitude),
       }}>
       <TouchableOpacity style={[styles.button, defaultStyles.shadow]} onPress={() => console.log("test")}>
         <View style={styles.container}>
