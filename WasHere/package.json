@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@jesster2k10/react-native-range-slider": "^0.3.1",
     "@react-native-async-storage/async-storage": "^1.15.2",
     "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "^0.1.10",
@@ -44,6 +43,7 @@
     "react-native-unimodules": "^0.13.1",
     "react-native-vector-icons": "^8.1.0",
     "react-redux": "^7.2.3",
+    "rn-range-slider": "^2.0.4",
     "semver": "^7.3.5",
     "tiny-warning": "^1.0.3",
     "yup": "^0.32.9"
