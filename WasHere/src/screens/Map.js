@@ -6,6 +6,7 @@ import { io } from "socket.io-client";
 
 import PostMarker from "../components/PostMarker";
 import Slider from "../components/Slider";
+import { API } from "../config/config.json";
 
 const Map = () => {
   const mapRef = useRef();
@@ -43,7 +44,7 @@ const Map = () => {
     );
 
     // Connect to the websocket server
-    socket.current = io("http://localhost:8080");
+    socket.current = io(API);
     socket.current.on("posts", (posts) => setPosts(posts));
   }, []);
 
