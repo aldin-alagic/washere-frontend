@@ -45,6 +45,7 @@
     "react-redux": "^7.2.3",
     "rn-range-slider": "^2.0.4",
     "semver": "^7.3.5",
+    "socket.io-client": "^4.0.1",
     "tiny-warning": "^1.0.3",
     "yup": "^0.32.9"
   },
