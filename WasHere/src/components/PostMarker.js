@@ -5,20 +5,21 @@ import dayjs from "dayjs";
 
 import colors from "../config/colors";
 import defaultStyles from "../config/styles";
+import { profilePhoto } from "../utils/getPhotoURI";
 
 const PostMarker = ({ post }) => {
   return (
     <Marker
       coordinate={{
-        latitude: post.location.latitude,
-        longitude: post.location.longitude,
+        latitude: post.latitude,
+        longitude: post.longitude,
       }}>
       <TouchableOpacity style={[styles.button, defaultStyles.shadow]} onPress={() => console.log("test")}>
         <View style={styles.container}>
-          <Image style={styles.userImage} source={{ uri: post.user.photoURL }} />
+          <Image style={styles.userImage} source={{ uri: profilePhoto(post.user.profile_photo) }} />
           <View style={styles.textContainer}>
-            <Text style={styles.textName}>{post.user.name}</Text>
-            <Text>{dayjs(post.createdAt).format("HH:mm")}</Text>
+            <Text style={styles.textName}>{post.user.fullname}</Text>
+            <Text>{dayjs(post.created_at).format("HH:mm")}</Text>
           </View>
         </View>
       </TouchableOpacity>
