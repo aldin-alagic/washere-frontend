@@ -3992,11 +3992,6 @@ expo-image-loader@~2.1.1:
   resolved "https://registry.yarnpkg.com/expo-image-loader/-/expo-image-loader-2.1.1.tgz#028ae58f7c7a33ca9a406716c2b31969216d016f"
   integrity sha512-EeItNIsmw4g+FIb9S9AHE7FAWQkuiIguFMua/RQ2mFHKFZYa/BU32MGagY+e4LzasBVbDKWgd3NHO+EYC6XeEA==
 
-expo-permissions@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-12.0.0.tgz#e1a92611a70612c1df9e02d1b81d19d03ce7a4e0"
-  integrity sha512-hq8SQoqXJoF8VxPuSNG4CJ0ase6HYvPXxXOrUwZSiKvazJE+/HsOWttxL8yPg97ok9RuQD8k/46mCFQ6gRWg9Q==
-
 expo-secure-store@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-10.0.0.tgz#44ee52c97d81382bf1bbfa92a3c45ca5cc63acbc"
@@ -7212,7 +7207,6 @@ react-native-unimodules@^0.13.1:
     expo-constants "~10.1.2"
     expo-file-system "~11.0.1"
     expo-image-loader "~2.1.1"
-    expo-permissions "~12.0.0"
     find-up "~5.0.0"
     unimodules-app-loader "~2.1.0"
     unimodules-barcode-scanner-interface "~6.1.0"

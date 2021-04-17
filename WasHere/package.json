@@ -18,7 +18,6 @@
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "dayjs": "^1.10.4",
-    "expo-permissions": "^12.0.0",
     "expo-secure-store": "^10.0.0",
     "formik": "^2.2.6",
     "immer": "^9.0.1",
