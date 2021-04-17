@@ -46,6 +46,8 @@ const Map = () => {
     // Connect to the websocket server
     socket.current = io(API);
     socket.current.on("posts", (posts) => setPosts(posts));
+
+    return () => socket.current.close();
   }, []);
 
   // When post query changes, fetch new posts for that query
