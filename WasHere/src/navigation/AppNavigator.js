@@ -1,68 +1,29 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import Map from '../screens/Map';
-import Feed from '../screens/Feed';
-import NewPost from '../screens/NewPost';
-import Search from '../screens/Search';
-import Profile from '../screens/Profile';
-import NewPostButton from '../screens/NewPostButton';
+import AppTabNavigator from "./AppTabNavigator";
 
-import Icon from 'react-native-vector-icons/Ionicons';
+import colors from "../config/colors";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor: '#39C555',
-        showLabel: false,
+    <Stack.Navigator
+      screenOptions={{
+        animationEnabled: false,
+        title: "WasHere",
+        headerStyle: {
+          backgroundColor: colors.primary,
+        },
+        headerTitleAlign: "center",
+        headerTintColor: colors.white,
+        headerTitleStyle: {
+          fontFamily: "BalooBhai2-Medium",
+        },
       }}>
-      <Tab.Screen
-        name="Map"
-        component={Map}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="map-outline" color={color} size={25} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Feed"
-        component={Feed}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="location-outline" color={color} size={25} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Add"
-        component={NewPost}
-        options={{
-          tabBarIcon: ({ color }) => <NewPostButton color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={Search}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="search-outline" color={color} size={25} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="person-outline" color={color} size={25} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+      <Stack.Screen name="TabNavigator" component={AppTabNavigator} />
+    </Stack.Navigator>
   );
 };
 export default AppNavigator;
