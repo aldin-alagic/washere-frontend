@@ -1,13 +1,21 @@
 import React, { memo } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import dayjs from "dayjs";
+import isYesterday from "dayjs/plugin/isYesterday";
 
 import colors from "../../config/colors";
+
+dayjs.extend(isYesterday);
+
+const formatTime = (timestamp) => {
+  const dateTime = dayjs.unix(timestamp);
+  return `${dateTime.format("HH:mm")}${dateTime.isYesterday() ? " yesterday" : ""}`;
+};
 
 const Label = ({ text, ...restProps }) => {
   return (
     <View style={styles.root} {...restProps}>
-      <Text style={styles.text}>{dayjs.unix(text).format("HH:mm")}</Text>
+      <Text style={styles.text}>{formatTime(text)}</Text>
     </View>
   );
 };
