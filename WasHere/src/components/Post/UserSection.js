@@ -1,10 +1,10 @@
-import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
-import days from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import React from "react";
+import { StyleSheet, View, Image, Text } from "react-native";
+import days from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-import defaultStyles from '../../config/styles';
-import colors from '../../config/colors';
+import defaultStyles from "../../config/styles";
+import colors from "../../config/colors";
 
 days.extend(relativeTime);
 
@@ -25,7 +25,7 @@ const UserSection = ({ user, createdAt }) => {
 
 const styles = StyleSheet.create({
   userContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   userImage: {
     borderRadius: 50,
@@ -34,19 +34,20 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   textContainer: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     padding: 2,
   },
   name: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   washere: {
     color: colors.primary,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   time: {
     color: colors.medium,
+    fontWeight: "300",
   },
 });
 
