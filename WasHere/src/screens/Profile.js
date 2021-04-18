@@ -1,9 +1,14 @@
-import React, { Fragment } from "react";
+import React from "react";
+import { Text, View, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import BlankSpacer from "react-native-blank-spacer";
+import Icon from "react-native-vector-icons/Ionicons";
+
 import Screen from "../components/Screen";
-import { Text, View, Image, StyleSheet } from "react-native";
+import Connection from "../components/Profile/Connection";
 import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
 import colors from "../config/colors";
+
 const user = {
   fullname: "John Wick",
   username: "carla.smith",
@@ -20,13 +25,6 @@ const connections = [
       name: "John Wick",
       photoURL: "https://i.pravatar.cc/150?img=52",
     },
-    location: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-    },
-    createdAt: "2021-03-18 13:15",
-    likes: 7,
-    comments: 5,
   },
   {
     id: "2",
@@ -34,13 +32,6 @@ const connections = [
       name: "Jane Doe",
       photoURL: "https://i.pravatar.cc/150?img=26",
     },
-    location: {
-      latitude: 37.78025,
-      longitude: -122.4524,
-    },
-    createdAt: "2021-03-18 13:05",
-    likes: 12,
-    comments: 6,
   },
   {
     id: "3",
@@ -48,13 +39,13 @@ const connections = [
       name: "Carla Smith",
       photoURL: "https://i.pravatar.cc/150?img=27",
     },
-    location: {
-      latitude: 37.78225,
-      longitude: -122.4824,
+  },
+  {
+    id: "4",
+    user: {
+      name: "Jane Doe",
+      photoURL: "https://i.pravatar.cc/150?img=26",
     },
-    createdAt: "2021-03-17 16:28",
-    likes: 4,
-    comments: 2,
   },
 ];
 
@@ -73,8 +64,9 @@ const Profile = () => {
         </View>
       </View>
       <Text style={{ color: colors.primary }}>Edit profile</Text>
-
+      <BlankSpacer height={8} />
       <Text style={{ color: colors.mediumlight }}>Contact me</Text>
+      <BlankSpacer height={8} />
       <View style={styles.socials}>
         <View style={styles.socialMediaPlatform}>
           <TelegramIcon style={styles.socialMediaIcon} />
@@ -87,17 +79,24 @@ const Profile = () => {
         </View>
       </View>
 
-      <View
-        style={{
-          borderBottomColor: "#D8D8D8",
-          borderBottomWidth: StyleSheet.hairlineWidth,
-        }}
-      />
-      <Text>Edit profile</Text>
+      <View style={styles.divider} />
 
-      <Text>My connections (27)</Text>
-      <Text>23 more</Text>
-      <Text>Feed</Text>
+      <Text style={{ color: colors.mediumlight, marginTop: 10 }}>My connections (27)</Text>
+
+      <View style={styles.connections}>
+        <FlatList
+          style={styles.connectionsList}
+          horizontal={true}
+          data={connections}
+          renderItem={({ item }) => <Connection data={item} />}
+        />
+        <TouchableOpacity style={styles.moreConnections}>
+          <Text style={{ color: "#39C555", fontSize: 18 }}>23 more</Text>
+          <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.divider} />
+      {/* Bottom section goes here */}
     </Screen>
   );
 };
@@ -137,7 +136,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  socialMediaIcon: { width: 30, height: 30, marginRight: 10 },
+  socialMediaIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+  },
+  divider: {
+    borderBottomColor: "#D8D8D8",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  connections: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  moreConnections: { flexDirection: "row", alignItems: "center" },
+  connectionsList: { marginTop: 10 },
 });
 
 export default Profile;
