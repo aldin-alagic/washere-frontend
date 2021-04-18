@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -22,8 +22,10 @@ const user = {
 };
 
 const EditProfile = () => {
+  const [text, setText] = useState("");
+
   return (
-    <View>
+    <ScrollView>
       <View style={styles.heading}>
         <Text style={styles.headingText}>Edit profile</Text>
         <CloseButton />
@@ -31,14 +33,19 @@ const EditProfile = () => {
       <View style={styles.photoInformation}>
         <Image style={[styles.userImage]} source={{ uri: "https://i.pravatar.cc/150?img=27" }} />
         <BlankSpacer height={6} />
-        <Text style={[styles.text, styles.actions]}>Take photo</Text>
+        <TouchableOpacity>
+          <Text style={[styles.text, styles.actions]}>Take photo</Text>
+        </TouchableOpacity>
+
         <BlankSpacer height={6} />
-        <Text style={[styles.text, styles.actions]}>Choose from Library</Text>
+        <TouchableOpacity>
+          <Text style={[styles.text, styles.actions]}>Choose from Library</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.profileInformation}>
         <Text style={([styles.text], { color: colors.medium })}>Bio</Text>
         <View style={styles.bioContainer}>
-          <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+          <TextInput multiline={true} onChangeText={(text) => setText(text)} value={text} />
         </View>
         <BlankSpacer height={6} />
         <Text style={([styles.text], { color: colors.medium })}>My contact information</Text>
@@ -62,9 +69,10 @@ const EditProfile = () => {
           title="Save changes"
           onPress={() => {
             console.log("Clicked");
-          }}></Button>
+          }}
+        />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

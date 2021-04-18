@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Modalize as BottomSheet } from "react-native-modalize";
@@ -155,7 +155,14 @@ const Profile = () => {
       <View style={styles.divider} />
       <FeedList style={{ marginTop: 10 }} items={posts} />
 
-      <BottomSheet ref={modalizeRef} modalHeight={hp("70%")}>
+      <BottomSheet
+        ref={modalizeRef}
+        adjustToContentHeight
+        handlePosition="inside"
+        keyboardAvoidingBehavior="padding"
+        overlayStyle={{
+          borderRadius: 15,
+        }}>
         <EditProfile />
       </BottomSheet>
     </Screen>
