@@ -1,10 +1,14 @@
-import React from "react";
-import { Text, View, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import React, { useRef } from "react";
+import { View, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import Icon from "react-native-vector-icons/Ionicons";
+import { Modalize as BottomSheet } from "react-native-modalize";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
+import Text from "../components/Text";
 import Screen from "../components/Screen";
 import FeedList from "../components/Feed/FeedList";
+import EditProfile from "../components/Profile/EditProfile";
 import Connection from "../components/Profile/Connection";
 import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
@@ -96,38 +100,45 @@ const posts = [
 ];
 
 const Profile = () => {
+  const modalizeRef = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current.open();
+  };
+
   return (
     <Screen style={styles.container}>
-      {/* Basic information 
-      goes here */}
       <View style={styles.basicInformation}>
         <Image style={styles.userImage} source={{ uri: user.photoURL }} />
         <View style={styles.textInformation}>
           <Text style={{ fontSize: 20, color: colors.medium, fontWeight: "200", marginBottom: 5 }}>@{user.username}</Text>
-          <View style={styles.footerContainer}>
-            <Text style={{ textAlign: "justify" }}>{user.about}</Text>
+          <View style={styles.aboutContainer}>
+            <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
           </View>
         </View>
       </View>
-      <Text style={{ color: colors.primary }}>Edit profile</Text>
+      <TouchableOpacity onPress={onOpen}>
+        <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
+      </TouchableOpacity>
+
       <BlankSpacer height={8} />
-      <Text style={{ color: colors.mediumlight }}>Contact me</Text>
+      <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
       <BlankSpacer height={8} />
       <View style={styles.socials}>
         <View style={styles.socialMediaPlatform}>
           <TelegramIcon style={styles.socialMediaIcon} />
-          <Text>{user.contact_telegram}</Text>
+          <Text style={styles.text}>{user.contact_telegram}</Text>
         </View>
 
         <View style={styles.socialMediaPlatform}>
           <FacebookMessengerIcon style={styles.socialMediaIcon} />
-          <Text>{user.contact_telegram}</Text>
+          <Text style={styles.text}>{user.contact_telegram}</Text>
         </View>
       </View>
 
       <View style={styles.divider} />
 
-      <Text style={{ color: colors.mediumlight, marginTop: 10 }}>My connections (27)</Text>
+      <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
 
       <View style={styles.connections}>
         <FlatList
@@ -143,6 +154,10 @@ const Profile = () => {
       </View>
       <View style={styles.divider} />
       <FeedList style={{ marginTop: 10 }} items={posts} />
+
+      <BottomSheet ref={modalizeRef} modalHeight={hp("70%")}>
+        <EditProfile />
+      </BottomSheet>
     </Screen>
   );
 };
@@ -151,6 +166,9 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     backgroundColor: colors.white,
+  },
+  text: {
+    fontSize: 14,
   },
   userImage: {
     borderRadius: 50,
@@ -165,12 +183,10 @@ const styles = StyleSheet.create({
     flex: 2,
     flexDirection: "column",
   },
-  footerContainer: {
-    flexDirection: "row",
+  aboutContainer: {
     backgroundColor: "#FAFAFAFA",
     padding: 15,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
+    borderRadius: 15,
   },
   socials: {
     flexDirection: "row",
