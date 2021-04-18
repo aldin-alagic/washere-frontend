@@ -4,6 +4,7 @@ import BlankSpacer from "react-native-blank-spacer";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import Screen from "../components/Screen";
+import FeedList from "../components/Feed/FeedList";
 import Connection from "../components/Profile/Connection";
 import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
@@ -12,7 +13,7 @@ import colors from "../config/colors";
 const user = {
   fullname: "John Wick",
   username: "carla.smith",
-  photoURL: "https://i.pravatar.cc/150?img=52",
+  photoURL: "https://i.pravatar.cc/150?img=27",
   contact_telegram: "+385 99 123 456",
   contact_messenger: "+385 99 123 456",
   about: "Lorem ipsum et in dolor es sit amet, consectetur adipiscing elit, sed do eiusmod consectetur lorem.",
@@ -46,6 +47,51 @@ const connections = [
       name: "Jane Doe",
       photoURL: "https://i.pravatar.cc/150?img=26",
     },
+  },
+];
+
+const posts = [
+  {
+    id: "1",
+    user: {
+      name: "Carla Smith",
+      photoURL: "https://i.pravatar.cc/150?img=27",
+    },
+    location: {
+      latitude: 37.78825,
+      longitude: -122.4324,
+    },
+    createdAt: "2021-03-18 13:15",
+    likes: 7,
+    comments: 5,
+  },
+  {
+    id: "2",
+    user: {
+      name: "Carla Smith",
+      photoURL: "https://i.pravatar.cc/150?img=27",
+    },
+    location: {
+      latitude: 37.78025,
+      longitude: -122.4524,
+    },
+    createdAt: "2021-03-18 13:05",
+    likes: 12,
+    comments: 6,
+  },
+  {
+    id: "3",
+    user: {
+      name: "Carla Smith",
+      photoURL: "https://i.pravatar.cc/150?img=27",
+    },
+    location: {
+      latitude: 37.78225,
+      longitude: -122.4824,
+    },
+    createdAt: "2021-03-17 16:28",
+    likes: 4,
+    comments: 2,
   },
 ];
 
@@ -96,7 +142,7 @@ const Profile = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.divider} />
-      {/* Bottom section goes here */}
+      <FeedList style={{ marginTop: 10 }} items={posts} />
     </Screen>
   );
 };
