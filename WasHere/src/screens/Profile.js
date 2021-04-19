@@ -159,6 +159,7 @@ const Profile = () => {
         ref={modalizeRef}
         adjustToContentHeight
         handlePosition="inside"
+        disableScrollIfPossible={false}
         keyboardAvoidingBehavior="padding"
         overlayStyle={{
           borderRadius: 15,
