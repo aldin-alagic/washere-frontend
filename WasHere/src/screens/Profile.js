@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View, Image, StyleSheet, FlatList, TouchableOpacity, ScrollView } from "react-native";
+import { View, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Modalize as BottomSheet } from "react-native-modalize";
@@ -9,7 +9,8 @@ import Text from "../components/Text";
 import Screen from "../components/Screen";
 import FeedList from "../components/Feed/FeedList";
 import EditProfile from "../components/Profile/EditProfile";
-import Connection from "../components/Profile/Connection";
+import MyConnections from "../components/Profile/MyConnections";
+import ConnectionSimple from "../components/Profile/ConnectionSimple";
 import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
 import colors from "../config/colors";
@@ -100,10 +101,15 @@ const posts = [
 ];
 
 const Profile = () => {
-  const modalizeRef = useRef(null);
+  const editProfileRef = useRef(null);
+  const myConnectionsRef = useRef(null);
 
-  const onOpen = () => {
-    modalizeRef.current.open();
+  const onOpenEditProfile = () => {
+    editProfileRef.current.open();
+  };
+
+  const onOpenMyConnections = () => {
+    myConnectionsRef.current.open();
   };
 
   return (
@@ -117,7 +123,7 @@ const Profile = () => {
           </View>
         </View>
       </View>
-      <TouchableOpacity onPress={onOpen}>
+      <TouchableOpacity onPress={onOpenEditProfile}>
         <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
       </TouchableOpacity>
 
@@ -145,9 +151,9 @@ const Profile = () => {
           style={styles.connectionsList}
           horizontal={true}
           data={connections}
-          renderItem={({ item }) => <Connection data={item} />}
+          renderItem={({ item }) => <ConnectionSimple data={item} />}
         />
-        <TouchableOpacity style={styles.moreConnections}>
+        <TouchableOpacity style={styles.moreConnections} onPress={onOpenMyConnections}>
           <Text style={{ color: "#39C555", fontSize: 18 }}>23 more</Text>
           <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
         </TouchableOpacity>
@@ -156,8 +162,8 @@ const Profile = () => {
       <FeedList style={{ marginTop: 10 }} items={posts} />
 
       <BottomSheet
-        ref={modalizeRef}
-        adjustToContentHeight
+        ref={editProfileRef}
+        modalHeight={hp("75%")}
         handlePosition="inside"
         disableScrollIfPossible={false}
         keyboardAvoidingBehavior="padding"
@@ -165,6 +171,17 @@ const Profile = () => {
           borderRadius: 15,
         }}>
         <EditProfile />
+      </BottomSheet>
+      <BottomSheet
+        ref={myConnectionsRef}
+        modalHeight={hp("55%")}
+        handlePosition="inside"
+        disableScrollIfPossible={false}
+        keyboardAvoidingBehavior="padding"
+        overlayStyle={{
+          borderRadius: 15,
+        }}>
+        <MyConnections />
       </BottomSheet>
     </Screen>
   );
