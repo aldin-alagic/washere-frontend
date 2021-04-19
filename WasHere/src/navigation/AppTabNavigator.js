@@ -41,7 +41,9 @@ const AppTabNavigator = () => {
         name="Add"
         component={NewPost}
         options={{
-          tabBarIcon: ({ color }) => <NewPostButton color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Icon name="add-circle" color={color} size={28} />
+          ),
         }}
       />
       <Tab.Screen
