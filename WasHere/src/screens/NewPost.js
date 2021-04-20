@@ -1,21 +1,24 @@
 import React, { useRef, useEffect, useState } from "react";
+import SwitchSelector from "react-native-switch-selector";
 import { StyleSheet, View, Text, TouchableOpacity, Button, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 import { io } from "socket.io-client";
-import { ImagePicker } from "react-native-image-picker";
-
 import PostMarker from "../components/PostMarker";
 import BottomSheet from "../components/BottomSheet";
 import { Form, FormField, Heading, SubmitButton } from "../components/form";
 import { API } from "../config/config.json";
-import AppButton from './../components/Button';
+import AppButton from "./../components/Button";
+import ImageButton from "./../components/ImageButton";
+import colors from "../config/colors";
 
 const NewPost = () => {
   const mapRef = useRef();
   const socket = useRef();
   const [posts, setPosts] = useState([]);
+  const [visibility, setVisibility] = useState("visibility");
+
   const { loading, apiResult } = useSelector((state) => state.auth);
 
   // Keeps track of the region the user is viewing on the map and time range he has selected
@@ -33,40 +36,6 @@ const NewPost = () => {
       to: 0,
     },
   });
-
-  const selectFile = () => {
-    var options = {
-      title: "Select Image",
-      customButtons: [
-        {
-          name: "customOptionKey",
-          title: "Choose file from Custom Option",
-        },
-      ],
-      storageOptions: {
-        skipBackup: true,
-        path: "images",
-      },
-    };
-
-    ImagePicker.showImagePicker(options, (res) => {
-      console.log("Response = ", res);
-
-      if (res.didCancel) {
-        console.log("User cancelled image picker");
-      } else if (res.error) {
-        console.log("ImagePicker Error: ", res.error);
-      } else if (res.customButton) {
-        console.log("User tapped custom button: ", res.customButton);
-        alert(res.customButton);
-      } else {
-        let source = res;
-        this.setState({
-          resourcePath: source,
-        });
-      }
-    });
-  };
 
   useEffect(() => {
     // Navigate to the current location on map
@@ -122,7 +91,26 @@ const NewPost = () => {
           <Heading title="Create a new post" onClose={() => navigation.navigate(routes.MAP)} />
           <Form initialValues={{ description: "" }} onSubmit={handleSubmit}>
             <FormField autoCapitalize="words" autoCorrect={false} icon="person-outline" name="description" placeholder="Description" />
-            <AppButton title="+" onPress={selectFile} />
+            <ImageButton />
+            <SwitchSelector
+              initial={0}
+              onPress={(value) => setVisibility(value)}
+              textColor={colors.primary} //'#7a44cf'
+              selectedColor={colors.white}
+              buttonColor={colors.primary}
+              borderColor={colors.primary}
+              borderRadius={15}
+              borderWidth={2}
+              valuePadding={5}
+              height={47}
+              hasPadding
+              options={[
+                { label: "Friends", value: "friends" },
+                { label: "Public", value: "public" },
+              ]}
+              testID="visibility-switch-selector"
+              accessibilityLabel="visibility-switch-selector"
+            />
             <SubmitButton title="Post" loading={loading} />
           </Form>
         </View>
