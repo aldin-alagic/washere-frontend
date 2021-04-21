@@ -98,7 +98,7 @@ const MyConnections = () => {
   const [text, setText] = useState("");
 
   return (
-    <ScrollView>
+    <View>
       <View style={styles.heading}>
         <Text style={styles.headingText}>My connections</Text>
         <CloseButton />
@@ -109,8 +109,8 @@ const MyConnections = () => {
         <TextInput style={[styles.text]} placeholder="Search by name" onChangeText={(text) => setText(text)} value={text} />
       </View>
 
-      <FlatList style={styles.connectionsList} data={connections} renderItem={({ item }) => <Connection data={item} />} />
-    </ScrollView>
+      <FlatList style={styles.connectionsList} data={connections} renderItem={({ item }) => <Connection item={item} />} />
+    </View>
   );
 };
 
