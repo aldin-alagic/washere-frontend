@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import SwitchSelector from "react-native-switch-selector";
-import { StyleSheet, View, Text, TouchableOpacity, Button, Image, FlatList } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Button, Image, FlatList, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
@@ -24,7 +24,16 @@ const NewPost = () => {
   };
 
   const deleteImage = (removedImage) => {
-    setImages(images.filter((image) => image.uri !== removedImage));
+    Alert.alert("", "Do you want to remove the image?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel"),
+      },
+      {
+        text: "Ok",
+        onPress: () => setImages(images.filter((image) => image.uri !== removedImage)),
+      },
+    ]);
   };
 
   useEffect(() => {
