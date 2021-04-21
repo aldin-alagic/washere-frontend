@@ -63,7 +63,7 @@ const NewPost = () => {
         <View style={styles.sheet}>
           <Heading title="Create a new post" onClose={() => navigation.navigate(routes.MAP)} />
           <Form initialValues={{ description: "" }} onSubmit={handleSubmit}>
-            <FormField autoCapitalize="words" autoCorrect={false} icon="person-outline" name="description" placeholder="Description" />
+            <FormField autoCapitalize="sentences" multiline autoCorrect={false} name="description" placeholder="Description" />
             <FlatList style={styles.images} horizontal data={images} renderItem={renderImage} />
             <SwitchSelector
               initial={0}
