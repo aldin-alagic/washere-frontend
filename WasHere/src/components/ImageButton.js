@@ -48,7 +48,7 @@ const ImageButton = ({ onAddImage, backgroundColor = "light", color = "primary" 
 
   return (
     <TouchableOpacity style={[styles.button, { backgroundColor: colors[backgroundColor] }]} onPress={onPress}>
-      <Icon name="image-outline" color={colors[color]} size={50} />
+      <Icon name="image" color={colors[color]} size={50} />
     </TouchableOpacity>
   );
 };
