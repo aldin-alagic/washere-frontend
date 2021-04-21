@@ -21,14 +21,14 @@ const user = {
   about: "Lorem ipsum et in dolor es sit amet, consectetur adipiscing elit, sed do eiusmod consectetur lorem.",
 };
 
-const EditProfile = () => {
+const EditProfile = ({ editProfileRef }) => {
   const [text, setText] = useState("");
 
   return (
     <ScrollView>
       <View style={styles.heading}>
         <Text style={styles.headingText}>Edit profile</Text>
-        <CloseButton />
+        <CloseButton onPress={() => editProfileRef.current.close()} />
       </View>
       <View style={styles.photoInformation}>
         <Image style={[styles.userImage]} source={{ uri: "https://i.pravatar.cc/150?img=27" }} />
