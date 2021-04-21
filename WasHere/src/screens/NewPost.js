@@ -63,7 +63,14 @@ const NewPost = () => {
         <View style={styles.sheet}>
           <Heading title="Create a new post" onClose={() => navigation.navigate(routes.MAP)} />
           <Form initialValues={{ description: "" }} onSubmit={handleSubmit}>
-            <FormField autoCapitalize="sentences" multiline autoCorrect={false} name="description" placeholder="Description" />
+            <FormField
+              autoCapitalize="sentences"
+              multiline
+              numberOfLines={3}
+              autoCorrect={false}
+              name="description"
+              placeholder="Description"
+            />
             <FlatList style={styles.images} horizontal data={images} renderItem={renderImage} />
             <SwitchSelector
               initial={0}
@@ -78,7 +85,7 @@ const NewPost = () => {
               height={50}
               hasPadding
               options={[
-                { label: "Friends", value: "friends", },
+                { label: "Friends", value: "friends" },
                 { label: "Public", value: "public" },
               ]}
               testID="visibility-switch-selector"
