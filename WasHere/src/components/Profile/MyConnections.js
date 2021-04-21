@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, StyleSheet, TextInput, ScrollView, FlatList } from "react-native";
+import { View, StyleSheet, TextInput, FlatList } from "react-native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -94,14 +94,14 @@ const connections = [
     },
   },
 ];
-const MyConnections = () => {
+const MyConnections = ({ myConnectionsRef }) => {
   const [text, setText] = useState("");
 
   return (
     <View>
       <View style={styles.heading}>
         <Text style={styles.headingText}>My connections</Text>
-        <CloseButton />
+        <CloseButton onPress={() => myConnectionsRef.current.close()} />
       </View>
 
       <View style={styles.searchContainer}>
