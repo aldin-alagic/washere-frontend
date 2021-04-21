@@ -48,7 +48,7 @@ const NewPost = () => {
 
   const renderImage = ({ index, item }) => {
     return item.button ? (
-      <ImageButton style={styles.imageButton} onAddImage={handleAddImage} />
+      <ImageButton onAddImage={handleAddImage} />
     ) : (
       <TouchableOpacity onPress={() => deleteImage(item.uri)}>
         <Image key={item.uri} style={styles.image} source={{ uri: item.uri }} />
