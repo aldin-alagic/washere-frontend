@@ -71,14 +71,14 @@ const NewPost = () => {
               textColor={colors.primary} //'#7a44cf'
               selectedColor={colors.white}
               buttonColor={colors.primary}
-              borderColor={colors.primary}
+              backgroundColor={colors.light}
               borderRadius={15}
-              borderWidth={2}
+              borderWidth={0}
               valuePadding={5}
-              height={47}
+              height={50}
               hasPadding
               options={[
-                { label: "Friends", value: "friends" },
+                { label: "Friends", value: "friends", },
                 { label: "Public", value: "public" },
               ]}
               testID="visibility-switch-selector"
