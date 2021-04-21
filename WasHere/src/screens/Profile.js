@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
-import { View, Image, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import Icon from "react-native-vector-icons/Ionicons";
-import { Modalize as BottomSheet } from "react-native-modalize";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Text from "../components/Text";
@@ -10,6 +9,7 @@ import Screen from "../components/Screen";
 import FeedList from "../components/Feed/FeedList";
 import EditProfile from "../components/Profile/EditProfile";
 import MyConnections from "../components/Profile/MyConnections";
+import BottomSheet from "../components/BottomSheet";
 import ConnectionSimple from "../components/Profile/ConnectionSimple";
 import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
@@ -113,83 +113,94 @@ const Profile = () => {
   };
 
   return (
-    <Screen style={styles.container}>
-      <View style={styles.basicInformation}>
-        <Image style={styles.userImage} source={{ uri: user.photoURL }} />
-        <View style={styles.textInformation}>
-          <Text style={{ fontSize: 20, color: colors.medium, fontWeight: "200", marginBottom: 5 }}>@{user.username}</Text>
-          <View style={styles.aboutContainer}>
-            <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+    <Screen style={{ backgroundColor: colors.white }}>
+      <View style={styles.container}>
+        <View style={styles.basicInformation}>
+          <Image style={styles.userImage} source={{ uri: user.photoURL }} />
+          <View style={styles.textInformation}>
+            <Text style={{ fontSize: 20, color: colors.medium, fontWeight: "200", marginBottom: 5 }}>@{user.username}</Text>
+            <View style={styles.aboutContainer}>
+              <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+            </View>
           </View>
         </View>
-      </View>
-      <TouchableOpacity onPress={onOpenEditProfile}>
-        <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
-      </TouchableOpacity>
-
-      <BlankSpacer height={8} />
-      <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
-      <BlankSpacer height={8} />
-      <View style={styles.socials}>
-        <View style={styles.socialMediaPlatform}>
-          <TelegramIcon style={styles.socialMediaIcon} />
-          <Text style={styles.text}>{user.contact_telegram}</Text>
-        </View>
-
-        <View style={styles.socialMediaPlatform}>
-          <FacebookMessengerIcon style={styles.socialMediaIcon} />
-          <Text style={styles.text}>{user.contact_telegram}</Text>
-        </View>
-      </View>
-
-      <View style={styles.divider} />
-
-      <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
-
-      <View style={styles.connections}>
-        <FlatList
-          style={styles.connectionsList}
-          horizontal={true}
-          data={connections}
-          renderItem={({ item }) => <ConnectionSimple data={item} />}
-        />
-        <TouchableOpacity style={styles.moreConnections} onPress={onOpenMyConnections}>
-          <Text style={{ color: "#39C555", fontSize: 18 }}>23 more</Text>
-          <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+        <TouchableOpacity onPress={onOpenEditProfile}>
+          <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
         </TouchableOpacity>
-      </View>
-      <View style={styles.divider} />
-      <FeedList style={{ marginTop: 10 }} items={posts} />
 
-      <BottomSheet
-        ref={editProfileRef}
-        modalHeight={hp("75%")}
-        handlePosition="inside"
-        disableScrollIfPossible={false}
-        keyboardAvoidingBehavior="padding"
-        overlayStyle={{
-          borderRadius: 15,
-        }}>
-        <EditProfile />
-      </BottomSheet>
-      <BottomSheet
-        ref={myConnectionsRef}
-        modalHeight={hp("55%")}
-        handlePosition="inside"
-        disableScrollIfPossible={false}
-        keyboardAvoidingBehavior="padding"
-        overlayStyle={{
-          borderRadius: 15,
-        }}>
-        <MyConnections />
-      </BottomSheet>
+        <BlankSpacer height={8} />
+        <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
+        <BlankSpacer height={8} />
+        <View style={styles.socials}>
+          <View style={styles.socialMediaPlatform}>
+            <TelegramIcon style={styles.socialMediaIcon} />
+            <Text style={styles.text}>{user.contact_telegram}</Text>
+          </View>
+
+          <View style={styles.socialMediaPlatform}>
+            <FacebookMessengerIcon style={styles.socialMediaIcon} />
+            <Text style={styles.text}>{user.contact_telegram}</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
+
+        <View style={styles.connections}>
+          <FlatList
+            style={styles.connectionsList}
+            horizontal={true}
+            data={connections}
+            renderItem={({ item }) => <ConnectionSimple data={item} />}
+          />
+          <TouchableOpacity style={styles.moreConnections} onPress={onOpenMyConnections}>
+            <Text style={{ color: "#39C555", fontSize: 18 }}>23 more</Text>
+            <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.divider} />
+        <FeedList style={{ marginTop: 10 }} items={posts} />
+
+        <BottomSheet
+          bottomSheetRef={editProfileRef}
+          modalHeight={hp("75%")}
+          disableScrollIfPossible={false}
+          keyboardAvoidingBehavior="padding"
+          overlayStyle={{
+            borderRadius: 15,
+          }}>
+          <EditProfile editProfileRef={editProfileRef} />
+        </BottomSheet>
+        <BottomSheet
+          bottomSheetRef={myConnectionsRef}
+          modalHeight={hp("60%")}
+          keyboardAvoidingBehavior="padding"
+          modalStyle={{
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 12,
+            },
+            shadowOpacity: 0.58,
+            shadowRadius: 16.0,
+            elevation: 24,
+          }}
+          customRenderer={() => (
+            <Animated.View>
+              <MyConnections myConnectionsRef={myConnectionsRef} />
+            </Animated.View>
+          )}
+        />
+      </View>
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
+    flex: 1,
     backgroundColor: colors.white,
   },
   text: {
