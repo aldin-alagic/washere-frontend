@@ -1,15 +1,16 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 
-import UserSection from './UserSection';
-import FooterSection from './FooterSection';
-import MapSection from './MapSection';
+import { navigate } from "../../navigation/RootNavigation";
+import UserSection from "./UserSection";
+import FooterSection from "./FooterSection";
+import MapSection from "./MapSection";
 
 const Post = ({ data }) => {
   return (
     <View style={styles.container}>
       <UserSection user={data.user} createdAt={data.createdAt} />
-      <TouchableOpacity onPress={() => console.log('Open post')}>
+      <TouchableOpacity onPress={() => navigate("PostDetails", data)}>
         <MapSection location={data.location} />
       </TouchableOpacity>
       <FooterSection likes={data.likes} comments={data.comments} />

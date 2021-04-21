@@ -7,14 +7,14 @@ import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 import { profilePhoto } from "../utils/getPhotoURI";
 
-const PostMarker = ({ post }) => {
+const PostMarker = ({ post, onPress }) => {
   return (
     <Marker
       coordinate={{
         latitude: parseFloat(post.latitude),
         longitude: parseFloat(post.longitude),
       }}>
-      <TouchableOpacity style={[styles.button, defaultStyles.shadow]} onPress={() => console.log("test")}>
+      <TouchableOpacity style={[styles.button, defaultStyles.shadow]} onPress={onPress}>
         <View style={styles.container}>
           <Image style={styles.userImage} source={{ uri: profilePhoto(post.user.profile_photo) }} />
           <View style={styles.textContainer}>

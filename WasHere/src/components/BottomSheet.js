@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import React, { useRef, useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { Modalize } from "react-native-modalize";
 
 const BottomSheet = ({ children, onClose }) => {
   const modalizeRef = useRef(null);
@@ -17,7 +17,7 @@ const BottomSheet = ({ children, onClose }) => {
       adjustToContentHeight
       childrenStyle={styles.content}
       keyboardAvoidingBehavior="padding"
-      onClose={onClose}>
+      onClosed={onClose}>
       {children}
     </Modalize>
   );
