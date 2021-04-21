@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { View, Image, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
+import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
@@ -13,6 +14,7 @@ import BottomSheet from "../components/BottomSheet";
 import ConnectionSimple from "../components/Profile/ConnectionSimple";
 import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
+import { fetchUser } from "../store/user";
 import colors from "../config/colors";
 
 const user = {
@@ -103,6 +105,12 @@ const posts = [
 const Profile = () => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
+  const dispatch = useDispatch();
+  console.log("INSIDE PROFILE");
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, []);
+  const { posts } = useSelector((state) => state.user);
 
   const onOpenEditProfile = () => {
     editProfileRef.current.open();
