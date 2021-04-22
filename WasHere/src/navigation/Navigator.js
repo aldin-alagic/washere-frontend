@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { navigationRef } from "./RootNavigation";
 import jwt_decode from "jwt-decode";
 import FlashMessage from "react-native-flash-message";
+import axios from "axios";
 
 import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
@@ -22,7 +23,10 @@ const Navigator = () => {
       if (passedWelcome == "true") dispatch(passedWelcomeScreen());
     });
     authStorage.getToken().then((token) => {
-      if (token) dispatch(initialStateSet({ token, user: jwt_decode(token) }));
+      if (token) {
+        dispatch(initialStateSet({ token, user: jwt_decode(token) }));
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
       setIsReady(true);
     });
   }, []);
