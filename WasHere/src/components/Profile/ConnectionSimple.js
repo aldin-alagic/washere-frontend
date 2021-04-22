@@ -8,8 +8,8 @@ const ConnectionSimple = ({ data }) => {
 const styles = StyleSheet.create({
   userImage: {
     borderRadius: 50,
-    height: 50,
-    width: 50,
+    height: 45,
+    width: 45,
     marginRight: 15,
   },
 });
