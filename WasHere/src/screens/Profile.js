@@ -17,15 +17,7 @@ import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
 import { fetchUser } from "../store/user";
 import colors from "../config/colors";
 import Post from "../components/Post";
-
-const user = {
-  fullname: "John Wick",
-  username: "carla.smith",
-  photoURL: "https://i.pravatar.cc/150?img=27",
-  contact_telegram: "+385 99 123 456",
-  contact_messenger: "+385 99 123 456",
-  about: "Lorem ipsum et in dolor es sit amet, consectetur adipiscing elit, sed do eiusmod consectetur lorem.",
-};
+import { profilePhoto } from "../utils/getPhotoURI";
 
 const connections = [
   {
@@ -62,7 +54,7 @@ const Profile = () => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
   const userId = useSelector((state) => state.auth.user.id);
-  const { posts } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(fetchUser(userId)), [userId]);
@@ -79,15 +71,15 @@ const Profile = () => {
     <>
       <Screen style={styles.container}>
         <FlatList
-          data={posts}
+          data={user.posts}
           ListHeaderComponent={
             <View style={{ marginBottom: 12 }}>
               <View style={styles.basicInformation}>
-                <Image style={styles.userImage} source={{ uri: user.photoURL }} />
+                <Image style={styles.userImage} source={{ uri: profilePhoto(user.information.profile_photo) }} />
                 <View style={styles.textInformation}>
-                  <Text style={styles.username}>@{user.username}</Text>
+                  <Text style={styles.username}>@{user.information.username}</Text>
                   <View style={styles.aboutContainer}>
-                    <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+                    <Text style={[{ textAlign: "justify" }, styles.text]}>{user.information.about}</Text>
                   </View>
                 </View>
               </View>
@@ -101,12 +93,12 @@ const Profile = () => {
               <View style={styles.socials}>
                 <View style={styles.socialMediaPlatform}>
                   <TelegramIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.information.contact_telegram}</Text>
                 </View>
 
                 <View style={styles.socialMediaPlatform}>
                   <FacebookMessengerIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.information.contact_telegram}</Text>
                 </View>
               </View>
 
@@ -182,6 +174,7 @@ const styles = StyleSheet.create({
   },
   basicInformation: {
     flexDirection: "row",
+    marginBottom: 10,
   },
   textInformation: {
     flex: 2,

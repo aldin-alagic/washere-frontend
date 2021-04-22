@@ -8,6 +8,7 @@ import { API_ERROR_MESSAGE } from "../config/config.json";
 const slice = createSlice({
   name: "user",
   initialState: {
+    information: {},
     posts: null,
     loading: false,
   },
@@ -21,6 +22,7 @@ const slice = createSlice({
       user.loading = false;
       if (success) {
         user.posts = data.posts;
+        user.information = data.user;
       }
     },
 
