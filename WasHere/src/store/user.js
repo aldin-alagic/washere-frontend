@@ -39,13 +39,12 @@ const slice = createSlice({
 export const { requestStarted, userFetched, requestFailed } = slice.actions;
 export default slice.reducer;
 
-export const fetchUser = () => {
-  console.log("REQUESTING USER");
+export const fetchUser = (id) =>
   apiCallBegan({
-    url: "/user/68",
+    url: `/user/${id}`,
     method: "GET",
+    data: "",
     onStart: requestStarted.type,
     onSuccess: userFetched.type,
     onError: requestFailed.type,
   });
-};
