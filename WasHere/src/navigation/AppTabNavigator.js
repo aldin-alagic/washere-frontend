@@ -30,7 +30,7 @@ const AppTabNavigator = () => {
         name="Feed"
         component={Feed}
         options={{
-          tabBarIcon: ({ color }) => <Icon name="location-outline" color={color} size={25} />,
+          tabBarIcon: ({ color }) => <Icon name="list-outline" color={color} size={25} />,
         }}
       />
       <Tab.Screen
