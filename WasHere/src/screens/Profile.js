@@ -61,10 +61,11 @@ const connections = [
 const Profile = () => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
+  const userId = useSelector((state) => state.auth.user.id);
   const { posts } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchUser()), []);
+  useEffect(() => dispatch(fetchUser(userId)), [userId]);
 
   const onOpenEditProfile = () => {
     editProfileRef.current.open();
