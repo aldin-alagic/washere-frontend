@@ -14,7 +14,7 @@ const BottomSheet = ({ bottomSheetRef, children, onClose, openOnLoad, ...props }
       ref={bottomSheetRef}
       handlePosition="inside"
       keyboardAvoidingBehavior="padding"
-      onClose={onClose}>
+      onClosed={onClose}>
       {children}
     </Modalize>
   );

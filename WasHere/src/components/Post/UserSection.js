@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   },
   time: {
     color: colors.medium,
+    fontWeight: "300",
   },
 });
 
