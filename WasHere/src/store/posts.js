@@ -10,11 +10,12 @@ import { API_ERROR_MESSAGE } from "../config/config.json";
 const slice = createSlice({
   name: "posts",
   initialState: {
+    loading: false,
     feed: [],
   },
   reducers: {
-    requestStarted: (auth, action) => {
-      auth.loading = true;
+    requestStarted: (posts, action) => {
+      posts.loading = true;
     },
 
     postCreated: (auth, action) => {
@@ -34,6 +35,7 @@ const slice = createSlice({
     feedFetched: (posts, action) => {
       const { data } = action.payload;
       posts.feed = data;
+      posts.loading = false;
     },
 
     requestFailed: (auth, action) => {
