@@ -16,6 +16,7 @@ import TelegramIcon from "../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
 import { fetchUser } from "../store/user";
 import colors from "../config/colors";
+import Post from "../components/Post";
 
 const user = {
   fullname: "John Wick",
@@ -57,60 +58,13 @@ const connections = [
   },
 ];
 
-const posts = [
-  {
-    id: "1",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-    location: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-    },
-    createdAt: "2021-03-18 13:15",
-    likes: 7,
-    comments: 5,
-  },
-  {
-    id: "2",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-    location: {
-      latitude: 37.78025,
-      longitude: -122.4524,
-    },
-    createdAt: "2021-03-18 13:05",
-    likes: 12,
-    comments: 6,
-  },
-  {
-    id: "3",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-    location: {
-      latitude: 37.78225,
-      longitude: -122.4824,
-    },
-    createdAt: "2021-03-17 16:28",
-    likes: 4,
-    comments: 2,
-  },
-];
-
 const Profile = () => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
-  const dispatch = useDispatch();
-  console.log("INSIDE PROFILE");
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, []);
   const { posts } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(fetchUser()), []);
 
   const onOpenEditProfile = () => {
     editProfileRef.current.open();
@@ -121,94 +75,98 @@ const Profile = () => {
   };
 
   return (
-    <Screen style={{ backgroundColor: colors.white }}>
-      <View style={styles.container}>
-        <View style={styles.basicInformation}>
-          <Image style={styles.userImage} source={{ uri: user.photoURL }} />
-          <View style={styles.textInformation}>
-            <Text style={{ fontSize: 20, color: colors.medium, fontWeight: "200", marginBottom: 5 }}>@{user.username}</Text>
-            <View style={styles.aboutContainer}>
-              <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+    <Screen style={styles.container}>
+      <FlatList
+        data={posts}
+        ListHeaderComponent={
+          <View style={{ marginBottom: 12 }}>
+            <View style={styles.basicInformation}>
+              <Image style={styles.userImage} source={{ uri: user.photoURL }} />
+              <View style={styles.textInformation}>
+                <Text style={styles.username}>@{user.username}</Text>
+                <View style={styles.aboutContainer}>
+                  <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+                </View>
+              </View>
             </View>
+            <TouchableOpacity onPress={onOpenEditProfile}>
+              <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
+            </TouchableOpacity>
+
+            <BlankSpacer height={8} />
+            <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
+            <BlankSpacer height={8} />
+            <View style={styles.socials}>
+              <View style={styles.socialMediaPlatform}>
+                <TelegramIcon style={styles.socialMediaIcon} />
+                <Text style={styles.text}>{user.contact_telegram}</Text>
+              </View>
+
+              <View style={styles.socialMediaPlatform}>
+                <FacebookMessengerIcon style={styles.socialMediaIcon} />
+                <Text style={styles.text}>{user.contact_telegram}</Text>
+              </View>
+            </View>
+
+            <View style={styles.divider} />
+
+            <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
+
+            <View style={styles.connections}>
+              <FlatList
+                style={styles.connectionsList}
+                horizontal={true}
+                data={connections}
+                renderItem={({ item }) => <ConnectionSimple data={item} />}
+              />
+              <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
+                <Text style={styles.moreConnections}>23 more</Text>
+                <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.divider} />
           </View>
-        </View>
-        <TouchableOpacity onPress={onOpenEditProfile}>
-          <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
-        </TouchableOpacity>
+        }
+        renderItem={({ item }) => <Post data={item} />}
+      />
 
-        <BlankSpacer height={8} />
-        <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
-        <BlankSpacer height={8} />
-        <View style={styles.socials}>
-          <View style={styles.socialMediaPlatform}>
-            <TelegramIcon style={styles.socialMediaIcon} />
-            <Text style={styles.text}>{user.contact_telegram}</Text>
-          </View>
-
-          <View style={styles.socialMediaPlatform}>
-            <FacebookMessengerIcon style={styles.socialMediaIcon} />
-            <Text style={styles.text}>{user.contact_telegram}</Text>
-          </View>
-        </View>
-
-        <View style={styles.divider} />
-
-        <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
-
-        <View style={styles.connections}>
-          <FlatList
-            style={styles.connectionsList}
-            horizontal={true}
-            data={connections}
-            renderItem={({ item }) => <ConnectionSimple data={item} />}
-          />
-          <TouchableOpacity style={styles.moreConnections} onPress={onOpenMyConnections}>
-            <Text style={{ color: "#39C555", fontSize: 18 }}>23 more</Text>
-            <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.divider} />
-        <FeedList style={{ marginTop: 10 }} items={posts} />
-
-        <BottomSheet
-          bottomSheetRef={editProfileRef}
-          modalHeight={hp("75%")}
-          disableScrollIfPossible={false}
-          keyboardAvoidingBehavior="padding"
-          overlayStyle={{
-            borderRadius: 15,
-          }}>
-          <EditProfile editProfileRef={editProfileRef} />
-        </BottomSheet>
-        <BottomSheet
-          bottomSheetRef={myConnectionsRef}
-          modalHeight={hp("60%")}
-          keyboardAvoidingBehavior="padding"
-          modalStyle={{
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 12,
-            },
-            shadowOpacity: 0.58,
-            shadowRadius: 16.0,
-            elevation: 24,
-          }}
-          customRenderer={() => (
-            <Animated.View>
-              <MyConnections myConnectionsRef={myConnectionsRef} />
-            </Animated.View>
-          )}
-        />
-      </View>
+      <BottomSheet
+        bottomSheetRef={editProfileRef}
+        modalHeight={hp("75%")}
+        disableScrollIfPossible={false}
+        keyboardAvoidingBehavior="padding"
+        overlayStyle={{
+          borderRadius: 15,
+        }}>
+        <EditProfile editProfileRef={editProfileRef} />
+      </BottomSheet>
+      <BottomSheet
+        bottomSheetRef={myConnectionsRef}
+        modalHeight={hp("60%")}
+        keyboardAvoidingBehavior="padding"
+        modalStyle={{
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 12,
+          },
+          shadowOpacity: 0.58,
+          shadowRadius: 16.0,
+          elevation: 24,
+        }}
+        customRenderer={() => (
+          <Animated.View>
+            <MyConnections myConnectionsRef={myConnectionsRef} />
+          </Animated.View>
+        )}
+      />
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 15,
-    flex: 1,
+    paddingHorizontal: 10,
     backgroundColor: colors.white,
   },
   text: {
@@ -236,7 +194,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   socialMediaPlatform: {
     flexDirection: "row",
@@ -250,14 +208,30 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomColor: "#D8D8D8",
     borderBottomWidth: StyleSheet.hairlineWidth,
+    marginBottom: 2,
   },
   connections: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 15,
   },
-  moreConnections: { flexDirection: "row", alignItems: "center" },
-  connectionsList: { marginTop: 10 },
+  moreConnectionsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  moreConnections: {
+    color: "#39C555",
+    fontSize: 15,
+  },
+  connectionsList: {
+    marginTop: 10,
+  },
+  username: {
+    fontSize: 20,
+    color: colors.mediumlight,
+    fontWeight: "200",
+    marginBottom: 5,
+  },
 });
 
 export default Profile;
