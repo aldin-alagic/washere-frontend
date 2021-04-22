@@ -75,61 +75,62 @@ const Profile = () => {
   };
 
   return (
-    <Screen style={styles.container}>
-      <FlatList
-        data={posts}
-        ListHeaderComponent={
-          <View style={{ marginBottom: 12 }}>
-            <View style={styles.basicInformation}>
-              <Image style={styles.userImage} source={{ uri: user.photoURL }} />
-              <View style={styles.textInformation}>
-                <Text style={styles.username}>@{user.username}</Text>
-                <View style={styles.aboutContainer}>
-                  <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+    <>
+      <Screen style={styles.container}>
+        <FlatList
+          data={posts}
+          ListHeaderComponent={
+            <View style={{ marginBottom: 12 }}>
+              <View style={styles.basicInformation}>
+                <Image style={styles.userImage} source={{ uri: user.photoURL }} />
+                <View style={styles.textInformation}>
+                  <Text style={styles.username}>@{user.username}</Text>
+                  <View style={styles.aboutContainer}>
+                    <Text style={[{ textAlign: "justify" }, styles.text]}>{user.about}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-            <TouchableOpacity onPress={onOpenEditProfile}>
-              <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
-            </TouchableOpacity>
-
-            <BlankSpacer height={8} />
-            <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
-            <BlankSpacer height={8} />
-            <View style={styles.socials}>
-              <View style={styles.socialMediaPlatform}>
-                <TelegramIcon style={styles.socialMediaIcon} />
-                <Text style={styles.text}>{user.contact_telegram}</Text>
-              </View>
-
-              <View style={styles.socialMediaPlatform}>
-                <FacebookMessengerIcon style={styles.socialMediaIcon} />
-                <Text style={styles.text}>{user.contact_telegram}</Text>
-              </View>
-            </View>
-
-            <View style={styles.divider} />
-
-            <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
-
-            <View style={styles.connections}>
-              <FlatList
-                style={styles.connectionsList}
-                horizontal={true}
-                data={connections}
-                renderItem={({ item }) => <ConnectionSimple data={item} />}
-              />
-              <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
-                <Text style={styles.moreConnections}>23 more</Text>
-                <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+              <TouchableOpacity onPress={onOpenEditProfile}>
+                <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
               </TouchableOpacity>
-            </View>
-            <View style={styles.divider} />
-          </View>
-        }
-        renderItem={({ item }) => <Post data={item} />}
-      />
 
+              <BlankSpacer height={8} />
+              <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
+              <BlankSpacer height={8} />
+              <View style={styles.socials}>
+                <View style={styles.socialMediaPlatform}>
+                  <TelegramIcon style={styles.socialMediaIcon} />
+                  <Text style={styles.text}>{user.contact_telegram}</Text>
+                </View>
+
+                <View style={styles.socialMediaPlatform}>
+                  <FacebookMessengerIcon style={styles.socialMediaIcon} />
+                  <Text style={styles.text}>{user.contact_telegram}</Text>
+                </View>
+              </View>
+
+              <View style={styles.divider} />
+
+              <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
+
+              <View style={styles.connections}>
+                <FlatList
+                  style={styles.connectionsList}
+                  horizontal={true}
+                  data={connections}
+                  renderItem={({ item }) => <ConnectionSimple data={item} />}
+                />
+                <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
+                  <Text style={styles.moreConnections}>23 more</Text>
+                  <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.divider} />
+            </View>
+          }
+          renderItem={({ item }) => <Post data={item} />}
+        />
+      </Screen>
       <BottomSheet
         bottomSheetRef={editProfileRef}
         modalHeight={hp("75%")}
@@ -160,7 +161,7 @@ const Profile = () => {
           </Animated.View>
         )}
       />
-    </Screen>
+    </>
   );
 };
 
