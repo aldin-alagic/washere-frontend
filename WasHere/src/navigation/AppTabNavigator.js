@@ -1,14 +1,14 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/Ionicons";
 
 import Map from "../screens/Map";
 import Feed from "../screens/Feed";
 import NewPost from "../screens/NewPost";
 import Search from "../screens/Search";
 import Profile from "../screens/Profile";
-import NewPostButton from "../screens/NewPostButton";
 
-import Icon from "react-native-vector-icons/Ionicons";
+import color from "../config/colors";
 
 const Tab = createBottomTabNavigator();
 
@@ -37,9 +37,7 @@ const AppTabNavigator = () => {
         name="Add"
         component={NewPost}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="add-circle" color={color} size={28} />
-          ),
+          tabBarIcon: () => <Icon name="add-circle" color={color.primary} size={35} />,
         }}
       />
       <Tab.Screen
