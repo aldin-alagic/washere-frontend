@@ -19,12 +19,12 @@ const Tab = createMaterialTopTabNavigator();
 const Tabs = () => {
   return (
     <Tab.Navigator
-      sceneContainerStyle={{ backgroundColor: colors.white }}
+      sceneContainerStyle={styles.sceneContainerStyle}
       initialRouteName="Recent"
       tabBarOptions={{
         activeTintColor: "#000",
-        labelStyle: { fontSize: 12, fontFamily: configStyles.text.fontFamily },
-        indicatorStyle: { backgroundColor: colors.primary },
+        labelStyle: styles.tabBarLabelStyle,
+        indicatorStyle: styles.tabBarIndicatorStyle,
       }}>
       <Tab.Screen name="Recent" component={Recent} options={{ tabBarLabel: "Recent" }} />
       <Tab.Screen name="Places" component={Places} options={{ tabBarLabel: "Places" }} />
@@ -41,7 +41,7 @@ const Search = () => {
     <Screen style={styles.container}>
       <View style={styles.searchSection}>
         <View style={styles.searchContainer}>
-          <Icon name="search-sharp" color={colors.dark} size={26} style={{ marginRight: 10 }} />
+          <Icon name="search-sharp" color={colors.dark} size={26} style={styles.searchIcon} />
           <TextInput style={[styles.text]} placeholder="Search" onChangeText={(text) => setText(text)} value={text} />
         </View>
         <TouchableOpacity style={styles.cancelButton}>
@@ -61,27 +61,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 14,
   },
-  userImage: {
-    borderRadius: 50,
-    height: 100,
-    width: 100,
-    marginRight: 10,
-  },
-  basicInformation: {
-    flexDirection: "row",
-  },
-  textInformation: {
-    flex: 2,
-    flexDirection: "column",
-  },
-
-  divider: {
-    borderBottomColor: "#D8D8D8",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
   searchSection: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  sceneContainerStyle: {
+    backgroundColor: colors.white,
+  },
+  tabBarLabelStyle: {
+    fontSize: 12,
+    fontFamily: configStyles.text.fontFamily,
+  },
+  tabBarIndicatorStyle: {
+    backgroundColor: colors.primary,
   },
   searchContainer: {
     flex: 4,
@@ -92,6 +84,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
+  },
+  searchIcon: {
+    marginRight: 10,
   },
   cancelButton: {
     flex: 1,
