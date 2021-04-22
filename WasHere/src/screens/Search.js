@@ -19,6 +19,7 @@ const Tab = createMaterialTopTabNavigator();
 const Tabs = () => {
   return (
     <Tab.Navigator
+      sceneContainerStyle={{ backgroundColor: colors.white }}
       initialRouteName="Recent"
       tabBarOptions={{
         activeTintColor: "#000",
@@ -31,19 +32,6 @@ const Tabs = () => {
       <Tab.Screen name="Tags" component={Tags} options={{ tabBarLabel: "Tags" }} />
     </Tab.Navigator>
   );
-};
-
-const user = {
-  fullname: "John Wick",
-  username: "carla.smith",
-  photoURL: "https://i.pravatar.cc/150?img=27",
-  contact_telegram: "+385 99 123 456",
-  contact_messenger: "+385 99 123 456",
-  about: "Lorem ipsum et in dolor es sit amet, consectetur adipiscing elit, sed do eiusmod consectetur lorem.",
-};
-
-const renderTabBarCustom = (props) => {
-  <TabBar {...props} indicatorStyle={{ backgroundColor: "white" }} style={{ backgroundColor: "#FFF" }} />;
 };
 
 const Search = () => {
@@ -60,7 +48,6 @@ const Search = () => {
           <Text>Cancel</Text>
         </TouchableOpacity>
       </View>
-
       <Tabs />
     </Screen>
   );
@@ -69,7 +56,6 @@ const Search = () => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 5,
-    flex: 1,
     backgroundColor: colors.white,
   },
   text: {
