@@ -9,7 +9,9 @@ import { API_ERROR_MESSAGE } from "../config/config.json";
 
 const slice = createSlice({
   name: "posts",
-  initialState: {},
+  initialState: {
+    feed: [],
+  },
   reducers: {
     requestStarted: (auth, action) => {
       auth.loading = true;
@@ -29,6 +31,11 @@ const slice = createSlice({
       }
     },
 
+    feedFetched: (posts, action) => {
+      const { data } = action.payload;
+      posts.feed = data;
+    },
+
     requestFailed: (auth, action) => {
       auth.loading = false;
       showMessage({
@@ -41,7 +48,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, postCreated, requestFailed } = slice.actions;
+export const { requestStarted, feedFetched, postCreated, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const createPost = (description, isPublic, latitude, longitude) =>
@@ -51,5 +58,15 @@ export const createPost = (description, isPublic, latitude, longitude) =>
     data: { description, is_public: isPublic, latitude, longitude },
     onStart: requestStarted.type,
     onSuccess: postCreated.type,
+    onError: requestFailed.type,
+  });
+
+export const getFeed = () =>
+  apiCallBegan({
+    url: "/user/68/feed",
+    method: "GET",
+    data: "",
+    onStart: requestStarted.type,
+    onSuccess: feedFetched.type,
     onError: requestFailed.type,
   });
