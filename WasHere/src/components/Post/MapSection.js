@@ -1,14 +1,14 @@
-import React, { useRef, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useRef, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
-const MapSection = ({ location }) => {
+const MapSection = ({ latitude, longitude }) => {
   const mapRef = useRef();
 
   useEffect(() => {
     mapRef.current.animateToRegion({
-      latitude: location.latitude,
-      longitude: location.longitude,
+      latitude: parseFloat(latitude),
+      longitude: parseFloat(longitude),
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     });
@@ -20,8 +20,8 @@ const MapSection = ({ location }) => {
         style={styles.map}
         ref={mapRef}
         initialRegion={{
-          latitude: location.latitude,
-          longitude: location.longitude,
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
           latitudeDelta: 0.03,
           longitudeDelta: 0.03,
         }}
@@ -31,8 +31,8 @@ const MapSection = ({ location }) => {
         scrollEnabled={false}>
         <Marker
           coordinate={{
-            latitude: location.latitude,
-            longitude: location.longitude,
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
           }}
         />
       </MapView>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   mapContainer: {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginTop: 13,
   },
   map: {
