@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     width: "100%",
     fontWeight: "100",
+    fontSize: 16,
     textAlignVertical: "top",
   },
 });
