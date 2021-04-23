@@ -12,7 +12,7 @@ const Comment = ({ data }) => {
     <View style={styles.container}>
       <Text style={styles.name}>{data.user.fullname}</Text>
       <Text style={styles.comment}>{data.text}</Text>
-      <Text style={styles.time}>{days(data.createdAt).fromNow()}</Text>
+      <Text style={styles.time}>{days(data.created_at).fromNow()}</Text>
     </View>
   );
 };
