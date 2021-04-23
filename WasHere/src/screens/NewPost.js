@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   imagesContainer: {
     flexDirection: "row",
     marginTop: 7,
-    marginBottom: 12,
+    marginBottom: 14,
   },
 });
 
