@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
-const MapSection = ({ latitude, longitude }) => {
+const MapSection = ({ latitude, longitude, onPress }) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const MapSection = ({ latitude, longitude }) => {
           latitudeDelta: 0.03,
           longitudeDelta: 0.03,
         }}
+        onPress={onPress}
         pitchEnabled={false}
         rotateEnabled={false}
         zoomEnabled={false}
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
   mapContainer: {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-    overflow: "hidden",
     marginTop: 13,
   },
   map: {
