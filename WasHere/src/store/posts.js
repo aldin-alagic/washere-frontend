@@ -45,6 +45,20 @@ const slice = createSlice({
       posts.loading = false;
     },
 
+    commentAdded: (posts, action) => {
+      const { success, message, data } = action.payload;
+
+      showMessage({
+        message: success ? "Success!" : "Error!",
+        description: message,
+        type: success ? "success" : "warning",
+        autoHide: true,
+      });
+
+      if (success) posts.post.comments = data.comments;
+      posts.loading = false;
+    },
+
     requestFailed: (auth, action) => {
       auth.loading = false;
       showMessage({
@@ -57,7 +71,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, feedFetched, postFetched, postCreated, requestFailed } = slice.actions;
+export const { requestStarted, feedFetched, postFetched, commentAdded, postCreated, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const createPost = (description, isPublic, latitude, longitude) =>
@@ -87,5 +101,15 @@ export const getPost = (id) =>
     data: "",
     onStart: requestStarted.type,
     onSuccess: postFetched.type,
+    onError: requestFailed.type,
+  });
+
+export const addComment = (postId, text) =>
+  apiCallBegan({
+    url: `/post/${postId}/comment`,
+    method: "POST",
+    data: { text },
+    onStart: requestStarted.type,
+    onSuccess: commentAdded.type,
     onError: requestFailed.type,
   });

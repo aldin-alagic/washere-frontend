@@ -1,18 +1,16 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import MapView from "react-native-maps";
-import Geolocation from "@react-native-community/geolocation";
 
-import PostMarker from "../components/PostMarker";
+import { FormField, Form } from "../components/form";
+import * as RootNavigation from "../navigation/RootNavigation";
 import BottomSheet from "../components/BottomSheet";
 import UserSection from "../components/Post/UserSection";
-import * as RootNavigation from "../navigation/RootNavigation";
-import { FormField, Form } from "../components/form";
-
+import PostMarker from "../components/PostMarker";
 import Likes from "../components/Post/Likes";
 import Comment from "../components/Post/Comment";
-import { useDispatch, useSelector } from "react-redux";
-import { getPost } from "../store/posts";
+import { addComment, getPost } from "../store/posts";
 
 const Post = ({ route }) => {
   const mapRef = useRef();
@@ -25,13 +23,9 @@ const Post = ({ route }) => {
   useEffect(() => dispatch(getPost(postId)), []);
 
   const handleAddComment = (values, form) => {
-    console.log(values);
+    dispatch(addComment(postId, values.text));
     form.resetForm();
   };
-
-  useEffect(() => {
-    console.log(post);
-  }, [post]);
 
   // useEffect(() => {
   //   // Navigate to the current location on map
@@ -68,13 +62,10 @@ const Post = ({ route }) => {
             <Likes count={22} />
           </View>
           {post.comments.map((comment) => (
-            <Comment
-              key={comment.id}
-              data={{ createdAt: new Date(), user: "Jane Doe", text: "hope you're having a great time there! :)" }}
-            />
+            <Comment key={comment.id} data={comment} />
           ))}
-          <Form initialValues={{ comment: "" }} onSubmit={handleAddComment}>
-            <FormField autoCapitalize="sentences" autoCorrect={false} name="comment" placeholder="Add comment" submitOnEnter />
+          <Form initialValues={{ text: "" }} onSubmit={handleAddComment}>
+            <FormField autoCapitalize="sentences" autoCorrect={false} name="text" placeholder="Add comment" submitOnEnter />
           </Form>
         </View>
       </BottomSheet>
