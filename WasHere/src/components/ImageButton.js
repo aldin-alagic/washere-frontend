@@ -56,8 +56,8 @@ const ImageButton = ({ onAddImage, backgroundColor = "light", color = "primary" 
 const styles = StyleSheet.create({
   icon: {},
   button: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     marginRight: 10,
     borderRadius: 15,
     borderRadius: 15,
