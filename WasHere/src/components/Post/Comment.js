@@ -10,7 +10,7 @@ days.extend(relativeTime);
 const Comment = ({ data }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{data.user}</Text>
+      <Text style={styles.name}>{data.user.fullname}</Text>
       <Text style={styles.comment}>{data.text}</Text>
       <Text style={styles.time}>{days(data.createdAt).fromNow()}</Text>
     </View>
