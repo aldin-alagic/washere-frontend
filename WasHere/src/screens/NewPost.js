@@ -144,8 +144,6 @@ const NewPost = () => {
                   imageIcon: publicIcon,
                 },
               ]}
-              testID="visibility-switch-selector"
-              accessibilityLabel="visibility-switch-selector"
             />
             <SubmitButton title="Post" loading={loading} />
           </Form>
@@ -166,10 +164,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     borderRadius: 15,
-    marginRight: 10,
+    marginRight: 16,
     backgroundColor: colors.primary,
   },
   images: {
@@ -177,12 +175,14 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
   },
   icon: {
-    margin: 10,
-    resizeMode: "contain",
+    marginRight: 10,
+    width: 20,
+    resizeMode: "center",
   },
   imagesContainer: {
     flexDirection: "row",
-    marginBottom: 10,
+    marginTop: 7,
+    marginBottom: 12,
   },
 });
 
