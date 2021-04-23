@@ -1,34 +1,23 @@
-import React, { useRef, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import { Modalize } from 'react-native-modalize';
+import React, { useEffect } from "react";
+import { StyleSheet } from "react-native";
+import { Modalize } from "react-native-modalize";
 
-const BottomSheet = ({ children, onClose }) => {
-  const modalizeRef = useRef(null);
-
+const BottomSheet = ({ bottomSheetRef, children, onClose, openOnLoad, ...props }) => {
   useEffect(() => {
-    modalizeRef.current.open();
-  }, [modalizeRef]);
+    if (openOnLoad) bottomSheetRef.current.open();
+  }, [bottomSheetRef]);
 
   return (
     <Modalize
+      {...props}
       withOverlay={false}
-      ref={modalizeRef}
+      ref={bottomSheetRef}
       handlePosition="inside"
-      adjustToContentHeight
-      childrenStyle={styles.content}
       keyboardAvoidingBehavior="padding"
-      onClose={onClose}>
+      onClosed={onClose}>
       {children}
     </Modalize>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    paddingHorizontal: 30,
-    paddingTop: 10,
-    paddingBottom: 25,
-  },
-});
 
 export default BottomSheet;

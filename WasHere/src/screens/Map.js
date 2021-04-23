@@ -8,7 +8,7 @@ import PostMarker from "../components/PostMarker";
 import Slider from "../components/Slider";
 import { API } from "../config/config.json";
 
-const Map = () => {
+const Map = ({ navigation }) => {
   const mapRef = useRef();
   const socket = useRef();
   const [posts, setPosts] = useState([]);
@@ -58,6 +58,10 @@ const Map = () => {
     setPostsQuery((old) => ({ ...old, time: { from, to } }));
   }, []);
 
+  const handleOpenPost = (post) => {
+    navigation.navigate("PostDetails", post);
+  };
+
   // Updates post query when map region is changed
   const handleRegionChange = ({ latitude, latitudeDelta, longitude, longitudeDelta }) => {
     const locationFrom = {
@@ -76,7 +80,7 @@ const Map = () => {
     <View style={styles.screen}>
       <MapView style={styles.map} ref={mapRef} onRegionChangeComplete={handleRegionChange}>
         {posts.map((post) => (
-          <PostMarker key={post.id} post={post} />
+          <PostMarker key={post.id} post={post} onPress={() => handleOpenPost(post)} />
         ))}
       </MapView>
       <View style={styles.sliderContainer}>

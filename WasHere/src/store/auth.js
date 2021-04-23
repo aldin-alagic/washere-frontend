@@ -45,6 +45,7 @@ const slice = createSlice({
       if (success) {
         auth.token = data.token;
         auth.user = {
+          id: token.id,
           email: token.email,
           username: token.username,
           fullname: token.fullname,
