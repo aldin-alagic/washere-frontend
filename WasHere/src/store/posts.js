@@ -11,6 +11,7 @@ const slice = createSlice({
   name: "posts",
   initialState: {
     loading: false,
+    post: {},
     feed: [],
   },
   reducers: {
@@ -38,6 +39,12 @@ const slice = createSlice({
       posts.loading = false;
     },
 
+    postFetched: (posts, action) => {
+      const { data } = action.payload;
+      posts.post = data;
+      posts.loading = false;
+    },
+
     requestFailed: (auth, action) => {
       auth.loading = false;
       showMessage({
@@ -50,7 +57,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, feedFetched, postCreated, requestFailed } = slice.actions;
+export const { requestStarted, feedFetched, postFetched, postCreated, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const createPost = (description, isPublic, latitude, longitude) =>
@@ -70,5 +77,15 @@ export const getFeed = () =>
     data: "",
     onStart: requestStarted.type,
     onSuccess: feedFetched.type,
+    onError: requestFailed.type,
+  });
+
+export const getPost = (id) =>
+  apiCallBegan({
+    url: `/post/${id}`,
+    method: "GET",
+    data: "",
+    onStart: requestStarted.type,
+    onSuccess: postFetched.type,
     onError: requestFailed.type,
   });

@@ -10,7 +10,7 @@ const Post = ({ data }) => {
   return (
     <View style={styles.container}>
       <UserSection user={data.user} createdAt={data.created_at} />
-      <TouchableOpacity onPress={() => navigate("PostDetails", data)}>
+      <TouchableOpacity onPress={() => navigate("PostDetails", { postId: data.id })}>
         <MapSection latitude={data.latitude} longitude={data.longitude} />
       </TouchableOpacity>
       <FooterSection likes={0} comments={0} />
