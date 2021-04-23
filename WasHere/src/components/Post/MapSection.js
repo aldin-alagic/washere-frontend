@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     marginTop: 13,
+    overflow: "hidden",
   },
   map: {
     height: 150,
