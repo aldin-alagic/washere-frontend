@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import FeedList from "../components/Feed/FeedList";
+import FeedList from "../components/FeedList";
 import Screen from "../components/Screen";
 import { getFeed } from "../store/posts";
 
 import colors from "../config/colors";
 
 const Feed = () => {
-  const posts = useSelector((state) => state.posts.feed);
+  const { feed, loading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(getFeed()), []);
 
   return (
     <Screen style={styles.container}>
-      <FeedList items={posts} />
+      <FeedList items={feed} onRefresh={() => dispatch(getFeed())} refreshing={loading} />
     </Screen>
   );
 };
