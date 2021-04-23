@@ -9,7 +9,14 @@ import { API_ERROR_MESSAGE } from "../config/config.json";
 
 const slice = createSlice({
   name: "posts",
-  initialState: {},
+  initialState: {
+    list: [],
+    loading: false,
+    apiResult: {
+      success: false,
+      message: "",
+    },
+  },
   reducers: {
     requestStarted: (auth, action) => {
       auth.loading = true;
