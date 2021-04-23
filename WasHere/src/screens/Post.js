@@ -1,13 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 import { FormField, Form } from "../components/form";
 import * as RootNavigation from "../navigation/RootNavigation";
 import BottomSheet from "../components/BottomSheet";
 import UserSection from "../components/Post/UserSection";
-import PostMarker from "../components/PostMarker";
 import Likes from "../components/Post/Likes";
 import Comment from "../components/Post/Comment";
 import { addComment, getPost } from "../store/posts";
@@ -27,33 +26,29 @@ const Post = ({ route }) => {
     form.resetForm();
   };
 
-  // useEffect(() => {
-  //   // Navigate to the current location on map
-  //   Geolocation.getCurrentPosition(
-  //     ({ coords }) => {
-  //       mapRef.current.animateToRegion({
-  //         latitude: coords.latitude,
-  //         longitude: coords.longitude,
-  //         latitudeDelta: 0.0922,
-  //         longitudeDelta: 0.0421,
-  //       });
-  //     },
-  //     (error) => console.log(error),
-  //   );
-  // }, []);
+  useEffect(() => {
+    if (mapRef.current)
+      mapRef.current.animateToRegion({
+        latitude: post.latitude,
+        longitude: post.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      });
+  }, [post]);
 
   if (!post.id) return null;
 
   return (
     <View style={styles.screen}>
-      <MapView style={styles.map} ref={mapRef}>
-        {/* <PostMarker key={post.id} post={post} /> */}
+      <MapView style={styles.map} ref={mapRef} mapPadding={{ bottom: 300 }}>
+        <Marker coordinate={{ latitude: parseFloat(post.latitude), longitude: parseFloat(post.longitude) }} />
       </MapView>
       <BottomSheet
+        snapPoint={400}
+        modalTopOffset={60}
         onClose={() => RootNavigation.goBack()}
         childrenStyle={styles.content}
         bottomSheetRef={bottomSheetRef}
-        adjustToContentHeight
         openOnLoad>
         <View style={styles.sheet}>
           <UserSection user={post.user} createdAt={post.created_at} />
