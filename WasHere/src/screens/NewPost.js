@@ -21,7 +21,7 @@ const NewPost = () => {
 
   const [visibility, setVisibility] = useState("visibility");
   const [images, setImages] = useState([{ button: true, uri: "default" }]);
-
+  const dispatch = useDispatch();
   const mapRef = useRef();
   const user = { name, photoURL: "https://i.pravatar.cc/150?img=52" };
 
@@ -62,7 +62,7 @@ const NewPost = () => {
     const latitude = 0;
     const photos = images.map((image) => image.base64);
 
-    useDispatch(createPost(description, isPublic, latitude, longitude, photos));
+    dispatch(createPost(description, isPublic, latitude, longitude, photos));
   };
 
   const renderImage = ({ item }) => {
@@ -75,20 +75,34 @@ const NewPost = () => {
     );
   };
 
+  useEffect(() => {
+    Geolocation.getCurrentPosition(({ coords }) => {
+      mapRef.current.animateToRegion({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        latitudeDelta: 0.0022,
+        longitudeDelta: 0.0022,
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
   return (
     <View style={styles.screen}>
-      <MapView style={styles.map} ref={mapRef} />
+      <MapView style={styles.map} ref={mapRef} showsUserLocation={true} mapPadding={{ bottom: 380 }} />
       <BottomSheet onClose={() => navigation.goBack()}>
         <View style={styles.sheet}>
           <UserSection user={user} />
           <Form initialValues={{ description: "" }} onSubmit={handleSubmit}>
             <FormField
+              height={80}
               autoCapitalize="sentences"
               multiline
               numberOfLines={3}
               autoCorrect={false}
               name="description"
-              placeholder="Description"
+              placeholder="What are you up to on this location?"
             />
             <FlatList style={styles.images} horizontal data={images} renderItem={renderImage} keyExtractor={(image) => image.uri} />
             <SwitchSelector
@@ -101,7 +115,7 @@ const NewPost = () => {
               borderRadius={15}
               borderWidth={0}
               valuePadding={5}
-              height={50}
+              height={45}
               hasPadding
               imageStyle={styles.icon}
               options={[
@@ -131,7 +145,7 @@ const styles = StyleSheet.create({
   screen: { flex: 1 },
   sheet: { paddingVertical: 10 },
   map: { flex: 1 },
-  image: { width: 100, height: 100, borderRadius: 15, marginRight: 10, backgroundColor: colors.primary },
+  image: { width: 80, height: 80, borderRadius: 15, marginRight: 10, backgroundColor: colors.primary },
   images: { marginBottom: 10 },
   icon: { margin: 10, resizeMode: "contain" },
 });
