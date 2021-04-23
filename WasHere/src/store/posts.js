@@ -18,13 +18,13 @@ const slice = createSlice({
     },
   },
   reducers: {
-    requestStarted: (auth, action) => {
-      auth.loading = true;
+    requestStarted: (posts, action) => {
+      posts.loading = true;
     },
 
-    postCreated: (auth, action) => {
+    postCreated: (posts, action) => {
       const { success, message } = action.payload;
-      auth.loading = false;
+      posts.loading = false;
       showMessage({
         message: success ? "Success!" : "Error!",
         description: message,
@@ -36,8 +36,8 @@ const slice = createSlice({
       }
     },
 
-    requestFailed: (auth, action) => {
-      auth.loading = false;
+    requestFailed: (posts, action) => {
+      posts.loading = false;
       showMessage({
         message: API_ERROR_MESSAGE,
         description: action.payload,
@@ -51,11 +51,11 @@ const slice = createSlice({
 export const { requestStarted, postCreated, requestFailed } = slice.actions;
 export default slice.reducer;
 
-export const createPost = (description, isPublic, latitude, longitude) =>
+export const createPost = (description, isPublic, latitude, longitude, photos) =>
   apiCallBegan({
     url: "/post",
     method: "POST",
-    data: { description, is_public: isPublic, latitude, longitude },
+    data: { description, is_public: isPublic, latitude, longitude, photos },
     onStart: requestStarted.type,
     onSuccess: postCreated.type,
     onError: requestFailed.type,
