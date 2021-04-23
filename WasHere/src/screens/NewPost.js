@@ -16,21 +16,27 @@ import publicIcon from "../assets/images/public.png";
 import friendsIcon from "../assets/images/friends.png";
 
 const NewPost = () => {
+  const [visibility, setVisibility] = useState("visibility");
   const { fullname: name } = useSelector((state) => state.auth.user);
   const { loading } = useSelector((state) => state.posts);
-
-  const [visibility, setVisibility] = useState("visibility");
-  const [images, setImages] = useState([{ button: true, uri: "default" }]);
-  const dispatch = useDispatch();
+  const [images, setImages] = useState([]);
+  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const mapRef = useRef();
+  const dispatch = useDispatch();
+
   const user = { name, photoURL: "https://i.pravatar.cc/150?img=52" };
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
       ({ coords }) => {
+        const latitude = coords.latitude;
+        const longitude = coords.longitude;
+
+        setLocation({ latitude, longitude });
+
         mapRef.current.animateToRegion({
-          latitude: coords.latitude,
-          longitude: coords.longitude,
+          latitude: latitude,
+          longitude: longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         });
@@ -40,6 +46,7 @@ const NewPost = () => {
   }, []);
 
   const handleAddImage = (image) => {
+    console.log(image);
     setImages([image, ...images]);
   };
 
@@ -58,17 +65,17 @@ const NewPost = () => {
 
   const handleSubmit = ({ description }) => {
     const isPublic = visibility === "public" ? true : false;
-    const longitude = 0;
-    const latitude = 0;
-    const photos = images.map((image) => image.base64);
+    const longitude = location.longitude;
+    const latitude = location.latitude;
+    const photos = images.map((image) => image.data);
+
+    console.log(description, isPublic, latitude, longitude, photos);
 
     dispatch(createPost(description, isPublic, latitude, longitude, photos));
   };
 
   const renderImage = ({ item }) => {
-    return item.button ? (
-      <ImageButton onAddImage={handleAddImage} />
-    ) : (
+    return (
       <TouchableOpacity onPress={() => handleDeleteImage(item.uri)}>
         <Image key={item.uri} style={styles.image} source={{ uri: item.uri }} />
       </TouchableOpacity>
@@ -104,7 +111,14 @@ const NewPost = () => {
               name="description"
               placeholder="What are you up to on this location?"
             />
-            <FlatList style={styles.images} horizontal data={images} renderItem={renderImage} keyExtractor={(image) => image.uri} />
+            <View style={styles.imagesContainer}>
+              {images.map((image) => (
+                <TouchableOpacity key={image.uri} onPress={() => handleDeleteImage(image.uri)}>
+                  <Image style={styles.image} source={{ uri: image.uri }} />
+                </TouchableOpacity>
+              ))}
+              <ImageButton onAddImage={handleAddImage} />
+            </View>
             <SwitchSelector
               initial={0}
               onPress={(value) => setVisibility(value)}
@@ -142,12 +156,34 @@ const NewPost = () => {
 };
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
-  sheet: { paddingVertical: 10 },
-  map: { flex: 1 },
-  image: { width: 80, height: 80, borderRadius: 15, marginRight: 10, backgroundColor: colors.primary },
-  images: { marginBottom: 10 },
-  icon: { margin: 10, resizeMode: "contain" },
+  screen: {
+    flex: 1,
+  },
+  sheet: {
+    paddingVertical: 10,
+  },
+  map: {
+    flex: 1,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 15,
+    marginRight: 10,
+    backgroundColor: colors.primary,
+  },
+  images: {
+    marginBottom: 10,
+    backgroundColor: "red",
+  },
+  icon: {
+    margin: 10,
+    resizeMode: "contain",
+  },
+  imagesContainer: {
+    flexDirection: "row",
+    marginBottom: 10,
+  },
 });
 
 export default NewPost;
