@@ -1,8 +1,11 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
+import { useIsFocused, useRoute } from "@react-navigation/native";
 
 import Person from "./Person";
 import colors from "../../config/colors";
+import { tabRouteChanged } from "../../store/search";
 
 const people = [
   {
@@ -31,11 +34,19 @@ const people = [
   },
 ];
 
-const People = () => (
-  <View style={styles.container}>
-    <FlatList data={people} renderItem={({ item }) => <Person data={item} />} />
-  </View>
-);
+const People = () => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+  const { name } = useRoute();
+  if (isFocused) {
+    dispatch({ type: tabRouteChanged.type, payload: { name } });
+  }
+  return (
+    <View style={styles.container}>
+      <FlatList data={people} renderItem={({ item }) => <Person data={item} />} />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
