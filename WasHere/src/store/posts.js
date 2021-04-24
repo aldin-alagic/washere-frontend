@@ -12,7 +12,10 @@ const slice = createSlice({
   initialState: {
     loading: false,
     post: {},
-    feed: [],
+    feed: {
+      posts: [],
+      lastPostId: null,
+    },
   },
   reducers: {
     requestStarted: (posts, action) => {
@@ -34,8 +37,14 @@ const slice = createSlice({
     },
 
     feedFetched: (posts, action) => {
-      const { data } = action.payload;
-      posts.feed = data;
+      const { data, isReload } = action.payload;
+
+      if (isReload) {
+        posts.feed.posts = data.posts;
+      } else {
+        posts.feed.posts = posts.feed.posts.concat(data.posts);
+      }
+      posts.feed.lastPostId = data.lastPostId;
       posts.loading = false;
     },
 
@@ -84,7 +93,7 @@ export const createPost = (description, isPublic, latitude, longitude, photos) =
     onError: requestFailed.type,
   });
 
-export const getFeed = () => (dispatch, getState) => {
+export const getFeed = (lastPostId) => (dispatch, getState) => {
   const userId = getState().auth.user.id;
 
   dispatch(
@@ -92,9 +101,11 @@ export const getFeed = () => (dispatch, getState) => {
       url: `/user/${userId}/feed`,
       method: "GET",
       data: "",
+      params: { number: 5, lastPostId },
       onStart: requestStarted.type,
       onSuccess: feedFetched.type,
       onError: requestFailed.type,
+      passData: { isReload: lastPostId ? false : true },
     }),
   );
 };

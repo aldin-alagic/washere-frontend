@@ -16,7 +16,7 @@ const Post = ({ data }) => {
         <UserSection user={data.user} createdAt={data.created_at} />
         <MapSection latitude={data.latitude} longitude={data.longitude} onPress={openPost} />
       </TouchableOpacity>
-      <FooterSection likes={0} comments={0} />
+      <FooterSection likes={data._count.likes} comments={data._count.comments} />
     </View>
   );
 };
