@@ -16,7 +16,12 @@ const Feed = () => {
 
   return (
     <Screen style={styles.container}>
-      <FeedList items={feed} onRefresh={() => dispatch(getFeed())} refreshing={loading} />
+      <FeedList
+        items={feed.posts}
+        onRefresh={() => dispatch(getFeed())}
+        refreshing={loading}
+        onEndReached={() => dispatch(getFeed(feed.lastPostId))}
+      />
     </Screen>
   );
 };
