@@ -84,15 +84,20 @@ export const createPost = (description, isPublic, latitude, longitude, photos) =
     onError: requestFailed.type,
   });
 
-export const getFeed = () =>
-  apiCallBegan({
-    url: "/user/68/feed",
-    method: "GET",
-    data: "",
-    onStart: requestStarted.type,
-    onSuccess: feedFetched.type,
-    onError: requestFailed.type,
-  });
+export const getFeed = () => (dispatch, getState) => {
+  const userId = getState().auth.user.id;
+
+  dispatch(
+    apiCallBegan({
+      url: `/user/${userId}/feed`,
+      method: "GET",
+      data: "",
+      onStart: requestStarted.type,
+      onSuccess: feedFetched.type,
+      onError: requestFailed.type,
+    }),
+  );
+};
 
 export const getPost = (id) =>
   apiCallBegan({
