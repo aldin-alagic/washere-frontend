@@ -21,6 +21,7 @@ const Feed = () => {
         onRefresh={() => dispatch(getFeed())}
         refreshing={loading}
         onEndReached={() => dispatch(getFeed(feed.lastPostId))}
+        onEndReachedThreshold={0.5}
       />
     </Screen>
   );
