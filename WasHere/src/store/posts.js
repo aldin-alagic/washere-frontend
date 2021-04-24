@@ -37,7 +37,6 @@ const slice = createSlice({
     },
 
     feedFetched: (posts, action) => {
-      console.log(action.payload);
       const { data, isReload } = action.payload;
 
       if (isReload) {
@@ -96,8 +95,6 @@ export const createPost = (description, isPublic, latitude, longitude, photos) =
 
 export const getFeed = (lastPostId) => (dispatch, getState) => {
   const userId = getState().auth.user.id;
-
-  console.log("lastPostID", lastPostId);
 
   dispatch(
     apiCallBegan({
