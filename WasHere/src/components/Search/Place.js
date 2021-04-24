@@ -3,7 +3,6 @@ import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 import colors from "../../config/colors";
 
 const Place = ({ data }) => {
-  console.log("DATA", data);
   return (
     <View>
       <TouchableOpacity
