@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
@@ -13,6 +14,7 @@ import Text from "../components/Text";
 import Screen from "../components/Screen";
 import configStyles from "../config/styles";
 import colors from "../config/colors";
+import { enterQuery } from "../store/search";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -36,13 +38,25 @@ const Tabs = () => {
 
 const Search = () => {
   const [text, setText] = useState("");
+  const dispatch = useDispatch();
+  const onSubmitEditing = ({ nativeEvent }) => {
+    console.log("NATIVE EVENT", nativeEvent);
+    dispatch(enterQuery(nativeEvent.text));
+  };
 
   return (
     <Screen style={styles.container}>
       <View style={styles.searchSection}>
         <View style={styles.searchContainer}>
           <Icon name="search-sharp" color={colors.dark} size={26} style={styles.searchIcon} />
-          <TextInput style={[styles.text]} placeholder="Search" onChangeText={(text) => setText(text)} value={text} />
+          <TextInput
+            style={[styles.text]}
+            placeholder="Search"
+            onChangeText={(text) => setText(text)}
+            value={text}
+            returnKeyType="search"
+            onSubmitEditing={onSubmitEditing}
+          />
         </View>
         <TouchableOpacity style={styles.cancelButton}>
           <Text>Cancel</Text>
