@@ -7,7 +7,7 @@ import { API } from "../../config/config.json";
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
 
-  const { url, method, data, onStart, onSuccess, onError } = action.payload;
+  const { url, method, data, params, onStart, onSuccess, onError } = action.payload;
 
   if (onStart) dispatch({ type: onStart });
 
@@ -19,6 +19,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
       url,
       method,
       data,
+      params,
     });
     // General
     dispatch(actions.apiCallSuccess(response.data));
