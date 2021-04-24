@@ -1,24 +1,25 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import * as Yup from 'yup';
+import React, { useEffect, useRef } from "react";
+import { StyleSheet, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
 
-import WelcomeScreenGreen from '../assets/images/welcome-green.svg';
-import BottomSheet from '../components/BottomSheet';
-import { Form, FormField, Heading, SubmitButton } from '../components/form';
-import Screen from '../components/Screen';
-import Text from '../components/Text';
-import colors from '../config/colors';
-import routes from '../navigation/routes';
-import { requestResetCode, cancelPasswordReset } from '../store/auth';
+import WelcomeScreenGreen from "../assets/images/welcome-green.svg";
+import BottomSheet from "../components/BottomSheet";
+import { Form, FormField, Heading, SubmitButton } from "../components/form";
+import Screen from "../components/Screen";
+import Text from "../components/Text";
+import colors from "../config/colors";
+import routes from "../navigation/routes";
+import { requestResetCode, cancelPasswordReset } from "../store/auth";
 
 const validationSchema = Yup.object({
-  email: Yup.string().email('You need to enter a valid email!').required('This field is required!'),
+  email: Yup.string().email("You need to enter a valid email!").required("This field is required!"),
 });
 
 const ResetForm = ({ navigation }) => {
   const dispatch = useDispatch();
   const { loading, resetCodeSent } = useSelector((state) => state.auth);
+  const bottomSheetRef = useRef(null);
 
   useEffect(() => {
     if (resetCodeSent) {
@@ -34,7 +35,12 @@ const ResetForm = ({ navigation }) => {
     <Screen style={styles.container}>
       <Text style={styles.title}>WasHere</Text>
       <WelcomeScreenGreen style={styles.image} />
-      <BottomSheet onClose={() => navigation.goBack()}>
+      <BottomSheet
+        onClose={() => navigation.goBack()}
+        bottomSheetRef={bottomSheetRef}
+        adjustToContentHeight
+        childrenStyle={styles.content}
+        openOnLoad={true}>
         <View style={styles.sheet}>
           <Heading
             title="Forgot password"
@@ -47,7 +53,7 @@ const ResetForm = ({ navigation }) => {
             Please provide your e-mail address to request a password reset code. You will receive your code to your e-mail address if it is
             valid.
           </Text>
-          <Form initialValues={{ email: '' }} onSubmit={handleSubmit} validationSchema={validationSchema}>
+          <Form initialValues={{ email: "" }} onSubmit={handleSubmit} validationSchema={validationSchema}>
             <FormField
               autoCapitalize="none"
               autoCorrect={false}
@@ -68,25 +74,30 @@ const ResetForm = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     paddingTop: 10,
   },
   sheet: {
     paddingVertical: 15,
   },
   helperText: {
-    textAlign: 'justify',
+    textAlign: "justify",
     marginBottom: 10,
   },
   title: {
-    fontFamily: 'BalooBhai2-Medium',
+    fontFamily: "BalooBhai2-Medium",
     fontSize: 42,
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.white,
   },
   image: {
     marginBottom: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
+  },
+  content: {
+    paddingHorizontal: 30,
+    paddingTop: 10,
+    paddingBottom: 25,
   },
 });
 

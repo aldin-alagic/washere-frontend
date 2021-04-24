@@ -44,12 +44,7 @@ const slice = createSlice({
       const token = jwt_decode(data.token);
       if (success) {
         auth.token = data.token;
-        auth.user = {
-          email: token.email,
-          username: token.username,
-          fullname: token.fullname,
-          premium: token.premium,
-        };
+        auth.user = token;
         auth.apiResult = {
           success,
           message,

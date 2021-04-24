@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { AnimatedBackgroundColorView } from "react-native-animated-background-color-view";
@@ -20,6 +20,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = ({ navigation }) => {
+  const bottomSheetRef = useRef(null);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
 
@@ -32,7 +33,12 @@ const Login = ({ navigation }) => {
       <Screen>
         <Text style={styles.title}>WasHere</Text>
         <WelcomeScreenGreen style={styles.image} />
-        <BottomSheet onClose={() => navigation.goBack()}>
+        <BottomSheet
+          onClose={() => navigation.goBack()}
+          bottomSheetRef={bottomSheetRef}
+          openOnLoad={true}
+          childrenStyle={styles.content}
+          adjustToContentHeight>
           <View style={styles.sheet}>
             <Heading title="Sign in" onClose={() => navigation.navigate(routes.WELCOME)} />
             <Form initialValues={{ email: "", password: "" }} onSubmit={handleSubmit} validationSchema={validationSchema}>
@@ -90,6 +96,11 @@ const styles = StyleSheet.create({
   image: {
     flexShrink: 1,
     alignSelf: "center",
+  },
+  content: {
+    paddingHorizontal: 30,
+    paddingTop: 10,
+    paddingBottom: 25,
   },
 });
 
