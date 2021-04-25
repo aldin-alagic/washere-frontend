@@ -11,22 +11,28 @@ const slice = createSlice({
   name: "search",
   initialState: {
     loading: false,
-    query: "",
+    searchQuery: "",
     activeTabRoute: "",
+    places: [],
   },
   reducers: {
     requestStarted: (search, action) => {
-      posts.loading = true;
+      search.loading = true;
     },
 
     queryEntered: (search, action) => {
-      // const { success, message } = action.payload;
-      console.log("PAYLOAD", action.payload);
+      const { query } = action.payload;
+      search.query = query;
     },
 
     tabRouteChanged: (search, action) => {
       const { name } = action.payload;
       search.activeTabRoute = name;
+    },
+
+    placesSearched: (search, action) => {
+      const { results } = action.payload;
+      search.places = results;
     },
 
     requestFailed: (search, action) => {
@@ -41,10 +47,10 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, queryEntered, tabRouteChanged, requestFailed } = slice.actions;
+export const { requestStarted, queryEntered, tabRouteChanged, requestFailed, placesSearched } = slice.actions;
 export default slice.reducer;
 
-export const enterQuery = (input) => (dispatch) => {
+export const searchPlaces = (input) => (dispatch) => {
   dispatch(
     apiCallBegan({
       url: "https://maps.googleapis.com/maps/api/place/textsearch/json",
@@ -52,7 +58,7 @@ export const enterQuery = (input) => (dispatch) => {
       data: "",
       params: { inputtype: "textquery", fields: "formatted_address,name", input, key: GOOGLE_API_KEY },
       onStart: requestStarted.type,
-      onSuccess: queryEntered.type,
+      onSuccess: placesSearched.type,
       onError: requestFailed.type,
     }),
   );
