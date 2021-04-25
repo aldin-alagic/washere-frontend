@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 import colors from "../../config/colors";
 import { profilePhoto } from "../../utils/getPhotoURI";
@@ -16,7 +16,7 @@ const Person = ({ data }) => {
         {data.profile_photo != null ? (
           <Image style={styles.image} source={{ uri: profilePhoto(data.profile_photo) }} />
         ) : (
-          <Icon name="person-circle-outline" size={50} style={styles.icon} />
+          <Icon name="user-circle" solid size={60} style={styles.icon} />
         )}
 
         <View style={styles.personInfo}>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: 10,
     paddingHorizontal: 10,
   },
   personInfo: {
