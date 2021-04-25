@@ -1,6 +1,9 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+
 import colors from "../../config/colors";
+import { profilePhoto } from "../../utils/getPhotoURI";
 
 const Person = ({ data }) => {
   return (
@@ -10,10 +13,15 @@ const Person = ({ data }) => {
         onPress={() => {
           console.log("PRESSED PERSON");
         }}>
-        <Image style={styles.image} source={{ uri: data.image }} />
+        {data.profile_photo != null ? (
+          <Image style={styles.image} source={{ uri: profilePhoto(data.profile_photo) }} />
+        ) : (
+          <Icon name="person-circle-outline" size={50} style={styles.icon} />
+        )}
+
         <View style={styles.personInfo}>
-          <Text style={styles.personName}>{data.name}</Text>
-          <Text style={styles.personPlace}>{data.place}</Text>
+          <Text style={styles.personName}>{data.fullname}</Text>
+          <Text style={styles.personPlace}>@{data.username}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -42,6 +50,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 60,
     width: 60,
+    marginRight: 10,
+  },
+  icon: {
     marginRight: 10,
   },
 });
