@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import colors from "../../config/colors";
 
 const Place = ({ data }) => {
@@ -10,10 +11,10 @@ const Place = ({ data }) => {
         onPress={() => {
           console.log("PRESSED PLACE");
         }}>
-        <Image style={styles.image} source={{ uri: data.image }} />
+        <Icon name="location-outline" size={44} styles={styles.icon} />
         <View style={styles.placeInfo}>
           <Text style={styles.placeName}>{data.name}</Text>
-          <Text style={styles.placeAddress}>{data.address}</Text>
+          <Text style={styles.placeAddress}>{data.formatted_address}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   placeAddress: {
     color: colors.mediumlight,
   },
-  image: {
+  icon: {
     borderRadius: 50,
     height: 60,
     width: 60,
