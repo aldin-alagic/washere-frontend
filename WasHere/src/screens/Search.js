@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
 
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
@@ -11,7 +10,6 @@ import Tags from "../components/Search/Tags";
 import Screen from "../components/Screen";
 import configStyles from "../config/styles";
 import colors from "../config/colors";
-import { enterQuery } from "../store/search";
 import SearchBox from "../components/Search/SearchBox";
 
 const Tab = createMaterialTopTabNavigator();

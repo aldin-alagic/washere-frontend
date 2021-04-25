@@ -2,14 +2,26 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
+import { queryEntered, searchPlaces } from "../../store/search";
+import colors from "../../config/colors";
 
 const SearchBox = () => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const { activeTabRoute } = useSelector((state) => state.search);
-  const onSubmitEditing = ({ nativeEvent }) => {
-    dispatch(enterQuery(nativeEvent.text));
+  const onSubmitEditing = () => {
+    console.log("ACTIVE TAB ROUTE", activeTabRoute);
+    switch (activeTabRoute) {
+      case "Places":
+        dispatch(searchPlaces(text));
+        break;
+      case "People":
+        handlePeopleSearch(text);
+        break;
+    }
   };
+  const handlePeopleSearch = () => {};
+
   return (
     <View style={styles.searchSection}>
       <View style={styles.searchContainer}>
