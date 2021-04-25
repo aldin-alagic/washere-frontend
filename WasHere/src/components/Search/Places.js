@@ -18,7 +18,9 @@ const Places = () => {
   }
   return (
     <View style={styles.container}>
-      {places.length !== 0 && <FlatList data={places} renderItem={({ item }) => <Place data={item} />} />}
+      {places.length !== 0 && (
+        <FlatList data={places} keyExtractor={(item) => item.reference} renderItem={({ item }) => <Place data={item} />} />
+      )}
     </View>
   );
 };
