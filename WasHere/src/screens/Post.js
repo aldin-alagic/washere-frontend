@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 
@@ -10,6 +10,9 @@ import UserSection from "../components/Post/UserSection";
 import Likes from "../components/Post/Likes";
 import Comment from "../components/Post/Comment";
 import { addComment, getPost } from "../store/posts";
+
+import color from "../config/colors";
+import { postPhoto } from "../utils/getPhotoURI";
 
 const Post = ({ route }) => {
   const mapRef = useRef();
@@ -54,6 +57,13 @@ const Post = ({ route }) => {
           <UserSection user={post.user} createdAt={post.created_at} />
           <View style={styles.postContent}>
             <Text style={styles.description}>{post.description}</Text>
+            <View style={styles.imagesContainer}>
+              {post.photos.map((photo) => (
+                <TouchableOpacity key={photo.photo_key} onPress={() => console.log("VIEW PHOTO")}>
+                  <Image style={styles.image} source={{ uri: postPhoto(photo.photo_key) }} />
+                </TouchableOpacity>
+              ))}
+            </View>
             <Likes count={22} />
           </View>
           {post.comments.map((comment) => (
@@ -98,6 +108,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     paddingTop: 10,
     paddingBottom: 25,
+  },
+  imagesContainer: {
+    flexDirection: "row",
+    marginBottom: 17,
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 15,
+    marginRight: 14,
+    backgroundColor: color.primary,
   },
 });
 
