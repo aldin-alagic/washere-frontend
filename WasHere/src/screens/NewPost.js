@@ -134,7 +134,7 @@ const NewPost = () => {
                 },
               ]}
             />
-            <SubmitButton title="Post" loading={loading} />
+            <SubmitButton title="Post" loading={loading} customStyle={{ padding: 9 }} />
           </Form>
         </View>
       </BottomSheet>
