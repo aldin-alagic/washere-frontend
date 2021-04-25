@@ -11,18 +11,13 @@ const slice = createSlice({
   name: "search",
   initialState: {
     loading: false,
-    searchQuery: "",
     activeTabRoute: "",
     places: [],
+    people: [],
   },
   reducers: {
     requestStarted: (search, action) => {
       search.loading = true;
-    },
-
-    queryEntered: (search, action) => {
-      const { query } = action.payload;
-      search.query = query;
     },
 
     tabRouteChanged: (search, action) => {
@@ -33,6 +28,11 @@ const slice = createSlice({
     placesSearched: (search, action) => {
       const { results } = action.payload;
       search.places = results;
+    },
+
+    peopleSearched: (search, action) => {
+      const { data } = action.payload;
+      search.people = data;
     },
 
     requestFailed: (search, action) => {
@@ -47,7 +47,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, queryEntered, tabRouteChanged, requestFailed, placesSearched } = slice.actions;
+export const { requestStarted, tabRouteChanged, requestFailed, placesSearched, peopleSearched } = slice.actions;
 export default slice.reducer;
 
 export const searchPlaces = (input) => (dispatch) => {
@@ -63,3 +63,13 @@ export const searchPlaces = (input) => (dispatch) => {
     }),
   );
 };
+
+export const searchPeople = (query) =>
+  apiCallBegan({
+    url: `/search/people`,
+    method: "POST",
+    data: { query },
+    onStart: requestStarted.type,
+    onSuccess: peopleSearched.type,
+    onError: requestFailed.type,
+  });
