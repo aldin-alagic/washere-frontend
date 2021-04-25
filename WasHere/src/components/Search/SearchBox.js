@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
-import { queryEntered, searchPlaces } from "../../store/search";
+import { searchPlaces, searchPeople } from "../../store/search";
 import colors from "../../config/colors";
 
 const SearchBox = () => {
@@ -16,12 +16,11 @@ const SearchBox = () => {
         dispatch(searchPlaces(text));
         break;
       case "People":
-        handlePeopleSearch(text);
+        dispatch(searchPeople(text));
         break;
     }
+    setText("");
   };
-  const handlePeopleSearch = () => {};
-
   return (
     <View style={styles.searchSection}>
       <View style={styles.searchContainer}>
