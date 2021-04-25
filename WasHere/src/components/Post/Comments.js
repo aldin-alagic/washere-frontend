@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 const Likes = ({ count }) => {
   return (
     <View style={styles.container}>
-      <Icon name="chatbubble" style={styles.icon} />
+      <Icon name={count ? "chatbubble" : "chatbubble-outline"} style={styles.icon} />
       <Text>{count} comments</Text>
     </View>
   );
