@@ -15,7 +15,7 @@ const MapSection = ({ latitude, longitude, onPress }) => {
   }, []);
 
   return (
-    <View style={styles.mapContainer}>
+    <View>
       <MapView
         style={styles.map}
         ref={mapRef}
@@ -42,12 +42,6 @@ const MapSection = ({ latitude, longitude, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  mapContainer: {
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    marginTop: 13,
-    overflow: "hidden",
-  },
   map: {
     height: 150,
   },

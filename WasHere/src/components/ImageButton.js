@@ -8,8 +8,6 @@ import colors from "../config/colors";
 const options = {
   mediaType: "photo",
   includeBase64: true,
-  maxHeight: 200,
-  maxWidth: 200,
 };
 
 const ImageButton = ({ onAddImage, backgroundColor = "light", color = "primary" }) => {
