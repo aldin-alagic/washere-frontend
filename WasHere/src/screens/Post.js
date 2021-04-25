@@ -64,7 +64,7 @@ const Post = ({ route }) => {
                 </TouchableOpacity>
               ))}
             </View>
-            <Likes count={22} />
+            <Likes count={post._count.likes} />
           </View>
           {post.comments.map((comment) => (
             <Comment key={comment.id} data={comment} />
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 15,
     marginRight: 14,
-    backgroundColor: color.primary,
+    backgroundColor: color.light,
   },
 });
 
