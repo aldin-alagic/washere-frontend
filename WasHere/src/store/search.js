@@ -66,7 +66,7 @@ const slice = createSlice({
     },
 
     requestFailed: (search, action) => {
-      auth.loading = false;
+      search.loading = false;
       showMessage({
         message: API_ERROR_MESSAGE,
         description: action.payload,
@@ -129,7 +129,7 @@ export const getFeedByTag = (query, lastPostId) => (dispatch) => {
       url: `/post/by-tag`,
       method: "GET",
       data: "",
-      params: { number: 5, lastPostId },
+      params: { number: 5, query, lastPostId },
       onStart: requestStarted.type,
       onSuccess: feedFetched.type,
       onError: requestFailed.type,

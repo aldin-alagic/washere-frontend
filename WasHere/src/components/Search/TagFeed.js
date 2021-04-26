@@ -7,18 +7,18 @@ import Screen from "../Screen";
 import { getFeedByTag } from "../../store/search";
 import colors from "../../config/colors";
 
-const TagFeed = () => {
+const TagFeed = ({ route }) => {
   const { feed, loading } = useSelector((state) => state.search);
+  const tag = route.params.tag;
   const dispatch = useDispatch();
-  console.log("FEED", feed);
-  useEffect(() => dispatch(getFeed(//TODO TU STAVI TAG PO KOJEM SE SERARCHA//)), []);
+  useEffect(() => dispatch(getFeedByTag(tag)), []);
   return (
     <Screen style={styles.container}>
       <FeedList
         items={feed.posts}
-        onRefresh={() => dispatch(getFeedByTag())}
+        onRefresh={() => dispatch(getFeedByTag(tag))}
         refreshing={loading}
-        onEndReached={() => dispatch(getFeedByTag(feed.lastPostId))}
+        onEndReached={() => dispatch(getFeedByTag(tag, feed.lastPostId))}
         onEndReachedThreshold={0.8}
       />
     </Screen>
