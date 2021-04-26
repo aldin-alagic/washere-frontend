@@ -6,4 +6,5 @@ export default Object.freeze({
   RESET_CODE_FORM: "CodeForm",
   RESET_CHANGE_PASSWORD_FORM: "ResetChangePasswordForm",
   MAP: "Map",
+  TAG_FEED: "TagFeed",
 });
