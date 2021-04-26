@@ -9,8 +9,8 @@ const SearchBox = () => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const { activeTabRoute } = useSelector((state) => state.search);
-  const onSubmitEditing = () => {
-    console.log("ACTIVE TAB ROUTE", activeTabRoute);
+  const handleTextChange = (text) => {
+    setText(text);
     switch (activeTabRoute) {
       case "Places":
         dispatch(searchPlaces(text));
@@ -19,20 +19,12 @@ const SearchBox = () => {
         dispatch(searchPeople(text));
         break;
     }
-    setText("");
   };
   return (
     <View style={styles.searchSection}>
       <View style={styles.searchContainer}>
         <Icon name="search-sharp" color={colors.dark} size={26} style={styles.searchIcon} />
-        <TextInput
-          style={[styles.text]}
-          placeholder="Search"
-          onChangeText={(text) => setText(text)}
-          value={text}
-          returnKeyType="search"
-          onSubmitEditing={onSubmitEditing}
-        />
+        <TextInput style={[styles.text]} placeholder="Search" onChangeText={handleTextChange} value={text} />
       </View>
       <TouchableOpacity style={styles.cancelButton}>
         <Text>Cancel</Text>
