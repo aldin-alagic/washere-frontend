@@ -1,11 +1,10 @@
 import React from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import colors from "../../config/colors";
 import Hash from "../../assets/images/hash.svg";
 import routes from "../../navigation/routes";
 
 const Tag = ({ data, navigation }) => {
-  console.log("DATA", data);
   return (
     <View>
       <TouchableOpacity

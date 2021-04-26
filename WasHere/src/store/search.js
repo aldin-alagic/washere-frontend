@@ -16,6 +16,7 @@ const slice = createSlice({
     people: [],
     posts: [],
     tags: [],
+    recentPostsQuery: "",
     feed: {
       posts: [],
       lastPostId: null,
@@ -41,21 +42,18 @@ const slice = createSlice({
       search.people = data;
     },
 
-    tagQueryChanged: (search, action) => {
-      const { query } = action.payload;
-      console.log("QUERY", query);
-      search.tag.name = query;
-    },
-
     tagsSearched: (search, action) => {
-      console.log("PAYLOAD", action.payload);
       const { data } = action.payload;
       search.tags = data.tags;
     },
 
+    recentQueryChanged: (search, action) => {
+      const { query } = action.payload;
+      search.recentPostsQuery = query;
+    },
+
     feedFetched: (search, action) => {
       const { data, isReload } = action.payload;
-      console.log("DATA IN REDUCER", data);
       if (isReload) {
         search.feed.posts = data.posts;
       } else {
@@ -83,9 +81,9 @@ export const {
   requestFailed,
   placesSearched,
   peopleSearched,
-  tagQueryChanged,
   tagsSearched,
   feedFetched,
+  recentQueryChanged,
 } = slice.actions;
 export default slice.reducer;
 
