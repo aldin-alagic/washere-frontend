@@ -14,6 +14,12 @@ const slice = createSlice({
     activeTabRoute: "",
     places: [],
     people: [],
+    posts: [],
+    tags: [],
+    feed: {
+      posts: [],
+      lastPostId: null,
+    },
   },
   reducers: {
     requestStarted: (search, action) => {
@@ -35,6 +41,30 @@ const slice = createSlice({
       search.people = data;
     },
 
+    tagQueryChanged: (search, action) => {
+      const { query } = action.payload;
+      console.log("QUERY", query);
+      search.tag.name = query;
+    },
+
+    tagsSearched: (search, action) => {
+      console.log("PAYLOAD", action.payload);
+      const { data } = action.payload;
+      search.tags = data.tags;
+    },
+
+    feedFetched: (search, action) => {
+      const { data, isReload } = action.payload;
+      console.log("DATA IN REDUCER", data);
+      if (isReload) {
+        search.feed.posts = data.posts;
+      } else {
+        search.feed.posts = search.feed.posts.concat(data.posts);
+      }
+      search.feed.lastPostId = data.lastPostId;
+      search.loading = false;
+    },
+
     requestFailed: (search, action) => {
       auth.loading = false;
       showMessage({
@@ -47,7 +77,16 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, tabRouteChanged, requestFailed, placesSearched, peopleSearched } = slice.actions;
+export const {
+  requestStarted,
+  tabRouteChanged,
+  requestFailed,
+  placesSearched,
+  peopleSearched,
+  tagQueryChanged,
+  tagsSearched,
+  feedFetched,
+} = slice.actions;
 export default slice.reducer;
 
 export const searchPlaces = (input) => (dispatch) => {
@@ -73,3 +112,28 @@ export const searchPeople = (query) =>
     onSuccess: peopleSearched.type,
     onError: requestFailed.type,
   });
+
+export const searchTags = (query) =>
+  apiCallBegan({
+    url: `/search/tags`,
+    method: "POST",
+    data: { query },
+    onStart: requestStarted.type,
+    onSuccess: tagsSearched.type,
+    onError: requestFailed.type,
+  });
+
+export const getFeedByTag = (query, lastPostId) => (dispatch) => {
+  dispatch(
+    apiCallBegan({
+      url: `/post/by-tag`,
+      method: "GET",
+      data: "",
+      params: { number: 5, lastPostId },
+      onStart: requestStarted.type,
+      onSuccess: feedFetched.type,
+      onError: requestFailed.type,
+      passData: { isReload: lastPostId ? false : true },
+    }),
+  );
+};

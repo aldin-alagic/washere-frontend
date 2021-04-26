@@ -1,33 +1,34 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { useIsFocused, useRoute } from "@react-navigation/native";
 
 import Tag from "./Tag";
 import colors from "../../config/colors";
+import { tabRouteChanged } from "../../store/search";
 
-const tags = [
-  {
-    id: "1",
-    value: "#gym",
-  },
-  {
-    id: "2",
-    value: "#food",
-  },
-  {
-    id: "3",
-    value: "#park",
-  },
-  {
-    id: "4",
-    value: "#casual",
-  },
-];
+const Tags = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+  const { name } = useRoute();
+  if (isFocused) {
+    dispatch({ type: tabRouteChanged.type, payload: { name } });
+  }
+  const tags = useSelector((state) => state.search.tags);
+  console.log("TAGS", tags);
 
-const Tags = () => (
-  <View style={styles.container}>
-    <FlatList data={tags} renderItem={({ item }) => <Tag data={item} />} />
-  </View>
-);
+  return (
+    <View style={styles.container}>
+      {tags.length != 0 ? (
+        <FlatList
+          data={tags}
+          keyExtractor={(item) => item.post_tags_id}
+          renderItem={({ item }) => <Tag data={item} navigation={navigation} />}
+        />
+      ) : null}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

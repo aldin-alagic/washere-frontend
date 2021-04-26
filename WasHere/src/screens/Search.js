@@ -11,6 +11,7 @@ import Screen from "../components/Screen";
 import configStyles from "../config/styles";
 import colors from "../config/colors";
 import SearchBox from "../components/Search/SearchBox";
+import SearchTags from "./SearchTags";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -27,7 +28,7 @@ const Tabs = () => {
       <Tab.Screen name="Recent" component={Recent} options={{ tabBarLabel: "Recent" }} />
       <Tab.Screen name="Places" component={Places} options={{ tabBarLabel: "Places" }} />
       <Tab.Screen name="People" component={People} options={{ tabBarLabel: "People" }} />
-      <Tab.Screen name="Tags" component={Tags} options={{ tabBarLabel: "Tags" }} />
+      <Tab.Screen name="Tags" component={SearchTags} options={{ tabBarLabel: "Tags" }} />
     </Tab.Navigator>
   );
 };

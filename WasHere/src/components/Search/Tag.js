@@ -2,8 +2,9 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 import colors from "../../config/colors";
 import Hash from "../../assets/images/hash.svg";
+import routes from "../../navigation/routes";
 
-const Place = ({ data }) => {
+const Tag = ({ data, navigation }) => {
   console.log("DATA", data);
   return (
     <View>
@@ -11,12 +12,13 @@ const Place = ({ data }) => {
         style={styles.container}
         onPress={() => {
           console.log("PRESSED TAG");
+          navigation.navigate(routes.TAG_FEED);
         }}>
         <View style={styles.hash}>
           <Hash style={styles.hashIcon} />
         </View>
 
-        <Text style={styles.tagValue}>{data.value}</Text>
+        <Text style={styles.name}>#{data.tag}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  tagValue: {
+  name: {
     fontWeight: "bold",
     color: colors.primary,
     marginBottom: 2,
@@ -60,4 +62,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Place;
+export default Tag;
