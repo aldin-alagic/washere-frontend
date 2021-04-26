@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import FeedList from "../FeedList";
@@ -9,9 +9,11 @@ import colors from "../../config/colors";
 
 const TagFeed = ({ route }) => {
   const { feed, loading } = useSelector((state) => state.search);
-  const tag = route.params.tag;
   const dispatch = useDispatch();
+  const tag = route.params.tag;
+
   useEffect(() => dispatch(getFeedByTag(tag)), []);
+
   return (
     <Screen style={styles.container}>
       <FeedList

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+
 import colors from "../../config/colors";
 import Hash from "../../assets/images/hash.svg";
 import routes from "../../navigation/routes";

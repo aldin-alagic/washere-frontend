@@ -11,13 +11,13 @@ const Recent = () => {
   const { feed, loading } = useSelector((state) => state.posts);
   const { recentPostsQuery } = useSelector((state) => state.search);
   const dispatch = useDispatch();
-
   const isFocused = useIsFocused();
   const { name } = useRoute();
+
   if (isFocused) {
     dispatch({ type: tabRouteChanged.type, payload: { name } });
   }
-  console.log("recentPostsQuery", recentPostsQuery);
+
   useEffect(() => dispatch(getFeed()), []);
 
   return (

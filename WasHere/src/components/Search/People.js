@@ -12,9 +12,11 @@ const People = () => {
   const people = useSelector((state) => state.search.people);
   const isFocused = useIsFocused();
   const { name } = useRoute();
+
   if (isFocused) {
     dispatch({ type: tabRouteChanged.type, payload: { name } });
   }
+
   return (
     <View style={styles.container}>
       {people.length !== 0 && <FlatList data={people} keyExtractor={(item) => item.id} renderItem={({ item }) => <Person data={item} />} />}

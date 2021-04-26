@@ -12,10 +12,11 @@ const Places = () => {
   const places = useSelector((state) => state.search.places);
   const isFocused = useIsFocused();
   const { name } = useRoute();
-  console.log("ROUTE NAME", name);
+
   if (isFocused) {
     dispatch({ type: tabRouteChanged.type, payload: { name } });
   }
+
   return (
     <View style={styles.container}>
       {places.length !== 0 && (

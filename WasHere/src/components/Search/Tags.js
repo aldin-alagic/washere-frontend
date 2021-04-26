@@ -11,11 +11,12 @@ const Tags = ({ navigation }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const { name } = useRoute();
+
   if (isFocused) {
     dispatch({ type: tabRouteChanged.type, payload: { name } });
   }
+
   const tags = useSelector((state) => state.search.tags);
-  console.log("TAGS", tags);
 
   return (
     <View style={styles.container}>
