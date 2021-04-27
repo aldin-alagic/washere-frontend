@@ -28,7 +28,6 @@ const slice = createSlice({
     },
 
     tabRouteChanged: (search, action) => {
-      console.log("TAB ROUTE CHANGED", action);
       const { query } = action.payload;
       search.activeTabRoute = query;
     },
@@ -48,11 +47,6 @@ const slice = createSlice({
       search.tags = data.tags;
     },
 
-    recentQueryChanged: (search, action) => {
-      const { query } = action.payload;
-      search.recentPostsQuery = query;
-    },
-
     feedFetched: (search, action) => {
       const { data, isReload } = action.payload;
       if (isReload) {
@@ -62,6 +56,11 @@ const slice = createSlice({
       }
       search.feed.lastPostId = data.lastPostId;
       search.loading = false;
+    },
+
+    recentQueryChanged: (search, action) => {
+      const { query } = action.payload;
+      search.recentPostsQuery = query;
     },
 
     requestFailed: (search, action) => {
@@ -137,12 +136,43 @@ export const getFeedByTag = (query, lastPostId) => (dispatch) => {
   );
 };
 
+export const getFeed = (lastPostId) => (dispatch, getState) => {
+  const userId = getState().auth.user.id;
+
+  dispatch(
+    apiCallBegan({
+      url: `/user/${userId}/feed`,
+      method: "GET",
+      data: "",
+      params: { number: 5, lastPostId },
+      onStart: requestStarted.type,
+      onSuccess: feedFetched.type,
+      onError: requestFailed.type,
+      passData: { isReload: lastPostId ? false : true },
+    }),
+  );
+};
+
+export const getRecentFeed = (filter, lastPostId) => (dispatch, getState) => {
+  const userId = getState().auth.user.id;
+
+  dispatch(
+    apiCallBegan({
+      url: `/user/${userId}/feed/filtered`,
+      method: "GET",
+      data: "",
+      params: { number: 5, lastPostId, filter },
+      onStart: requestStarted.type,
+      onSuccess: feedFetched.type,
+      onError: requestFailed.type,
+    }),
+  );
+};
+
 export const changeRecentQuery = (query) => (dispatch) => {
-  console.log("CHANIGNG RECENT QUERY");
   dispatch({ type: recentQueryChanged.type, payload: { query } });
 };
 
 export const changeTabRoute = (query) => (dispatch) => {
-  console.log("CHANIGNG TAB ROUTE");
   dispatch({ type: tabRouteChanged.type, payload: { query } });
 };

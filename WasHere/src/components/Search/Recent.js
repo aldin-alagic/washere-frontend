@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import FeedList from "../Feed/FeedList";
-import { getFeed } from "../../store/posts";
-import { changeTabRoute } from "../../store/search";
+
+import { changeTabRoute, getRecentFeed } from "../../store/search";
 
 const Recent = () => {
-  const { feed, loading } = useSelector((state) => state.posts);
-  const { recentPostsQuery } = useSelector((state) => state.search);
+  const { feed, loading, recentPostsQuery } = useSelector((state) => state.search);
+
   const dispatch = useDispatch();
 
   const { name } = useRoute();
@@ -18,23 +18,14 @@ const Recent = () => {
     dispatch(changeTabRoute(name));
   });
 
-  useEffect(() => dispatch(getFeed()), []);
-
   return (
     <View style={styles.container}>
       <FeedList
-        items={
-          recentPostsQuery != ""
-            ? feed.posts.filter(
-                (post) =>
-                  post.user.fullname.toLowerCase().includes(recentPostsQuery.toLowerCase()) ||
-                  post.description.toLowerCase().includes(recentPostsQuery.toLowerCase()),
-              )
-            : feed.posts
-        }
-        onRefresh={() => dispatch(getFeed())}
+        items={feed.posts}
+        keyExtractor={(item) => item.id}
+        onRefresh={() => dispatch(getRecentFeed(recentPostsQuery))}
         refreshing={loading}
-        onEndReached={() => dispatch(getFeed(feed.lastPostId))}
+        onEndReached={() => dispatch(getRecentFeed(recentPostsQuery, feed.lastPostId))}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
       />
