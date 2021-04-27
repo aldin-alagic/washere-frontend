@@ -95,6 +95,10 @@ export const createPost = (description, isPublic, latitude, longitude, photos) =
 
 export const getFeed = (lastPostId) => (dispatch, getState) => {
   const userId = getState().auth.user.id;
+  const loading = getState().posts.loading;
+
+  // Do not fetch new posts if we are already fetching them
+  if (loading) return;
 
   dispatch(
     apiCallBegan({
