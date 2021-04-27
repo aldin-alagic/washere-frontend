@@ -11,7 +11,7 @@ const Tag = ({ data, navigation }) => {
       <TouchableOpacity
         style={styles.container}
         onPress={() => {
-          navigation.navigate(routes.TAG_FEED, { tag: data.tag });
+          navigation.navigate(routes.TAG_FEED, { tag: data.tag, navigation: navigation });
         }}>
         <View style={styles.hash}>
           <Hash style={styles.hashIcon} />

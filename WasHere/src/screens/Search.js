@@ -6,12 +6,11 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import Recent from "../components/Search/Recent";
 import Places from "../components/Search/Places";
 import People from "../components/Search/People";
-import Tags from "../components/Search/Tags";
 import Screen from "../components/Screen";
 import configStyles from "../config/styles";
 import colors from "../config/colors";
 import SearchBox from "../components/Search/SearchBox";
-import SearchTags from "./SearchTags";
+import SearchTags from "../components/Search/SearchTags";
 
 const Tab = createMaterialTopTabNavigator();
 
