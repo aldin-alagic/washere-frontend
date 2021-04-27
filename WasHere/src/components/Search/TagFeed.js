@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Icon from "react-native-vector-icons/Ionicons";
 
 import FeedList from "../FeedList";
 import Screen from "../Screen";
@@ -17,15 +16,6 @@ const TagFeed = ({ route }) => {
 
   return (
     <Screen style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}>
-        <View style={styles.backButton}>
-          <Icon name="chevron-back-outline" size={42} style={styles.icon} />
-          <Text style={styles.backButtonText}>Back</Text>
-        </View>
-      </TouchableOpacity>
       <FeedList
         items={feed.posts}
         onRefresh={() => dispatch(getFeedByTag(tag))}

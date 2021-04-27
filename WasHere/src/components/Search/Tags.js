@@ -1,20 +1,20 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useIsFocused, useRoute } from "@react-navigation/native";
+import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import Tag from "./Tag";
 import colors from "../../config/colors";
-import { tabRouteChanged } from "../../store/search";
+import { changeTabRoute } from "../../store/search";
 
 const Tags = ({ navigation }) => {
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
+
   const { name } = useRoute();
 
-  if (isFocused) {
-    dispatch({ type: tabRouteChanged.type, payload: { name } });
-  }
+  useFocusEffect(() => {
+    dispatch(changeTabRoute(name));
+  });
 
   const tags = useSelector((state) => state.search.tags);
 

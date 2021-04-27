@@ -28,8 +28,9 @@ const slice = createSlice({
     },
 
     tabRouteChanged: (search, action) => {
-      const { name } = action.payload;
-      search.activeTabRoute = name;
+      console.log("TAB ROUTE CHANGED", action);
+      const { query } = action.payload;
+      search.activeTabRoute = query;
     },
 
     placesSearched: (search, action) => {
@@ -134,4 +135,14 @@ export const getFeedByTag = (query, lastPostId) => (dispatch) => {
       passData: { isReload: lastPostId ? false : true },
     }),
   );
+};
+
+export const changeRecentQuery = (query) => (dispatch) => {
+  console.log("CHANIGNG RECENT QUERY");
+  dispatch({ type: recentQueryChanged.type, payload: { query } });
+};
+
+export const changeTabRoute = (query) => (dispatch) => {
+  console.log("CHANIGNG TAB ROUTE");
+  dispatch({ type: tabRouteChanged.type, payload: { query } });
 };
