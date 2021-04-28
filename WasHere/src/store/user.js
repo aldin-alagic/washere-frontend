@@ -10,6 +10,7 @@ const slice = createSlice({
   initialState: {
     information: {},
     posts: null,
+    myConnections: [],
     loading: false,
   },
   reducers: {
@@ -26,6 +27,15 @@ const slice = createSlice({
       }
     },
 
+    myConnectionsFetched: (user, action) => {
+      const { success, data } = action.payload;
+      user.loading = false;
+
+      if (success) {
+        user.myConnections = data;
+      }
+    },
+
     requestFailed: (user, action) => {
       user.loading = false;
       showMessage({
@@ -38,7 +48,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, userFetched, requestFailed } = slice.actions;
+export const { requestStarted, userFetched, myConnectionsFetched, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const fetchUser = (id) =>
@@ -48,5 +58,15 @@ export const fetchUser = (id) =>
     data: "",
     onStart: requestStarted.type,
     onSuccess: userFetched.type,
+    onError: requestFailed.type,
+  });
+
+export const fetchMyConnections = () =>
+  apiCallBegan({
+    url: `/user/connections`,
+    method: "GET",
+    data: "",
+    onStart: requestStarted.type,
+    onSuccess: myConnectionsFetched.type,
     onError: requestFailed.type,
   });

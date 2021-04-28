@@ -1,101 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TextInput, FlatList } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import Icon from "react-native-vector-icons/Ionicons";
-
 import CloseButton from "../CloseButton";
 import Text from "../Text";
 import Connection from "./Connection";
+import { fetchMyConnections } from "../../store/user";
+
 import colors from "../../config/colors";
 
-const connections = [
-  {
-    id: "1",
-    user: {
-      name: "John Wick",
-      photoURL: "https://i.pravatar.cc/150?img=52",
-    },
-  },
-  {
-    id: "2",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "3",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "5",
-    user: {
-      name: "John Wick",
-      photoURL: "https://i.pravatar.cc/150?img=52",
-    },
-  },
-  {
-    id: "6",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "7",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-  },
-  {
-    id: "8",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "9",
-    user: {
-      name: "John Wick",
-      photoURL: "https://i.pravatar.cc/150?img=52",
-    },
-  },
-  {
-    id: "10",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "11",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-  },
-  {
-    id: "12",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-];
 const MyConnections = ({ myConnectionsRef }) => {
   const [text, setText] = useState("");
+  const connections = useSelector((state) => state.user.myConnections);
+  const dispatch = useDispatch();
+
+  useEffect(() => dispatch(fetchMyConnections()), []);
 
   return (
     <View>
@@ -109,7 +29,7 @@ const MyConnections = ({ myConnectionsRef }) => {
         <TextInput style={[styles.text]} placeholder="Search by name" onChangeText={(text) => setText(text)} value={text} />
       </View>
 
-      <FlatList style={styles.connectionsList} data={connections} renderItem={({ item }) => <Connection item={item} />} />
+      <FlatList style={styles.connectionsList} data={connections} renderItem={({ item }) => <Connection connection={item} />} />
     </View>
   );
 };

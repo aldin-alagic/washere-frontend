@@ -47,9 +47,10 @@ const SearchBox = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 14,
+    fontSize: 15,
   },
   searchSection: {
+    marginTop: 15,
     flexDirection: "row",
     alignItems: "center",
   },

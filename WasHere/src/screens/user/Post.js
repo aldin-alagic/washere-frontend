@@ -3,16 +3,16 @@ import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import MapView, { Marker } from "react-native-maps";
 
-import { FormField, Form } from "../components/form";
-import * as RootNavigation from "../navigation/RootNavigation";
-import BottomSheet from "../components/BottomSheet";
-import UserSection from "../components/Post/UserSection";
-import Likes from "../components/Post/Likes";
-import Comment from "../components/Post/Comment";
-import { addComment, getPost } from "../store/posts";
+import { FormField, Form } from "../../components/form";
+import * as RootNavigation from "../../navigation/RootNavigation";
+import BottomSheet from "../../components/BottomSheet";
+import UserSection from "../../components/Post/UserSection";
+import Likes from "../../components/Post/Likes";
+import Comment from "../../components/Post/Comment";
+import { addComment, getPost } from "../../store/posts";
 
-import color from "../config/colors";
-import { postPhoto } from "../utils/getPhotoURI";
+import color from "../../config/colors";
+import { postPhoto } from "../../utils/getPhotoURI";
 
 const Post = ({ route }) => {
   const mapRef = useRef();

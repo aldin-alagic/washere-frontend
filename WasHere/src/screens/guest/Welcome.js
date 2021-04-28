@@ -1,13 +1,14 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import Screen from '../components/Screen';
-import AppButton from '../components/Button';
-import routes from '../navigation/routes';
+import Screen from "../../components/Screen";
+import AppButton from "../../components/Button";
+import routes from "../../navigation/routes";
+import AppText from "../../components/Text";
 
-import colors from '../config/colors';
-import AppText from './../components/Text';
-import WelcomeScreenWhite from '../assets/images/welcome-white.svg';
+import colors from "../../config/colors";
+import WelcomeScreenWhite from "../../assets/images/welcome-white.svg";
 
 const Welcome = ({ navigation }) => {
   return (
@@ -15,7 +16,7 @@ const Welcome = ({ navigation }) => {
       <Text style={styles.title}>WasHere</Text>
       <WelcomeScreenWhite style={styles.image} />
       <AppText style={styles.description}>
-        WasHere lets you connect with people based on locations that you visit. What are you waiting for? {'\n'} Start exploring!
+        WasHere lets you connect with people based on locations that you visit. What are you waiting for? {"\n"} Start exploring!
       </AppText>
       <AppButton title="Continue with Facebook" color="facebook" onPress={() => navigation.navigate(routes.REGISTER)} />
       <AppButton title="Continue with Google" color="google" onPress={() => navigation.navigate(routes.REGISTER)} />
@@ -37,34 +38,35 @@ const Welcome = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     backgroundColor: colors.white,
     paddingVertical: 10,
     paddingHorizontal: 15,
+    paddingTop: hp("4%"),
   },
   title: {
-    fontFamily: 'BalooBhai2-Medium',
+    fontFamily: "BalooBhai2-Medium",
     fontSize: 42,
-    textAlign: 'center',
+    textAlign: "center",
     color: colors.primary,
   },
   image: {
     flexShrink: 1,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 25,
   },
   description: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 10,
     marginBottom: 20,
   },
   centered: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   underlined: {
-    textAlign: 'center',
-    alignSelf: 'center',
-    textDecorationLine: 'underline',
+    textAlign: "center",
+    alignSelf: "center",
+    textDecorationLine: "underline",
   },
 });
 

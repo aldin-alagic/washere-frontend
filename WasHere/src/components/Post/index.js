@@ -46,7 +46,7 @@ const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 30,
+    marginVertical: 15,
   },
   child: {
     width: width - 40,

@@ -5,19 +5,19 @@ import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import Text from "../components/Text";
-import Screen from "../components/Screen";
-import FeedList from "../components/FeedList";
-import EditProfile from "../components/Profile/EditProfile";
-import MyConnections from "../components/Profile/MyConnections";
-import BottomSheet from "../components/BottomSheet";
-import ConnectionSimple from "../components/Profile/ConnectionSimple";
-import TelegramIcon from "../assets/images/telegram.svg";
-import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
-import { fetchUser } from "../store/user";
-import colors from "../config/colors";
-import Post from "../components/Post";
-import { profilePhoto } from "../utils/getPhotoURI";
+import Text from "../../components/Text";
+import Screen from "../../components/Screen";
+import EditProfile from "../../components/Profile/EditProfile";
+import MyConnections from "../../components/Profile/MyConnections";
+import BottomSheet from "../../components/BottomSheet";
+import ConnectionSimple from "../../components/Profile/ConnectionSimple";
+import { fetchUser } from "../../store/user";
+import Post from "../../components/Post";
+import ProfilePhoto from "../../components/ProfilePhoto";
+
+import colors from "../../config/colors";
+import TelegramIcon from "../../assets/images/telegram.svg";
+import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
 
 const connections = [
   {
@@ -73,13 +73,13 @@ const Profile = () => {
         <FlatList
           data={user.posts}
           ListHeaderComponent={
-            <View style={{ marginBottom: 12 }}>
+            <View style={styles.userSection}>
               <View style={styles.basicInformation}>
-                <Image style={styles.userImage} source={{ uri: profilePhoto(user.information.profile_photo) }} />
+                <ProfilePhoto photoKey={user.information.profile_photo} size={100} />
                 <View style={styles.textInformation}>
                   <Text style={styles.username}>@{user.information.username}</Text>
                   <View style={styles.aboutContainer}>
-                    <Text style={[{ textAlign: "justify" }, styles.text]}>{user.information.about}</Text>
+                    <Text style={styles.text}>{user.information.about}</Text>
                   </View>
                 </View>
               </View>
@@ -115,7 +115,7 @@ const Profile = () => {
                 />
                 <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
                   <Text style={styles.moreConnections}>23 more</Text>
-                  <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+                  <Icon name="chevron-forward-outline" color={colors.primary} size={30} />
                 </TouchableOpacity>
               </View>
               <View style={styles.divider} />
@@ -163,14 +163,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: colors.white,
   },
-  text: {
-    fontSize: 14,
+  userSection: {
+    marginVertical: 15,
   },
-  userImage: {
-    borderRadius: 50,
-    height: 100,
-    width: 100,
-    marginRight: 10,
+  text: {
+    fontSize: 15,
   },
   basicInformation: {
     flexDirection: "row",
@@ -222,7 +219,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   username: {
-    fontSize: 20,
+    fontSize: 18,
     color: colors.mediumlight,
     fontWeight: "200",
     marginBottom: 5,

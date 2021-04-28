@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 const Likes = ({ count }) => {
   return (
     <View style={styles.container}>
-      <Icon name="heart" color="red" style={styles.icon} />
+      <Icon name={count ? "heart" : "heart-outline"} color="red" style={styles.icon} />
       <Text>{count} likes</Text>
     </View>
   );

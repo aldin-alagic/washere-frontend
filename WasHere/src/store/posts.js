@@ -26,9 +26,9 @@ const slice = createSlice({
       const { success, message } = action.payload;
       posts.loading = false;
       showMessage({
-        message: success ? "Success!" : "Error!",
-        description: message,
+        message,
         type: success ? "success" : "warning",
+        icon: "success",
         autoHide: true,
       });
       if (success) {
@@ -58,8 +58,8 @@ const slice = createSlice({
       const { success, message, data } = action.payload;
 
       showMessage({
-        message: success ? "Success!" : "Error!",
-        description: message,
+        message,
+        icon: "success",
         type: success ? "success" : "warning",
         autoHide: true,
       });

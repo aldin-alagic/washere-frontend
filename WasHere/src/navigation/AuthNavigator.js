@@ -2,13 +2,13 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useSelector } from "react-redux";
 
-import Welcome from "../screens/Welcome";
-import Intro from "../screens/Intro";
-import Login from "../screens/Login";
-import ForgottenPassword from "../screens/ForgottenPassword";
-import ResetCode from "../screens/ResetCode";
-import ChangePassword from "../screens/ChangePassword";
-import Register from "./../screens/Register";
+import Welcome from "../screens/guest/Welcome";
+import Intro from "../screens/guest/Intro";
+import Login from "../screens/guest/Login";
+import ForgottenPassword from "../screens/guest/ForgottenPassword";
+import ResetCode from "../screens/guest/ResetCode";
+import ChangePassword from "../screens/guest/ChangePassword";
+import Register from "../screens/guest/Register";
 
 const Stack = createStackNavigator();
 

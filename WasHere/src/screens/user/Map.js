@@ -4,9 +4,10 @@ import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 import { io } from "socket.io-client";
 
-import PostMarker from "../components/PostMarker";
-import Slider from "../components/Slider";
-import { API } from "../config/config.json";
+import PostMarker from "../../components/PostMarker";
+import Slider from "../../components/Slider";
+
+import { API } from "../../config/config.json";
 
 const Map = ({ navigation }) => {
   const mapRef = useRef();
@@ -59,7 +60,7 @@ const Map = ({ navigation }) => {
   }, []);
 
   const handleOpenPost = (post) => {
-    navigation.navigate("PostDetails", post);
+    navigation.navigate("PostDetails", { postId: post.id });
   };
 
   // Updates post query when map region is changed
