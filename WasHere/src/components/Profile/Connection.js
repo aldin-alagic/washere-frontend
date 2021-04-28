@@ -1,26 +1,22 @@
 import React from "react";
-import { StyleSheet, Image, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+
 import colors from "../../config/colors";
+import ProfilePhoto from "../ProfilePhoto";
 
 const Connection = ({ connection }) => {
   return (
     <View style={styles.connectionContainer}>
-      <Image style={styles.userImage} source={{ uri: connection.user.profile_photo }} />
+      <ProfilePhoto size={50} photoKey={connection.user.profile_photo} />
       <View style={styles.connectionInfo}>
-        <Text style={{ color: colors.primary, fontWeight: "500" }}>{connection.user.fullname}</Text>
-        <Text style={{ color: colors.mediumlight }}>Connection since July 8th</Text>
+        <Text style={styles.fullName}>{connection.user.fullname}</Text>
+        <Text style={styles.date}>Connection since July 8th</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  userImage: {
-    borderRadius: 50,
-    height: 50,
-    width: 50,
-    marginRight: 15,
-  },
   connectionContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -29,6 +25,15 @@ const styles = StyleSheet.create({
   },
   connectionInfo: {
     flexDirection: "column",
+  },
+  fullName: {
+    color: colors.primary,
+    fontWeight: "500",
+    fontSize: 15,
+  },
+  date: {
+    color: colors.mediumlight,
+    fontSize: 15,
   },
 });
 
