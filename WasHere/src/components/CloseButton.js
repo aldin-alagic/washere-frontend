@@ -1,8 +1,8 @@
-import React from 'react';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import React from "react";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 
-import colors from '../config/colors';
+import colors from "../config/colors";
 
 const CloseButton = ({ onPress }) => {
   return (
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     borderRadius: 20,
     padding: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

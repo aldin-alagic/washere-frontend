@@ -4,6 +4,10 @@ import FlashMessage from "react-native-flash-message";
 
 import colors from "../config/colors";
 
+FlashMessage.setColorTheme({
+  success: colors.primary,
+});
+
 const Toast = ({ ...props }) => {
   return <FlashMessage {...props} statusBarHeight={0} style={styles.container} titleStyle={styles.text} />;
 };
@@ -13,7 +17,6 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 15,
     marginTop: 50,
-    backgroundColor: colors.primary,
   },
   text: {
     fontSize: 15,
