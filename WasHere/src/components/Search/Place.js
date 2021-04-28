@@ -1,16 +1,15 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+
+import routes from "../../navigation/routes";
+
 import colors from "../../config/colors";
 
-const Place = ({ data }) => {
+const Place = ({ data, navigation }) => {
   return (
     <View>
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => {
-          console.log("PRESSED PLACE");
-        }}>
+      <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(routes.PLACE_DETAILS)}>
         <Icon name="location-outline" size={44} style={styles.icon} />
         <View style={styles.placeInfo}>
           <Text style={styles.placeName}>{data.structured_formatting.main_text}</Text>

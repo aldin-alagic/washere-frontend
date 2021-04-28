@@ -7,7 +7,7 @@ import Place from "./Place";
 import colors from "../../config/colors";
 import { changeTabRoute } from "../../store/search";
 
-const Places = () => {
+const Places = ({ navigation }) => {
   const dispatch = useDispatch();
   const places = useSelector((state) => state.search.places);
 
@@ -20,7 +20,11 @@ const Places = () => {
   return (
     <View style={styles.container}>
       {places.length !== 0 && (
-        <FlatList data={places} keyExtractor={(item) => item.reference} renderItem={({ item }) => <Place data={item} />} />
+        <FlatList
+          data={places}
+          keyExtractor={(item) => item.reference}
+          renderItem={({ item }) => <Place data={item} navigation={navigation} />}
+        />
       )}
     </View>
   );
