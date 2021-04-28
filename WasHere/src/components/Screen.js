@@ -1,9 +1,7 @@
 import React from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { StyleSheet, View, StatusBar, Platform } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-const Screen = ({ children, style, noTopPadding }) => {
-  const insets = useSafeAreaInsets();
+const Screen = ({ children, style }) => {
   return (
     <View style={[styles.screen, style]}>
       <View style={[styles.view, style]}>{children}</View>

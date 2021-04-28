@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Screen from "../../components/Screen";
 import AppButton from "../../components/Button";
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingVertical: 10,
     paddingHorizontal: 15,
+    paddingTop: hp("4%"),
   },
   title: {
     fontFamily: "BalooBhai2-Medium",

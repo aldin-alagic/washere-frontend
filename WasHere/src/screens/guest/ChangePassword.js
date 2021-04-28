@@ -111,6 +111,7 @@ const ChangePasswordForm = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
+    paddingTop: "10%",
   },
   sheet: {
     paddingTop: 10,

@@ -28,7 +28,7 @@ const CodeForm = ({ navigation }) => {
   }, [resetCode, recoveryEmail]);
 
   return (
-    <Screen style={styles.container} noTopPadding>
+    <Screen style={styles.container}>
       <ScrollView>
         <KeyboardAvoidingView behavior={"position"}>
           <MailSentImage height={hp("25%")} style={styles.image} />
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     padding: 10,
+    paddingTop: hp("4%"),
   },
   title: {
     fontFamily: "BalooBhai2-Medium",

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import WelcomeScreenGreen from "../../assets/images/welcome-green.svg";
 import BottomSheet from "../../components/BottomSheet";
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
     justifyContent: "flex-start",
-    paddingTop: 10,
+    paddingTop: hp("4%"),
   },
   sheet: {
     paddingVertical: 15,
