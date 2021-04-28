@@ -2,12 +2,12 @@ import React from "react";
 import { StyleSheet, Image, View, Text } from "react-native";
 import colors from "../../config/colors";
 
-const Connection = ({ item }) => {
+const Connection = ({ connection }) => {
   return (
     <View style={styles.connectionContainer}>
-      <Image style={styles.userImage} source={{ uri: item.user.photoURL }} />
+      <Image style={styles.userImage} source={{ uri: connection.user.profile_photo }} />
       <View style={styles.connectionInfo}>
-        <Text style={{ color: colors.primary, fontWeight: "500" }}>{item.user.name}</Text>
+        <Text style={{ color: colors.primary, fontWeight: "500" }}>{connection.user.fullname}</Text>
         <Text style={{ color: colors.mediumlight }}>Connection since July 8th</Text>
       </View>
     </View>
