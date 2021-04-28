@@ -7,7 +7,6 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Text from "../components/Text";
 import Screen from "../components/Screen";
-import FeedList from "../components/FeedList";
 import EditProfile from "../components/Profile/EditProfile";
 import MyConnections from "../components/Profile/MyConnections";
 import BottomSheet from "../components/BottomSheet";
@@ -18,6 +17,7 @@ import { fetchUser } from "../store/user";
 import colors from "../config/colors";
 import Post from "../components/Post";
 import { profilePhoto } from "../utils/getPhotoURI";
+import ProfilePhoto from "../components/ProfilePhoto";
 
 const connections = [
   {
@@ -73,9 +73,9 @@ const Profile = () => {
         <FlatList
           data={user.posts}
           ListHeaderComponent={
-            <View style={{ marginBottom: 12 }}>
+            <View style={styles.userSection}>
               <View style={styles.basicInformation}>
-                <Image style={styles.userImage} source={{ uri: profilePhoto(user.information.profile_photo) }} />
+                <ProfilePhoto photoKey={user.information.profile_photo} size={100} />
                 <View style={styles.textInformation}>
                   <Text style={styles.username}>@{user.information.username}</Text>
                   <View style={styles.aboutContainer}>
@@ -163,14 +163,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: colors.white,
   },
+  userSection: {
+    marginVertical: 15,
+  },
   text: {
     fontSize: 15,
-  },
-  userImage: {
-    borderRadius: 50,
-    height: 100,
-    width: 100,
-    marginRight: 10,
   },
   basicInformation: {
     flexDirection: "row",
@@ -222,7 +219,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   username: {
-    fontSize: 20,
+    fontSize: 18,
     color: colors.mediumlight,
     fontWeight: "200",
     marginBottom: 5,

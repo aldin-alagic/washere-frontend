@@ -5,12 +5,7 @@ import { StyleSheet, View, StatusBar, Platform } from "react-native";
 const Screen = ({ children, style, noTopPadding }) => {
   const insets = useSafeAreaInsets();
   return (
-    <View
-      style={[
-        styles.screen,
-        style,
-        { paddingTop: noTopPadding ? 0 : Platform.OS === "android" ? StatusBar.currentHeight : insets.top - 24 },
-      ]}>
+    <View style={[styles.screen, style]}>
       <View style={[styles.view, style]}>{children}</View>
     </View>
   );
