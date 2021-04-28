@@ -7,7 +7,7 @@ import Map from "../screens/Map";
 import Feed from "../screens/Feed";
 import NewPost from "../screens/NewPost";
 import SearchScreen from "../screens/Search";
-import Profile from "../screens/Profile";
+import MyProfile from "../screens/MyProfile";
 import Tags from "../components/Search/Tags";
 import TagFeed from "../components/Search/TagFeed";
 import colors from "../config/colors";
@@ -70,9 +70,9 @@ const AppTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="MyProfile"
         // TODO: Nest StackNavigator below to implement Profile screen
-        component={Profile}
+        component={MyProfile}
         options={{
           tabBarIcon: ({ color }) => <Icon name="person-outline" color={color} size={25} />,
         }}
