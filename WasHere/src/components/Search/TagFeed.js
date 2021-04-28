@@ -10,7 +10,7 @@ import colors from "../../config/colors";
 const TagFeed = ({ route }) => {
   const { feed, loading } = useSelector((state) => state.search);
   const dispatch = useDispatch();
-  const { tag, navigation } = route.params;
+  const { tag } = route.params;
 
   useEffect(() => dispatch(getFeedByTag(tag)), []);
 
