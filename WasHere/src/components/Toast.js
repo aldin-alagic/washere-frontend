@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 20,
     borderRadius: 15,
-    marginTop: 100,
+    marginTop: 50,
     backgroundColor: colors.primary,
   },
   text: {
