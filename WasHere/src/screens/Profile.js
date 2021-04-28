@@ -79,7 +79,7 @@ const Profile = () => {
                 <View style={styles.textInformation}>
                   <Text style={styles.username}>@{user.information.username}</Text>
                   <View style={styles.aboutContainer}>
-                    <Text style={[{ textAlign: "justify" }, styles.text]}>{user.information.about}</Text>
+                    <Text style={styles.text}>{user.information.about}</Text>
                   </View>
                 </View>
               </View>
