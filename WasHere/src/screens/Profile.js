@@ -115,7 +115,7 @@ const Profile = () => {
                 />
                 <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
                   <Text style={styles.moreConnections}>23 more</Text>
-                  <Icon name="chevron-forward-outline" color={"#39C555"} size={30} />
+                  <Icon name="chevron-forward-outline" color={colors.primary} size={30} />
                 </TouchableOpacity>
               </View>
               <View style={styles.divider} />
