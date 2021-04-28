@@ -13,8 +13,8 @@ const Place = ({ data }) => {
         }}>
         <Icon name="location-outline" size={44} style={styles.icon} />
         <View style={styles.placeInfo}>
-          <Text style={styles.placeName}>{data.name}</Text>
-          <Text style={styles.placeAddress}>{data.formatted_address}</Text>
+          <Text style={styles.placeName}>{data.structured_formatting.main_text}</Text>
+          <Text style={styles.placeAddress}>{data.description}</Text>
         </View>
       </TouchableOpacity>
     </View>

@@ -33,8 +33,8 @@ const slice = createSlice({
     },
 
     placesSearched: (search, action) => {
-      const { results } = action.payload;
-      search.places = results;
+      const { predictions } = action.payload;
+      search.places = predictions;
     },
 
     peopleSearched: (search, action) => {
@@ -90,10 +90,10 @@ export default slice.reducer;
 export const searchPlaces = (input) => (dispatch) => {
   dispatch(
     apiCallBegan({
-      url: "https://maps.googleapis.com/maps/api/place/textsearch/json",
+      url: "https://maps.googleapis.com/maps/api/place/autocomplete/json",
       method: "GET",
       data: "",
-      params: { inputtype: "textquery", fields: "formatted_address,name", input, key: GOOGLE_API_KEY },
+      params: { inputtype: "textquery", input, key: GOOGLE_API_KEY },
       onStart: requestStarted.type,
       onSuccess: placesSearched.type,
       onError: requestFailed.type,
