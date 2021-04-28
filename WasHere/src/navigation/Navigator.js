@@ -9,7 +9,7 @@ import AuthNavigator from "./AuthNavigator";
 import AppNavigator from "./AppNavigator";
 import { initialStateSet, passedWelcomeScreen } from "../store/auth";
 import authStorage from "../store/storage";
-import Loading from "../screens/Loading";
+import Loading from "../screens/guest/Loading";
 import Toast from "../components/Toast";
 
 const Navigator = () => {

@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { AnimatedBackgroundColorView } from "react-native-animated-background-color-view";
 import * as Yup from "yup";
 
-import Screen from "../components/Screen";
-import AppButton from "../components/Button";
-import AppText from "../components/Text";
-import { Form, FormField, Heading, SubmitButton } from "../components/form";
-import routes from "../navigation/routes";
-import BottomSheet from "../components/BottomSheet";
-import { register } from "../store/auth";
+import Screen from "../../components/Screen";
+import AppButton from "../../components/Button";
+import AppText from "../../components/Text";
+import { Form, FormField, Heading, SubmitButton } from "../../components/form";
+import routes from "../../navigation/routes";
+import BottomSheet from "../../components/BottomSheet";
+import { register } from "../../store/auth";
 
-import colors from "../config/colors";
-import WelcomeScreenGreen from "../assets/images/welcome-green.svg";
+import colors from "../../config/colors";
+import WelcomeScreenGreen from "../../assets/images/welcome-green.svg";
 
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().required().label("Full name"),

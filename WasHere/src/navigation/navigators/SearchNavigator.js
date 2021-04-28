@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import SearchScreen from "../../screens/Search";
+import SearchScreen from "../../screens/user/Search";
 import Tags from "../../components/Search/Tags";
 import TagFeed from "../../components/Search/TagFeed";
 import { navigatorOptions, stackScreenOptions } from "./navigatorSettings";

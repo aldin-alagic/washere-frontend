@@ -5,19 +5,19 @@ import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import Text from "../components/Text";
-import Screen from "../components/Screen";
-import EditProfile from "../components/Profile/EditProfile";
-import MyConnections from "../components/Profile/MyConnections";
-import BottomSheet from "../components/BottomSheet";
-import ConnectionSimple from "../components/Profile/ConnectionSimple";
-import TelegramIcon from "../assets/images/telegram.svg";
-import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
-import { fetchUser } from "../store/user";
-import colors from "../config/colors";
-import Post from "../components/Post";
-import { profilePhoto } from "../utils/getPhotoURI";
-import ProfilePhoto from "../components/ProfilePhoto";
+import Text from "../../components/Text";
+import Screen from "../../components/Screen";
+import EditProfile from "../../components/Profile/EditProfile";
+import MyConnections from "../../components/Profile/MyConnections";
+import BottomSheet from "../../components/BottomSheet";
+import ConnectionSimple from "../../components/Profile/ConnectionSimple";
+import { fetchUser } from "../../store/user";
+import Post from "../../components/Post";
+import ProfilePhoto from "../../components/ProfilePhoto";
+
+import colors from "../../config/colors";
+import TelegramIcon from "../../assets/images/telegram.svg";
+import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
 
 const connections = [
   {

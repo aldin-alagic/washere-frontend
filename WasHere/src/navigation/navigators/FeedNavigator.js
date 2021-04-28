@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import FeedScreen from "../../screens/Feed";
+import FeedScreen from "../../screens/user/Feed";
 import { navigatorOptions, stackScreenOptions } from "./navigatorSettings";
 
 const FeedStack = createStackNavigator();

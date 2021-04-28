@@ -6,17 +6,17 @@ import BlankSpacer from "react-native-blank-spacer";
 import TextBox from "react-native-password-eye";
 import * as Yup from "yup";
 
-import BottomSheet from "../components/BottomSheet";
-import AppButton from "../components/Button";
-import { Heading } from "../components/form";
-import Screen from "../components/Screen";
-import Text from "../components/Text";
-import defaultStyles from "../config/styles";
-import routes from "../navigation/routes";
-import { resetPassword, finishPasswordReset } from "../store/auth";
+import BottomSheet from "../../components/BottomSheet";
+import AppButton from "../../components/Button";
+import { Heading } from "../../components/form";
+import Screen from "../../components/Screen";
+import Text from "../../components/Text";
+import defaultStyles from "../../config/styles";
+import routes from "../../navigation/routes";
+import { resetPassword, finishPasswordReset } from "../../store/auth";
 
-import WelcomeScreenGreen from "../assets/images/welcome-green.svg";
-import colors from "../config/colors";
+import WelcomeScreenGreen from "../../assets/images/welcome-green.svg";
+import colors from "../../config/colors";
 
 const validationSchema = Yup.object({
   password: Yup.string()

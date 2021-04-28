@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import AppTabNavigator from "./AppTabNavigator";
-import Post from "../screens/Post";
+import Post from "../screens/user/Post";
 
 const Stack = createStackNavigator();
 

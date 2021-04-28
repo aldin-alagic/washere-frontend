@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
-import Map from "../screens/Map";
+import Map from "../screens/user/Map";
 import Feed from "./navigators/FeedNavigator";
 import Search from "./navigators/SearchNavigator";
 import MyProfile from "./navigators/MyProfileNavigator";
-import NewPost from "../screens/NewPost";
+import NewPost from "../screens/user/NewPost";
 
 import colors from "../config/colors";
 
