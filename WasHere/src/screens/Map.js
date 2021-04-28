@@ -59,7 +59,7 @@ const Map = ({ navigation }) => {
   }, []);
 
   const handleOpenPost = (post) => {
-    navigation.navigate("PostDetails", post);
+    navigation.navigate("PostDetails", { postId: post.id });
   };
 
   // Updates post query when map region is changed
