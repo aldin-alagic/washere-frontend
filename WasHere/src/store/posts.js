@@ -26,9 +26,9 @@ const slice = createSlice({
       const { success, message } = action.payload;
       posts.loading = false;
       showMessage({
-        message: success ? "Success!" : "Error!",
-        description: message,
+        message,
         type: success ? "success" : "warning",
+        icon: "success",
         autoHide: true,
       });
       if (success) {

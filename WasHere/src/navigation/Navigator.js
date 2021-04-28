@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { navigationRef } from "./RootNavigation";
 import jwt_decode from "jwt-decode";
-import FlashMessage from "react-native-flash-message";
 import axios from "axios";
 
 import AuthNavigator from "./AuthNavigator";
@@ -11,6 +10,7 @@ import AppNavigator from "./AppNavigator";
 import { initialStateSet, passedWelcomeScreen } from "../store/auth";
 import authStorage from "../store/storage";
 import Loading from "../screens/Loading";
+import Toast from "../components/Toast";
 
 const Navigator = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const Navigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       {token ? <AppNavigator /> : <AuthNavigator />}
-      <FlashMessage position="top" />
+      <Toast position="top" />
     </NavigationContainer>
   );
 };
