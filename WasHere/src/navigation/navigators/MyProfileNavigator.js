@@ -9,7 +9,7 @@ const MyProfileStack = createStackNavigator();
 const MyProfile = () => {
   return (
     <MyProfileStack.Navigator mode="modal" screenOptions={navigatorOptions}>
-      <MyProfileStack.Screen name="Search" component={MyProfileScreen} options={stackScreenOptions} />
+      <MyProfileStack.Screen name="Search" component={MyProfileScreen} options={{ ...stackScreenOptions, title: "My Profile" }} />
     </MyProfileStack.Navigator>
   );
 };
