@@ -4,8 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AppTabNavigator from "./AppTabNavigator";
 import Post from "../screens/Post";
 
-import colors from "../config/colors";
-
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
