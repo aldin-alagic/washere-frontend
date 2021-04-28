@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-import Recent from "../components/Search/Recent";
-import Places from "../components/Search/Places";
-import People from "../components/Search/People";
-import Screen from "../components/Screen";
-import configStyles from "../config/styles";
-import colors from "../config/colors";
-import SearchBox from "../components/Search/SearchBox";
-import Tags from "../components/Search/Tags";
+import Recent from "../../components/Search/Recent";
+import Places from "../../components/Search/Places";
+import People from "../../components/Search/People";
+import Screen from "../../components/Screen";
+import SearchBox from "../../components/Search/SearchBox";
+import Tags from "../../components/Search/Tags";
+
+import configStyles from "../../config/styles";
+import colors from "../../config/colors";
 
 const Tab = createMaterialTopTabNavigator();
 

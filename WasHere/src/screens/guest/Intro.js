@@ -2,15 +2,16 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { useDispatch } from "react-redux";
-
-import OnlineConnection from "../assets/images/online-connection.svg";
-import Connected from "../assets/images/connected.svg";
-import LocationTracking from "../assets/images/location-tracking.svg";
-import Map from "../assets/images/map.svg";
 import AppIntroSlider from "react-native-app-intro-slider";
-import Screen from "../components/Screen";
-import { passedWelcomeScreen } from "../store/auth";
-import authStorage from "../store/storage";
+
+import Screen from "../../components/Screen";
+import { passedWelcomeScreen } from "../../store/auth";
+import authStorage from "../../store/storage";
+
+import OnlineConnection from "../../assets/images/online-connection.svg";
+import Connected from "../../assets/images/connected.svg";
+import LocationTracking from "../../assets/images/location-tracking.svg";
+import Map from "../../assets/images/map.svg";
 
 const Intro = () => {
   const dispatch = useDispatch();

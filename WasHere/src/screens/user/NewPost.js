@@ -1,21 +1,21 @@
 import React, { useRef, useEffect, useState } from "react";
 import SwitchSelector from "react-native-switch-selector";
-import { StyleSheet, View, TouchableOpacity, Image, FlatList, Alert } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Image, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Geolocation from "@react-native-community/geolocation";
 import MapView from "react-native-maps";
 
-import BottomSheet from "../components/BottomSheet";
-import { Form, FormField, SubmitButton } from "../components/form";
-import ImageButton from "./../components/ImageButton";
-import UserSection from "../components/Post/UserSection";
-import { createPost } from "../store/posts";
-import * as RootNavigation from "../navigation/RootNavigation";
-import { getAddress } from "../utils/geolocation";
+import BottomSheet from "../../components/BottomSheet";
+import { Form, FormField, SubmitButton } from "../../components/form";
+import ImageButton from "../../components/ImageButton";
+import UserSection from "../../components/Post/UserSection";
+import { createPost } from "../../store/posts";
+import * as RootNavigation from "../../navigation/RootNavigation";
+import { getAddress } from "../../utils/geolocation";
 
-import colors from "../config/colors";
-import publicIcon from "../assets/images/public.png";
-import friendsIcon from "../assets/images/friends.png";
+import colors from "../../config/colors";
+import publicIcon from "../../assets/images/public.png";
+import friendsIcon from "../../assets/images/friends.png";
 
 const NewPost = () => {
   const [visibility, setVisibility] = useState("visibility");

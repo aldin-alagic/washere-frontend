@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import { searchPlaces, searchPeople, searchTags, getRecentFeed, changeRecentQuery } from "../../store/search";
+
 import colors from "../../config/colors";
 
 const SearchBox = () => {
@@ -47,9 +48,10 @@ const SearchBox = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 14,
+    fontSize: 15,
   },
   searchSection: {
+    marginTop: 15,
     flexDirection: "row",
     alignItems: "center",
   },

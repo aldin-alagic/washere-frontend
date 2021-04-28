@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect, useRoute } from "@react-navigation/native";
 
 import Person from "./Person";
-import colors from "../../config/colors";
 import { changeTabRoute } from "../../store/search";
+
+import colors from "../../config/colors";
 
 const People = () => {
   const dispatch = useDispatch();

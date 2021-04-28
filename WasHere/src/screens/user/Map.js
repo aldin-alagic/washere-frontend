@@ -4,9 +4,10 @@ import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
 import { io } from "socket.io-client";
 
-import PostMarker from "../components/PostMarker";
-import Slider from "../components/Slider";
-import { API } from "../config/config.json";
+import PostMarker from "../../components/PostMarker";
+import Slider from "../../components/Slider";
+
+import { API } from "../../config/config.json";
 
 const Map = ({ navigation }) => {
   const mapRef = useRef();

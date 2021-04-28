@@ -1,9 +1,10 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
-import colors from "../../config/colors";
 import ProfilePhoto from "../ProfilePhoto";
 import { navigate } from "../../navigation/RootNavigation";
+
+import colors from "../../config/colors";
 
 const Person = ({ data }) => {
   return (
