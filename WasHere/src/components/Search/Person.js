@@ -3,11 +3,12 @@ import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 
 import colors from "../../config/colors";
 import ProfilePhoto from "../ProfilePhoto";
+import { navigate } from "../../navigation/RootNavigation";
 
 const Person = ({ data }) => {
   return (
     <View>
-      <TouchableOpacity style={styles.container} onPress={() => console.log("PRESSED PERSON")}>
+      <TouchableOpacity style={styles.container} onPress={() => navigate("Profile", { profileId: data.id })}>
         <ProfilePhoto photoKey={data.profile_photo} size={60} />
         <View style={styles.personInfo}>
           <Text style={styles.personName}>{data.fullname}</Text>

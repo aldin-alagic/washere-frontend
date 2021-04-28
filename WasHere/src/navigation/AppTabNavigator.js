@@ -11,6 +11,7 @@ import MyProfile from "../screens/MyProfile";
 import Tags from "../components/Search/Tags";
 import TagFeed from "../components/Search/TagFeed";
 import colors from "../config/colors";
+import Profile from "../screens/Profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +31,7 @@ const Search = () => {
       <SearchStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
       <SearchStack.Screen name="SearchTags" component={Tags} />
       <SearchStack.Screen name="TagFeed" component={TagFeed} />
+      <SearchStack.Screen name="Profile" component={Profile} />
     </SearchStack.Navigator>
   );
 };
