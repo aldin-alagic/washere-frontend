@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
 
 import Place from "./Place";
-import colors from "../../config/colors";
 import { changeTabRoute } from "../../store/search";
+
+import colors from "../../config/colors";
 
 const Places = () => {
   const dispatch = useDispatch();
