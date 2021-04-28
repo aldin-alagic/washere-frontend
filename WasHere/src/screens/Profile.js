@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   text: {
-    fontSize: 14,
+    fontSize: 15,
   },
   userImage: {
     borderRadius: 50,
