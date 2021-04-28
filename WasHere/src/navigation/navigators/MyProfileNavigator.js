@@ -4,12 +4,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 import MyProfileScreen from "../../screens/user/MyProfile";
 import { navigatorOptions, stackScreenOptions } from "./navigatorSettings";
 import SettingsButton from "../../components/SettingsButton";
+import Settings from "../../screens/user/Settings";
 
 const MyProfileStack = createStackNavigator();
 
 const MyProfile = () => {
   return (
-    <MyProfileStack.Navigator mode="modal" screenOptions={navigatorOptions}>
+    <MyProfileStack.Navigator screenOptions={navigatorOptions}>
       <MyProfileStack.Screen
         name="Search"
         component={MyProfileScreen}
@@ -19,6 +20,7 @@ const MyProfile = () => {
           headerRight: SettingsButton,
         }}
       />
+      <MyProfileStack.Screen name="Settings" component={Settings} options={{ ...stackScreenOptions, title: "Settings" }} />
     </MyProfileStack.Navigator>
   );
 };
