@@ -12,16 +12,7 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        animationEnabled: false,
-        title: "WasHere",
-        headerStyle: {
-          backgroundColor: colors.primary,
-        },
-        headerTitleAlign: "center",
-        headerTintColor: colors.white,
-        headerTitleStyle: {
-          fontFamily: "BalooBhai2-Medium",
-        },
+        headerShown: false,
       }}>
       <Stack.Screen name="TabNavigator" component={AppTabNavigator} />
       <Stack.Screen name="PostDetails" component={Post} />
