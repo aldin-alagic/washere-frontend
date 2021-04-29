@@ -5,21 +5,21 @@ import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-import Text from "../components/Text";
-import Screen from "../components/Screen";
-import FeedList from "../components/FeedList";
-import EditProfile from "../components/Profile/EditProfile";
-import MyConnections from "../components/Profile/MyConnections";
-import BottomSheet from "../components/BottomSheet";
-import ConnectionSimple from "../components/Profile/ConnectionSimple";
-import TelegramIcon from "../assets/images/telegram.svg";
-import FacebookMessengerIcon from "../assets/images/fb-messenger.svg";
-import { fetchUser } from "../store/user";
-import colors from "../config/colors";
-import Post from "../components/Post";
-import { profilePhoto } from "../utils/getPhotoURI";
-import AppButton from "../components/Button";
-import PlacesCarousel from "../components/PlacesCarousel";
+import Text from "../../components/Text";
+import Screen from "../../components/Screen";
+import FeedList from "../../components/FeedList";
+import EditProfile from "../../components/Profile/EditProfile";
+import MyConnections from "../../components/Profile/MyConnections";
+import BottomSheet from "../../components/BottomSheet";
+import ConnectionSimple from "../../components/Profile/ConnectionSimple";
+import TelegramIcon from "../../assets/images/telegram.svg";
+import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
+import { fetchUser } from "../../store/user";
+import colors from "../../config/colors";
+import Post from "../../components/Post";
+import { profilePhoto } from "../../utils/getPhotoURI";
+import AppButton from "../../components/Button";
+import PlacesCarousel from "../../components/PlacesCarousel";
 
 const connections = [
   {
@@ -72,14 +72,12 @@ const MyProfile = () => {
   return (
     <>
       <Screen style={styles.container}>
-        <View style={{ marginBottom: 12 }}>
+        <View style={{ marginTop: 15 }}>
           <View style={styles.basicInformation}>
             <Image style={styles.userImage} source={{ uri: profilePhoto(user.information.profile_photo) }} />
             <View style={styles.textInformation}>
               <Text style={styles.username}>@{user.information.username}</Text>
-              <View style={styles.aboutContainer}>
-                <Text style={styles.text}>{user.information.about}</Text>
-              </View>
+              <Text style={styles.text}>{user.information.about}</Text>
             </View>
           </View>
 
