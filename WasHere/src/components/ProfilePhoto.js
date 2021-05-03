@@ -4,13 +4,16 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { profilePhoto } from "../utils/getPhotoURI";
 
-const ProfilePhoto = ({ photoKey, size, marginRight = 15 }) => {
+const ProfilePhoto = ({ photoKey, size, style }) => {
   return (
     <View>
       {photoKey ? (
-        <Image style={[{ height: size, width: size, borderRadius: size, marginRight }]} source={{ uri: profilePhoto(photoKey) }} />
+        <Image
+          style={[{ height: size, width: size, borderRadius: size, marginRight: 15, ...style }]}
+          source={{ uri: profilePhoto(photoKey) }}
+        />
       ) : (
-        <Icon name="user-circle" size={size} style={{ marginRight }} solid />
+        <Icon name="user-circle" size={size} style={{ marginRight: 15, ...style }} solid />
       )}
     </View>
   );
