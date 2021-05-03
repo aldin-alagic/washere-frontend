@@ -22,7 +22,7 @@ const PlacesCarousel = ({ places }) => {
           setActive(position);
         }}>
         {places.map((place) => (
-          <View style={styles.child}>
+          <View key={place.id} style={styles.child}>
             <MapSection latitude={place.latitude} longitude={place.longitude} onPress={() => console.log("")} />
           </View>
         ))}
