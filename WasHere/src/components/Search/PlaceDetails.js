@@ -16,14 +16,15 @@ import MapSection from "../Post/MapSection";
 const PlacesDetails = ({ route, navigation }) => {
   const { placeName } = route.params;
 
-  navigation.setOptions({ title: placeName });
-
   const userId = useSelector((state) => state.auth.user.id);
   const user = useSelector((state) => state.user);
   const { place } = useSelector((state) => state.place);
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchUser(userId)), [userId]);
+  useEffect(() => {
+    navigation.setOptions({ title: placeName });
+    dispatch(fetchUser(userId));
+  }, [userId]);
 
   return (
     <>

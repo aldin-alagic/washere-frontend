@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FeedList from "../FeedList";
 import Screen from "../Screen";
 import { getFeedByTag } from "../../store/search";
+
 import colors from "../../config/colors";
 
 const TagFeed = ({ route }) => {

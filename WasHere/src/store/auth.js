@@ -50,7 +50,6 @@ const slice = createSlice({
           message,
         };
       }
-      Alert.alert(message);
       auth.loading = false;
     },
 
@@ -140,9 +139,9 @@ const slice = createSlice({
     requestFailed: (auth, action) => {
       auth.loading = false;
       showMessage({
-        message: API_ERROR_MESSAGE,
-        description: action.payload,
-        type: "warning",
+        message: action.payload,
+        type: "danger",
+        icon: "danger",
         autoHide: true,
       });
     },
