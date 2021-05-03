@@ -8,14 +8,25 @@ import { API_ERROR_MESSAGE } from "../config/config.json";
 const slice = createSlice({
   name: "user",
   initialState: {
-    information: {},
-    posts: null,
+    myProfile: {
+      information: {},
+      posts: null,
+    },
     myConnections: [],
     loading: false,
   },
   reducers: {
     requestStarted: (user, action) => {
       user.loading = true;
+    },
+
+    myProfileFetched: (user, action) => {
+      const { success, data } = action.payload;
+      console.log(data);
+      user.loading = false;
+      if (success) {
+        user.myProfile = data;
+      }
     },
 
     userFetched: (user, action) => {
@@ -48,8 +59,18 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, userFetched, myConnectionsFetched, requestFailed } = slice.actions;
+export const { requestStarted, userFetched, myConnectionsFetched, myProfileFetched, requestFailed } = slice.actions;
 export default slice.reducer;
+
+export const fetchMyProfile = (id) =>
+  apiCallBegan({
+    url: `/user/profile`,
+    method: "GET",
+    data: "",
+    onStart: requestStarted.type,
+    onSuccess: myProfileFetched.type,
+    onError: requestFailed.type,
+  });
 
 export const fetchUser = (id) =>
   apiCallBegan({

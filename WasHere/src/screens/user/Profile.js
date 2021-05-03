@@ -61,14 +61,6 @@ const MyProfile = () => {
 
   useEffect(() => dispatch(fetchUser(userId)), [userId]);
 
-  const onOpenEditProfile = () => {
-    editProfileRef.current.open();
-  };
-
-  const onOpenMyConnections = () => {
-    myConnectionsRef.current.open();
-  };
-
   return (
     <>
       <Screen style={styles.container}>
