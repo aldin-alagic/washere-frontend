@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
-const MapSection = ({ latitude, longitude, onPress }) => {
+const MapSection = ({ latitude, longitude, onPress, style }) => {
   const mapRef = useRef();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const MapSection = ({ latitude, longitude, onPress }) => {
   return (
     <View>
       <MapView
-        style={styles.map}
+        style={[styles.map, style]}
         ref={mapRef}
         initialRegion={{
           latitude: parseFloat(latitude),
