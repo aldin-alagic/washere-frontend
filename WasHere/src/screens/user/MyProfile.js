@@ -66,7 +66,7 @@ const Profile = () => {
     myConnectionsRef.current.open();
   };
 
-  // return null;
+  if (!user.user) return null;
 
   return (
     <>
