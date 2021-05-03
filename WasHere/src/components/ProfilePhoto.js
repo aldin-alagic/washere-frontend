@@ -1,28 +1,19 @@
 import React from "react";
-import { StyleSheet, Image, View } from "react-native";
+import { Image, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { profilePhoto } from "../utils/getPhotoURI";
 
-const ProfilePhoto = ({ photoKey, size }) => {
+const ProfilePhoto = ({ photoKey, size, marginRight = 15 }) => {
   return (
     <View>
       {photoKey ? (
-        <Image style={[{ height: size, width: size, borderRadius: size }, styles.userImage]} source={{ uri: profilePhoto(photoKey) }} />
+        <Image style={[{ height: size, width: size, borderRadius: size, marginRight }]} source={{ uri: profilePhoto(photoKey) }} />
       ) : (
-        <Icon name="user-circle" size={size} style={styles.icon} solid />
+        <Icon name="user-circle" size={size} style={{ marginRight }} solid />
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  userImage: {
-    marginRight: 15,
-  },
-  icon: {
-    marginRight: 10,
-  },
-});
 
 export default ProfilePhoto;
