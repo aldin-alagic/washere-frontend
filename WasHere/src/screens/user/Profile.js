@@ -52,24 +52,26 @@ const connections = [
   },
 ];
 
-const MyProfile = () => {
+const Profile = ({ route }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
-  const userId = useSelector((state) => state.auth.user.id);
-  const user = useSelector((state) => state.user);
+  const profile = useSelector((state) => state.user.profile);
   const dispatch = useDispatch();
+  const { profileId } = route.params;
 
-  useEffect(() => dispatch(fetchUser(userId)), [userId]);
+  useEffect(() => dispatch(fetchUser(profileId)), [profileId]);
+
+  if (!profile.user) return null;
 
   return (
     <>
       <Screen style={styles.container}>
         <View style={{ marginTop: 15 }}>
           <View style={styles.basicInformation}>
-            <Image style={styles.userImage} source={{ uri: profilePhoto(user.information.profile_photo) }} />
+            <Image style={styles.userImage} source={{ uri: profilePhoto(profile.user.profile_photo) }} />
             <View style={styles.textInformation}>
-              <Text style={styles.username}>@{user.information.username}</Text>
-              <Text style={styles.text}>{user.information.about}</Text>
+              <Text style={styles.username}>@{profile.user.username}</Text>
+              <Text style={styles.text}>{profile.user.about}</Text>
             </View>
           </View>
 
@@ -94,12 +96,20 @@ const MyProfile = () => {
             ]}
           />
           <View style={styles.divider} />
-          <View style={{ marginTop: 6, marginBottom: 10 }}>
-            <AppButton title={"Connect"} onPress={() => console.log("A")} customStyle={{ padding: 9 }} />
-          </View>
-          <Text style={[{ color: colors.mediumlight, lineHeight: 17 }, styles.text]}>
-            Connect with Jane in order to be able to see her contact information and places where she has been to.
-          </Text>
+          {!profile.connected && (
+            <View style={{ marginTop: 6, marginBottom: 10 }}>
+              <AppButton
+                title={profile.requestSent ? "Pending approval" : "Connect"}
+                onPress={() => console.log("A")}
+                customStyle={{ padding: 9 }}
+              />
+            </View>
+          )}
+          {!profile.connected && (
+            <Text style={[{ color: colors.mediumlight, lineHeight: 17 }, styles.text]}>
+              Connect with {profile.user.fullname} in order to be able to see her contact information and places where she has been to.
+            </Text>
+          )}
         </View>
       </Screen>
       <BottomSheet
@@ -207,4 +217,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyProfile;
+export default Profile;

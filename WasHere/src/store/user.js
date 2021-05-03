@@ -13,6 +13,7 @@ const slice = createSlice({
       posts: null,
     },
     myConnections: [],
+    profile: {},
     loading: false,
   },
   reducers: {
@@ -22,7 +23,6 @@ const slice = createSlice({
 
     myProfileFetched: (user, action) => {
       const { success, data } = action.payload;
-      console.log(data);
       user.loading = false;
       if (success) {
         user.myProfile = data;
@@ -33,8 +33,7 @@ const slice = createSlice({
       const { success, message, data } = action.payload;
       user.loading = false;
       if (success) {
-        user.posts = data.posts;
-        user.information = data.user;
+        user.profile = data;
       }
     },
 
@@ -74,7 +73,7 @@ export const fetchMyProfile = (id) =>
 
 export const fetchUser = (id) =>
   apiCallBegan({
-    url: `/user/${id}`,
+    url: `/user/${id}/profile`,
     method: "GET",
     data: "",
     onStart: requestStarted.type,
