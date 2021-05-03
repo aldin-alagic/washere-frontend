@@ -3,17 +3,16 @@ import { StyleSheet, View, Image, Text } from "react-native";
 import days from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-import { profilePhoto } from "../../utils/getPhotoURI";
-
 import defaultStyles from "../../config/styles";
 import colors from "../../config/colors";
+import ProfilePhoto from "../ProfilePhoto";
 
 days.extend(relativeTime);
 
 const UserSection = ({ user, createdAt, location }) => {
   return (
     <View style={styles.userContainer}>
-      <Image style={styles.userImage} source={{ uri: profilePhoto(user.profile_photo) }} />
+      <ProfilePhoto photoKey={user.profile_photo} size={45} />
       <View style={styles.textContainer}>
         <Text style={[defaultStyles.text, styles.name]}>
           {user.fullname}
@@ -29,12 +28,6 @@ const UserSection = ({ user, createdAt, location }) => {
 const styles = StyleSheet.create({
   userContainer: {
     flexDirection: "row",
-  },
-  userImage: {
-    borderRadius: 50,
-    height: 45,
-    width: 45,
-    marginRight: 10,
   },
   textContainer: {
     justifyContent: "space-between",
