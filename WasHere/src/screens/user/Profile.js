@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { View, Image, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
+import { View, StyleSheet, FlatList, Animated } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -17,42 +17,11 @@ import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
 import { fetchUser, requestConnection } from "../../store/user";
 import colors from "../../config/colors";
 import Post from "../../components/Post";
-import { profilePhoto } from "../../utils/getPhotoURI";
 import AppButton from "../../components/Button";
 import PlacesCarousel from "../../components/PlacesCarousel";
+import ProfilePhoto from "../../components/ProfilePhoto";
 
-const connections = [
-  {
-    id: "1",
-    user: {
-      name: "John Wick",
-      photoURL: "https://i.pravatar.cc/150?img=52",
-    },
-  },
-  {
-    id: "2",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "3",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-];
-
-const Profile = ({ route }) => {
+const Profile = ({ route, navigation }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
   const profile = useSelector((state) => state.user.profile);
@@ -61,56 +30,76 @@ const Profile = ({ route }) => {
 
   useEffect(() => dispatch(fetchUser(profileId)), [profileId]);
 
+  useEffect(() => {
+    if (profile.user?.fullname) navigation.setOptions({ title: profile.user.fullname });
+  }, [profile]);
+
   if (!profile.user) return null;
 
   return (
     <>
       <Screen style={styles.container}>
         <View style={{ marginTop: 15 }}>
-          <View style={styles.basicInformation}>
-            <Image style={styles.userImage} source={{ uri: profilePhoto(profile.user.profile_photo) }} />
-            <View style={styles.textInformation}>
-              <Text style={styles.username}>@{profile.user.username}</Text>
-              <Text style={styles.text}>{profile.user.about}</Text>
-            </View>
-          </View>
+          <FlatList
+            data={profile.posts}
+            ListHeaderComponent={
+              <View>
+                <View style={styles.basicInformation}>
+                  <ProfilePhoto size={100} photoKey={profile.user.profile_photo} />
+                  <View style={styles.textInformation}>
+                    <Text style={styles.username}>@{profile.user.username}</Text>
+                    <Text style={styles.text}>{profile.user.about}</Text>
+                  </View>
+                </View>
 
-          <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>Mutual connections</Text>
+                {profile.mutualConnections.length !== 0 && (
+                  <>
+                    <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>Mutual connections</Text>
+                    <View style={styles.connections}>
+                      <FlatList
+                        style={styles.connectionsList}
+                        horizontal={true}
+                        data={profile.mutualConnections}
+                        renderItem={({ item }) => <ConnectionSimple data={item} />}
+                      />
+                    </View>
+                    <View style={styles.divider} />
+                  </>
+                )}
 
-          <View style={styles.connections}>
-            <FlatList
-              style={styles.connectionsList}
-              horizontal={true}
-              data={connections}
-              renderItem={({ item }) => <ConnectionSimple data={item} />}
-            />
-          </View>
-          <View style={styles.divider} />
-
-          <BlankSpacer height={8} />
-          <Text style={[{ color: colors.mediumlight }, styles.text]}>Mutual places visited</Text>
-          <PlacesCarousel
-            places={[
-              { id: 1, latitude: 43.123, longitude: 44.321 },
-              { id: 1, latitude: 43.123, longitude: 44.321 },
-            ]}
+                {!profile.connected && (
+                  <View>
+                    <BlankSpacer height={8} />
+                    <Text style={[{ color: colors.mediumlight }, styles.text]}>Mutual places visited</Text>
+                    <PlacesCarousel
+                      places={[
+                        { id: 1, latitude: 43.123, longitude: 44.321 },
+                        { id: 2, latitude: 43.123, longitude: 44.321 },
+                      ]}
+                    />
+                    <View style={styles.divider} />
+                  </View>
+                )}
+                {!profile.connected && (
+                  <View style={{ marginTop: 6, marginBottom: 10 }}>
+                    <AppButton
+                      title={profile.requestSent ? "Pending approval" : "Connect"}
+                      onPress={() => dispatch(requestConnection(profileId))}
+                      color={profile.requestSent ? "mediumlight" : "primary"}
+                      customStyle={{ padding: 9 }}
+                    />
+                  </View>
+                )}
+                {!profile.connected && (
+                  <Text style={[{ color: colors.mediumlight, lineHeight: 17 }, styles.text]}>
+                    Connect with {profile.user.fullname} in order to be able to see her contact information and places where she has been
+                    to.
+                  </Text>
+                )}
+              </View>
+            }
+            renderItem={({ item }) => <Post data={item} />}
           />
-          <View style={styles.divider} />
-          {!profile.connected && (
-            <View style={{ marginTop: 6, marginBottom: 10 }}>
-              <AppButton
-                title={profile.requestSent ? "Pending approval" : "Connect"}
-                onPress={() => dispatch(requestConnection(profileId))}
-                color={profile.requestSent ? "mediumlight" : "primary"}
-                customStyle={{ padding: 9 }}
-              />
-            </View>
-          )}
-          {!profile.connected && (
-            <Text style={[{ color: colors.mediumlight, lineHeight: 17 }, styles.text]}>
-              Connect with {profile.user.fullname} in order to be able to see her contact information and places where she has been to.
-            </Text>
-          )}
         </View>
       </Screen>
       <BottomSheet
@@ -155,12 +144,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
   },
-  userImage: {
-    borderRadius: 50,
-    height: 100,
-    width: 100,
-    marginRight: 10,
-  },
   basicInformation: {
     flexDirection: "row",
     marginBottom: 10,
@@ -170,7 +153,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   aboutContainer: {
-    // backgroundColor: "#FAFAFAFA",
     padding: 15,
     borderRadius: 15,
   },
