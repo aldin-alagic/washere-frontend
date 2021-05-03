@@ -14,7 +14,7 @@ import BottomSheet from "../../components/BottomSheet";
 import ConnectionSimple from "../../components/Profile/ConnectionSimple";
 import TelegramIcon from "../../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
-import { fetchUser } from "../../store/user";
+import { fetchUser, requestConnection } from "../../store/user";
 import colors from "../../config/colors";
 import Post from "../../components/Post";
 import { profilePhoto } from "../../utils/getPhotoURI";
@@ -100,7 +100,8 @@ const Profile = ({ route }) => {
             <View style={{ marginTop: 6, marginBottom: 10 }}>
               <AppButton
                 title={profile.requestSent ? "Pending approval" : "Connect"}
-                onPress={() => console.log("A")}
+                onPress={() => dispatch(requestConnection(profileId))}
+                color={profile.requestSent ? "mediumlight" : "primary"}
                 customStyle={{ padding: 9 }}
               />
             </View>

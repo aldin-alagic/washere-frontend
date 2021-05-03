@@ -55,13 +55,26 @@ const slice = createSlice({
         autoHide: true,
       });
     },
+
+    requestConnectionSent: (user, action) => {
+      const { success, message } = action.payload;
+
+      if (success) user.profile.requestSent = true;
+
+      showMessage({
+        message,
+        icon: "success",
+        type: success ? "success" : "warning",
+        autoHide: true,
+      });
+    },
   },
 });
 
-export const { requestStarted, userFetched, myConnectionsFetched, myProfileFetched, requestFailed } = slice.actions;
+export const { requestStarted, userFetched, myConnectionsFetched, myProfileFetched, requestConnectionSent, requestFailed } = slice.actions;
 export default slice.reducer;
 
-export const fetchMyProfile = (id) =>
+export const fetchMyProfile = () =>
   apiCallBegan({
     url: `/user/profile`,
     method: "GET",
@@ -71,9 +84,9 @@ export const fetchMyProfile = (id) =>
     onError: requestFailed.type,
   });
 
-export const fetchUser = (id) =>
+export const fetchUser = (userId) =>
   apiCallBegan({
-    url: `/user/${id}/profile`,
+    url: `/user/${userId}/profile`,
     method: "GET",
     data: "",
     onStart: requestStarted.type,
@@ -88,5 +101,14 @@ export const fetchMyConnections = () =>
     data: "",
     onStart: requestStarted.type,
     onSuccess: myConnectionsFetched.type,
+    onError: requestFailed.type,
+  });
+
+export const requestConnection = (userId) =>
+  apiCallBegan({
+    url: `/user/${userId}/request-connection`,
+    method: "POST",
+    onStart: requestStarted.type,
+    onSuccess: requestConnectionSent.type,
     onError: requestFailed.type,
   });
