@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
-
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Text from "../../components/Text";
 import Screen from "../../components/Screen";
