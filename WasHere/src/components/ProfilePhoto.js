@@ -1,28 +1,27 @@
 import React from "react";
-import { StyleSheet, Image, View } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { profilePhoto } from "../utils/getPhotoURI";
+import { navigate } from "../navigation/RootNavigation";
 
-const ProfilePhoto = ({ photoKey, size }) => {
+const ProfilePhoto = ({ profileId, photoKey, size, style }) => {
+  const handleNavigateToProfile = () => {
+    if (profileId) navigate("Profile", { profileId });
+  };
+
   return (
-    <View>
+    <TouchableOpacity onPress={handleNavigateToProfile}>
       {photoKey ? (
-        <Image style={[{ height: size, width: size, borderRadius: size }, styles.userImage]} source={{ uri: profilePhoto(photoKey) }} />
+        <Image
+          style={[{ height: size, width: size, borderRadius: size, marginRight: 15, ...style }]}
+          source={{ uri: profilePhoto(photoKey) }}
+        />
       ) : (
-        <Icon name="user-circle" size={size} style={styles.icon} solid />
+        <Icon name="user-circle" size={size} style={{ marginRight: 15, ...style }} solid />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  userImage: {
-    marginRight: 15,
-  },
-  icon: {
-    marginRight: 10,
-  },
-});
 
 export default ProfilePhoto;

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { View, Image, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
+import { View, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -11,13 +11,15 @@ import EditProfile from "../../components/Profile/EditProfile";
 import MyConnections from "../../components/Profile/MyConnections";
 import BottomSheet from "../../components/BottomSheet";
 import ConnectionSimple from "../../components/Profile/ConnectionSimple";
-import { fetchUser } from "../../store/user";
+import { fetchMyProfile } from "../../store/user";
 import Post from "../../components/Post";
 import ProfilePhoto from "../../components/ProfilePhoto";
 
 import colors from "../../config/colors";
 import TelegramIcon from "../../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
+import SettingsButton from "../../components/SettingsButton";
+import EditProfileButton from "../../components/EditProfileButton";
 
 const connections = [
   {
@@ -50,14 +52,17 @@ const connections = [
   },
 ];
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
-  const userId = useSelector((state) => state.auth.user.id);
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.myProfile);
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchUser(userId)), [userId]);
+  useEffect(() => dispatch(fetchMyProfile()), []);
+
+  useEffect(() => {
+    navigation.setOptions({ headerLeft: () => <EditProfileButton onOpenEditProfile={onOpenEditProfile} />, headerRight: SettingsButton });
+  }, []);
 
   const onOpenEditProfile = () => {
     editProfileRef.current.open();
@@ -67,6 +72,8 @@ const Profile = () => {
     myConnectionsRef.current.open();
   };
 
+  if (!user.user) return null;
+
   return (
     <>
       <Screen style={styles.container}>
@@ -75,17 +82,14 @@ const Profile = () => {
           ListHeaderComponent={
             <View style={styles.userSection}>
               <View style={styles.basicInformation}>
-                <ProfilePhoto photoKey={user.information.profile_photo} size={100} />
+                <ProfilePhoto photoKey={user.user.profile_photo} size={100} />
                 <View style={styles.textInformation}>
-                  <Text style={styles.username}>@{user.information.username}</Text>
+                  <Text style={styles.username}>@{user.user.username}</Text>
                   <View style={styles.aboutContainer}>
-                    <Text style={styles.text}>{user.information.about}</Text>
+                    <Text style={styles.text}>{user.user.about}</Text>
                   </View>
                 </View>
               </View>
-              <TouchableOpacity onPress={onOpenEditProfile}>
-                <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
-              </TouchableOpacity>
 
               <BlankSpacer height={8} />
               <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
@@ -93,12 +97,12 @@ const Profile = () => {
               <View style={styles.socials}>
                 <View style={styles.socialMediaPlatform}>
                   <TelegramIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.information.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.user.contact_telegram}</Text>
                 </View>
 
                 <View style={styles.socialMediaPlatform}>
                   <FacebookMessengerIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.information.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.user.contact_telegram}</Text>
                 </View>
               </View>
 
@@ -164,13 +168,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   userSection: {
-    marginVertical: 15,
+    marginVertical: 20,
   },
   text: {
     fontSize: 15,
   },
   basicInformation: {
     flexDirection: "row",
+    alignItems: "center",
     marginBottom: 10,
   },
   textInformation: {
@@ -187,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 15,
+    marginRight: 15,
   },
   socialMediaPlatform: {
     flexDirection: "row",

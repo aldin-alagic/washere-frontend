@@ -49,7 +49,7 @@ const AppTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="MyProfile"
         component={MyProfile}
         options={{
           tabBarIcon: ({ color }) => <Icon name="person-outline" color={color} size={25} />,

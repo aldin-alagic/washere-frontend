@@ -7,7 +7,7 @@ import ProfilePhoto from "../ProfilePhoto";
 const Connection = ({ connection }) => {
   return (
     <View style={styles.connectionContainer}>
-      <ProfilePhoto size={50} photoKey={connection.user.profile_photo} />
+      <ProfilePhoto profileId={connection.user.id} size={50} photoKey={connection.user.profile_photo} />
       <View style={styles.connectionInfo}>
         <Text style={styles.fullName}>{connection.user.fullname}</Text>
         <Text style={styles.date}>Connection since July 8th</Text>

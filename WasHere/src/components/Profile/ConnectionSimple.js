@@ -1,17 +1,8 @@
 import React from "react";
-import { StyleSheet, Image } from "react-native";
+import ProfilePhoto from "../ProfilePhoto";
 
 const ConnectionSimple = ({ data }) => {
-  return <Image style={styles.userImage} source={{ uri: data.user.photoURL }} />;
+  return <ProfilePhoto profileId={data.id} photoKey={data.profile_photo} size={45} style={{ marginRight: 10 }} />;
 };
-
-const styles = StyleSheet.create({
-  userImage: {
-    borderRadius: 50,
-    height: 45,
-    width: 45,
-    marginRight: 15,
-  },
-});
 
 export default ConnectionSimple;
