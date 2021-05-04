@@ -12,7 +12,7 @@ days.extend(relativeTime);
 const UserSection = ({ user, createdAt, location }) => {
   return (
     <View style={styles.userContainer}>
-      <ProfilePhoto photoKey={user.profile_photo} size={45} style={{ marginRight: 10 }} />
+      <ProfilePhoto profileId={user.id} photoKey={user.profile_photo} size={45} style={{ marginRight: 10 }} />
       <View style={styles.textContainer}>
         <Text style={[defaultStyles.text, styles.name]}>
           {user.fullname}

@@ -1,12 +1,17 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { profilePhoto } from "../utils/getPhotoURI";
+import { navigate } from "../navigation/RootNavigation";
 
-const ProfilePhoto = ({ photoKey, size, style }) => {
+const ProfilePhoto = ({ profileId, photoKey, size, style }) => {
+  const handleNavigateToProfile = () => {
+    if (profileId) navigate("Profile", { profileId });
+  };
+
   return (
-    <View>
+    <TouchableOpacity onPress={handleNavigateToProfile}>
       {photoKey ? (
         <Image
           style={[{ height: size, width: size, borderRadius: size, marginRight: 15, ...style }]}
@@ -15,7 +20,7 @@ const ProfilePhoto = ({ photoKey, size, style }) => {
       ) : (
         <Icon name="user-circle" size={size} style={{ marginRight: 15, ...style }} solid />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

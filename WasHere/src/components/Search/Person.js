@@ -10,7 +10,7 @@ const Person = ({ data }) => {
   return (
     <View>
       <TouchableOpacity style={styles.container} onPress={() => navigate("Profile", { profileId: data.id })}>
-        <ProfilePhoto photoKey={data.profile_photo} size={60} />
+        <ProfilePhoto profileId={data.id} photoKey={data.profile_photo} size={60} />
         <View style={styles.personInfo}>
           <Text style={styles.personName}>{data.fullname}</Text>
           <Text style={styles.personPlace}>@{data.username}</Text>
