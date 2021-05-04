@@ -78,7 +78,7 @@ const EditProfile = ({ editProfileRef }) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 14,
+    fontSize: 15,
   },
   photoInformation: {
     flexDirection: "column",

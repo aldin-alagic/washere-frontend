@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   userSection: {
-    marginVertical: 25,
+    marginVertical: 20,
   },
   text: {
     fontSize: 15,

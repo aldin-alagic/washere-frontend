@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import { View, StyleSheet, FlatList, Animated } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
-import Icon from "react-native-vector-icons/Ionicons";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Text from "../../components/Text";
@@ -42,7 +41,7 @@ const Profile = ({ route, navigation }) => {
         <FlatList
           data={profile.posts}
           ListHeaderComponent={
-            <View style={{ marginTop: 15 }}>
+            <View style={{ marginTop: 20 }}>
               <View style={styles.basicInformation}>
                 <ProfilePhoto size={100} photoKey={profile.user.profile_photo} />
                 <View style={styles.textInformation}>
