@@ -6,7 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 import { toggleLike } from "../../store/posts";
 
-const Likes = ({ id, count, isLiked }) => {
+const Likes = ({ postId, count, isLiked }) => {
   const [likeState, setLikeState] = useState({ liked: isLiked, likeCount: count });
 
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Likes = ({ id, count, isLiked }) => {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          dispatch(toggleLike(id));
+          dispatch(toggleLike(postId));
           setLikeState({
             likeCount: likeState.liked ? likeState.likeCount - 1 : likeState.likeCount + 1,
             liked: !likeState.liked,

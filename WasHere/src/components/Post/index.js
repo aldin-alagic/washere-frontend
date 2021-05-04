@@ -37,7 +37,7 @@ const Post = ({ data }) => {
         ))}
       </Carousel>
 
-      <FooterSection id={data.id} likes={data._count.likes} liked={data.liked} comments={data._count.comments} onPress={openPost} />
+      <FooterSection postId={data.id} likes={data._count.likes} liked={data.liked} comments={data._count.comments} onPress={openPost} />
     </View>
   );
 };
