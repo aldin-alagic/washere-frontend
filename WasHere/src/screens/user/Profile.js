@@ -46,7 +46,11 @@ const Profile = ({ route, navigation }) => {
                 <ProfilePhoto size={100} photoKey={profile.user.profile_photo} />
                 <View style={styles.textInformation}>
                   <Text style={styles.username}>@{profile.user.username}</Text>
-                  <Text style={styles.text}>{profile.user.about}</Text>
+                  {profile.user.about && (
+                    <View style={styles.aboutContainer}>
+                      <Text style={styles.text}>{profile.user.about}</Text>
+                    </View>
+                  )}
                 </View>
               </View>
 
@@ -149,6 +153,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   aboutContainer: {
+    backgroundColor: "#FAFAFAFA",
     padding: 15,
     borderRadius: 15,
   },
