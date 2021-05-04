@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { View, Image, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
+import { View, StyleSheet, FlatList, TouchableOpacity, Animated } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
