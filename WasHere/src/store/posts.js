@@ -16,6 +16,12 @@ const slice = createSlice({
       posts: [],
       lastPostId: null,
     },
+    user: {
+      posts: [],
+    },
+    search: {
+      posts: [],
+    },
   },
   reducers: {
     requestStarted: (posts, action) => {
@@ -56,15 +62,24 @@ const slice = createSlice({
 
     likeToggled: (posts, action) => {
       const { data } = action.payload;
-      console.log("DATA", data);
-      posts.feed.posts = posts.feed.posts.map((post) => {
-        if (post.id == data.post_id) {
-          console.log("POST ID MATCHING");
-          console.log("POST", post);
-          return { ...post, liked: !post.liked };
+
+      const updatePost = (post) => {
+        if (post.id === data.post_id) {
+          if (post.liked) post._count.likes--;
+          else post._count.likes++;
+
+          post.liked = !post.liked;
         }
         return post;
-      });
+      };
+
+      // Toggle like if the post is in some of the arrays
+      posts.feed.posts = posts.feed.posts.map(updatePost);
+      posts.user.posts = posts.user.posts.map(updatePost);
+      posts.search.posts = posts.search.posts.map(updatePost);
+
+      // Toggle like if the post is opened in the post details screen
+      posts.post = updatePost(posts.post);
     },
 
     commentAdded: (posts, action) => {

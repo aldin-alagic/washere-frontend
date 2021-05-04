@@ -64,7 +64,7 @@ const Post = ({ route }) => {
                 </TouchableOpacity>
               ))}
             </View>
-            <Likes count={post._count.likes} />
+            <Likes postId={post.id} liked={post.liked} count={post._count.likes} />
           </View>
           {post.comments.map((comment) => (
             <Comment key={comment.id} data={comment} />

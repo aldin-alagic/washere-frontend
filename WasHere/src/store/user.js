@@ -9,7 +9,6 @@ const slice = createSlice({
   name: "user",
   initialState: {
     information: {},
-    posts: null,
     myConnections: [],
     loading: false,
   },
@@ -19,10 +18,9 @@ const slice = createSlice({
     },
 
     userFetched: (user, action) => {
-      const { success, message, data } = action.payload;
+      const { success, data } = action.payload;
       user.loading = false;
       if (success) {
-        user.posts = data.posts;
         user.information = data.user;
       }
     },

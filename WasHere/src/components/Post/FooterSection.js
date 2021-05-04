@@ -7,7 +7,7 @@ import Comments from "./Comments";
 const FooterSection = ({ likes, liked, postId, comments, onPress }) => {
   return (
     <View style={styles.footerContainer}>
-      <Likes count={likes} isLiked={liked} postId={postId} />
+      <Likes count={likes} liked={liked} postId={postId} />
 
       <TouchableOpacity onPress={onPress}>
         <Comments count={comments} />
