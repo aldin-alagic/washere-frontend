@@ -60,6 +60,12 @@ const slice = createSlice({
       posts.loading = false;
     },
 
+    postsFetched: (posts, action) => {
+      const { data } = action.payload;
+      posts.user.posts = data;
+      posts.loading = false;
+    },
+
     likeToggled: (posts, action) => {
       const { data } = action.payload;
 
@@ -108,7 +114,16 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, feedFetched, postFetched, likeToggled, commentAdded, postCreated, requestFailed } = slice.actions;
+export const {
+  requestStarted,
+  feedFetched,
+  postFetched,
+  postsFetched,
+  likeToggled,
+  commentAdded,
+  postCreated,
+  requestFailed,
+} = slice.actions;
 export default slice.reducer;
 
 export const createPost = (description, isPublic, latitude, longitude, photos) =>
@@ -149,6 +164,16 @@ export const getPost = (id) =>
     data: "",
     onStart: requestStarted.type,
     onSuccess: postFetched.type,
+    onError: requestFailed.type,
+  });
+
+export const getPosts = (userId) =>
+  apiCallBegan({
+    url: `/user/${userId}/posts`,
+    method: "GET",
+    data: "",
+    onStart: requestStarted.type,
+    onSuccess: postsFetched.type,
     onError: requestFailed.type,
   });
 

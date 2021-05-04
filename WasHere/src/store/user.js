@@ -8,10 +8,7 @@ import { API_ERROR_MESSAGE } from "../config/config.json";
 const slice = createSlice({
   name: "user",
   initialState: {
-    myProfile: {
-      information: {},
-      posts: null,
-    },
+    myProfile: {},
     myConnections: [],
     profile: {},
     loading: false,

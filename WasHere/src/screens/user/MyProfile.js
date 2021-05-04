@@ -20,6 +20,7 @@ import TelegramIcon from "../../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
 import SettingsButton from "../../components/SettingsButton";
 import EditProfileButton from "../../components/EditProfileButton";
+import { getPosts } from "../../store/posts";
 
 const connections = [
   {
@@ -55,10 +56,16 @@ const connections = [
 const Profile = ({ navigation }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
+
+  const userId = useSelector((state) => state.auth.user.id);
   const user = useSelector((state) => state.user.myProfile);
+  const posts = useSelector((state) => state.posts.user.posts);
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchMyProfile()), []);
+  useEffect(() => {
+    dispatch(fetchMyProfile());
+    dispatch(getPosts(userId));
+  }, [userId]);
 
   useEffect(() => {
     navigation.setOptions({ headerLeft: () => <EditProfileButton onOpenEditProfile={onOpenEditProfile} />, headerRight: SettingsButton });
@@ -72,21 +79,21 @@ const Profile = ({ navigation }) => {
     myConnectionsRef.current.open();
   };
 
-  if (!user.user) return null;
+  if (!user) return null;
 
   return (
     <>
       <Screen style={styles.container}>
         <FlatList
-          data={user.posts}
+          data={posts}
           ListHeaderComponent={
             <View style={styles.userSection}>
               <View style={styles.basicInformation}>
-                <ProfilePhoto photoKey={user.user.profile_photo} size={100} />
+                <ProfilePhoto photoKey={user.profile_photo} size={100} />
                 <View style={styles.textInformation}>
-                  <Text style={styles.username}>@{user.user.username}</Text>
+                  <Text style={styles.username}>@{user.username}</Text>
                   <View style={styles.aboutContainer}>
-                    <Text style={styles.text}>{user.user.about}</Text>
+                    <Text style={styles.text}>{user.about}</Text>
                   </View>
                 </View>
               </View>
@@ -97,12 +104,12 @@ const Profile = ({ navigation }) => {
               <View style={styles.socials}>
                 <View style={styles.socialMediaPlatform}>
                   <TelegramIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.user.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.contact_telegram}</Text>
                 </View>
 
                 <View style={styles.socialMediaPlatform}>
                   <FacebookMessengerIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.user.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.contact_telegram}</Text>
                 </View>
               </View>
 
