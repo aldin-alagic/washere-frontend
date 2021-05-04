@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
+import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import TelegramIcon from "../../assets/images/telegram.svg";
@@ -10,6 +11,7 @@ import Text from "../Text";
 import Button from "../Button";
 
 import colors from "../../config/colors";
+import ProfilePhoto from "../ProfilePhoto";
 
 const user = {
   fullname: "John Wick",
@@ -23,6 +25,11 @@ const user = {
 
 const EditProfile = ({ editProfileRef }) => {
   const [text, setText] = useState("");
+  const user = useSelector((state) => state.user.myProfile);
+
+  useEffect(() => {
+    console.log(user.user);
+  }, [user]);
 
   return (
     <ScrollView>
@@ -31,8 +38,9 @@ const EditProfile = ({ editProfileRef }) => {
         <CloseButton onPress={() => editProfileRef.current.close()} />
       </View>
       <View style={styles.photoInformation}>
-        <Image style={[styles.userImage]} source={{ uri: "https://i.pravatar.cc/150?img=27" }} />
-        <BlankSpacer height={6} />
+        <ProfilePhoto photoKey={user.user.profile_photo} size={100} />
+
+        <BlankSpacer height={15} />
         <TouchableOpacity>
           <Text style={[styles.text, styles.actions]}>Take photo</Text>
         </TouchableOpacity>
@@ -85,7 +93,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileInformation: { marginHorizontal: 20 },
-  actions: { color: colors.primary, fontWeight: "bold" },
+  actions: {
+    color: colors.primary,
+    fontWeight: "bold",
+  },
   center: {
     textAlign: "center",
   },
