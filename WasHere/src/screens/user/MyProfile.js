@@ -63,6 +63,7 @@ const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!userId) return;
     dispatch(fetchMyProfile());
     dispatch(getPosts(userId));
   }, [userId]);
