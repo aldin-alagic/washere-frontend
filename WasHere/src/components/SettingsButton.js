@@ -15,7 +15,7 @@ const SettingsButton = () => {
 
 const styles = StyleSheet.create({
   button: {
-    marginRight: 12,
+    marginRight: 20,
   },
 });
 

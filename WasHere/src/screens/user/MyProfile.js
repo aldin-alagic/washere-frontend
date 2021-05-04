@@ -18,6 +18,8 @@ import ProfilePhoto from "../../components/ProfilePhoto";
 import colors from "../../config/colors";
 import TelegramIcon from "../../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
+import SettingsButton from "../../components/SettingsButton";
+import EditProfileButton from "../../components/EditProfileButton";
 
 const connections = [
   {
@@ -50,13 +52,17 @@ const connections = [
   },
 ];
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
   const user = useSelector((state) => state.user.myProfile);
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(fetchMyProfile()), []);
+
+  useEffect(() => {
+    navigation.setOptions({ headerLeft: () => <EditProfileButton onOpenEditProfile={onOpenEditProfile} />, headerRight: SettingsButton });
+  }, []);
 
   const onOpenEditProfile = () => {
     editProfileRef.current.open();
@@ -84,9 +90,6 @@ const Profile = () => {
                   </View>
                 </View>
               </View>
-              <TouchableOpacity onPress={onOpenEditProfile}>
-                <Text style={[{ color: colors.primary }, styles.text]}>Edit profile</Text>
-              </TouchableOpacity>
 
               <BlankSpacer height={8} />
               <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
@@ -189,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 15,
+    marginRight: 15,
   },
   socialMediaPlatform: {
     flexDirection: "row",
