@@ -165,13 +165,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   userSection: {
-    marginVertical: 15,
+    marginVertical: 25,
   },
   text: {
     fontSize: 15,
   },
   basicInformation: {
     flexDirection: "row",
+    alignItems: "center",
     marginBottom: 10,
   },
   textInformation: {
