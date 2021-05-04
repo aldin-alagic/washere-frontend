@@ -12,10 +12,10 @@ const Likes = ({ postId, count, isLiked }) => {
 
   const handleToggleLike = () => {
     dispatch(toggleLike(postId));
-    setLikeState({
-      likeCount: likeState.liked ? likeState.likeCount - 1 : likeState.likeCount + 1,
-      liked: !likeState.liked,
-    });
+    setLikeState((oldState) => ({
+      likeCount: oldState.liked ? oldState.likeCount - 1 : oldState.likeCount + 1,
+      liked: !oldState.liked,
+    }));
   };
 
   return (
