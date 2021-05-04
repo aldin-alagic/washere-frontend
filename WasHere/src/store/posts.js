@@ -54,6 +54,19 @@ const slice = createSlice({
       posts.loading = false;
     },
 
+    likeToggled: (posts, action) => {
+      const { data } = action.payload;
+      console.log("DATA", data);
+      posts.feed.posts = posts.feed.posts.map((post) => {
+        if (post.id == data.post_id) {
+          console.log("POST ID MATCHING");
+          console.log("POST", post);
+          return { ...post, liked: !post.liked };
+        }
+        return post;
+      });
+    },
+
     commentAdded: (posts, action) => {
       const { success, message, data } = action.payload;
 
@@ -80,7 +93,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, feedFetched, postFetched, commentAdded, postCreated, requestFailed } = slice.actions;
+export const { requestStarted, feedFetched, postFetched, likeToggled, commentAdded, postCreated, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const createPost = (description, isPublic, latitude, longitude, photos) =>
@@ -121,6 +134,16 @@ export const getPost = (id) =>
     data: "",
     onStart: requestStarted.type,
     onSuccess: postFetched.type,
+    onError: requestFailed.type,
+  });
+
+export const toggleLike = (postId) =>
+  apiCallBegan({
+    url: `/post/${postId}/toggle-like`,
+    method: "POST",
+    data: {},
+    onStart: null,
+    onSuccess: likeToggled.type,
     onError: requestFailed.type,
   });
 

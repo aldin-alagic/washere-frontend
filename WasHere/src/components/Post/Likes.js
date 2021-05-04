@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
+
 import Icon from "react-native-vector-icons/Ionicons";
 
-const Likes = ({ count, liked }) => {
+import { toggleLike } from "../../store/posts";
+
+const Likes = ({ id, count, isLiked }) => {
+  const [likeState, setLikeState] = useState({ liked: isLiked, likeCount: count });
+
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          console.log("Pressed like!");
+          dispatch(toggleLike(id));
+          setLikeState({
+            likeCount: likeState.liked ? likeState.likeCount - 1 : likeState.likeCount + 1,
+            liked: !likeState.liked,
+          });
         }}>
-        <Icon name={liked ? "heart" : "heart-outline"} color="red" style={styles.icon} />
+        <Icon name={likeState.liked ? "heart" : "heart-outline"} color="red" style={styles.icon} />
       </TouchableOpacity>
       <Text>
-        {count} {count == 0 ? "likes" : count == 1 ? "like" : "likes"}
+        {likeState.likeCount} {likeState.likeCount == 0 ? "likes" : likeState.likeCount == 1 ? "like" : "likes"}
       </Text>
     </View>
   );
