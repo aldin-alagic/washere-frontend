@@ -1,12 +1,19 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const Likes = ({ count }) => {
+const Likes = ({ count, liked }) => {
   return (
     <View style={styles.container}>
-      <Icon name={count ? "heart" : "heart-outline"} color="red" style={styles.icon} />
-      <Text>{count} likes</Text>
+      <TouchableOpacity
+        onPress={() => {
+          console.log("Pressed like!");
+        }}>
+        <Icon name={liked ? "heart" : "heart-outline"} color="red" style={styles.icon} />
+      </TouchableOpacity>
+      <Text>
+        {count} {count == 0 ? "likes" : count == 1 ? "like" : "likes"}
+      </Text>
     </View>
   );
 };

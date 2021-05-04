@@ -1,14 +1,17 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import Likes from "./Likes";
 import Comments from "./Comments";
 
-const FooterSection = ({ likes, comments }) => {
+const FooterSection = ({ likes, liked, comments, onPress }) => {
   return (
     <View style={styles.footerContainer}>
-      <Likes count={likes} />
-      <Comments count={comments} />
+      <Likes count={likes} liked={liked} />
+
+      <TouchableOpacity onPress={onPress}>
+        <Comments count={comments} />
+      </TouchableOpacity>
     </View>
   );
 };

@@ -6,7 +6,10 @@ const Likes = ({ count }) => {
   return (
     <View style={styles.container}>
       <Icon name={count ? "chatbubble" : "chatbubble-outline"} style={styles.icon} />
-      <Text>{count} comments</Text>
+
+      <Text>
+        {count} {count == 0 ? "comments" : count == 1 ? "comment" : "comments"}
+      </Text>
     </View>
   );
 };
