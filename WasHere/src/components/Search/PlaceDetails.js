@@ -4,13 +4,12 @@ import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
+import { fetchPlacePhoto, setEmptyPlacePhoto } from "../../store/place";
+import MapSection from "../Post/MapSection";
 import Text from "../../components/Text";
 import Screen from "../../components/Screen";
 
-import { fetchPlacePhoto, setEmptyPlacePhoto } from "../../store/place";
 import colors from "../../config/colors";
-
-import MapSection from "../Post/MapSection";
 
 const PlaceDetails = ({ route, navigation }) => {
   const { placeName } = route.params;
