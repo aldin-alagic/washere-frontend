@@ -17,7 +17,7 @@ const Search = () => {
       <SearchStack.Screen name="SearchTags" component={Tags} />
       <SearchStack.Screen name="TagFeed" component={TagFeed} />
       <SearchStack.Screen name="SearchPlaces" component={Places} />
-      <SearchStack.Screen name="PlaceDetails" component={PlaceDetails} options={{ ...stackScreenOptions, title: "Some Place" }} />
+      <SearchStack.Screen name="PlaceDetails" component={PlaceDetails} options={stackScreenOptions} />
     </SearchStack.Navigator>
   );
 };
