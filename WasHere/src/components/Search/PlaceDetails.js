@@ -7,32 +7,38 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Text from "../../components/Text";
 import Screen from "../../components/Screen";
 
-import { fetchUser } from "../../store/user";
+import { fetchPlacePhoto, setEmptyPlacePhoto } from "../../store/place";
 import colors from "../../config/colors";
 
-import { profilePhoto } from "../../utils/getPhotoURI";
 import MapSection from "../Post/MapSection";
 
-const PlacesDetails = ({ route, navigation }) => {
+const PlaceDetails = ({ route, navigation }) => {
   const { placeName } = route.params;
 
-  const userId = useSelector((state) => state.auth.user.id);
-  const user = useSelector((state) => state.user);
-  const { place } = useSelector((state) => state.place);
+  const { place, photoURL } = useSelector((state) => state.place);
   const dispatch = useDispatch();
 
   useEffect(() => {
     navigation.setOptions({ title: placeName });
-    dispatch(fetchUser(userId));
-  }, [userId]);
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(place).length != 0 && place.photos) {
+      dispatch(fetchPlacePhoto(place.photos[0].photo_reference));
+    } else {
+      dispatch(setEmptyPlacePhoto());
+    }
+  }, [place]);
 
   return (
     <>
       <Screen style={styles.container}>
         <View style={{ marginBottom: 12 }}>
-          <View style={styles.basicInformation}>
-            <Image style={styles.placeImage} source={{ uri: profilePhoto(user.information.profile_photo) }} />
-          </View>
+          {photoURL && (
+            <View style={styles.basicInformation}>
+              <Image style={styles.placeImage} source={{ uri: photoURL }} />
+            </View>
+          )}
 
           <BlankSpacer height={8} />
 
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
   },
   map: { borderRadius: 15 },
   placeImage: {
-    borderRadius: 50,
+    borderRadius: 60,
     height: 120,
     width: 120,
     marginRight: 10,
@@ -119,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlacesDetails;
+export default PlaceDetails;

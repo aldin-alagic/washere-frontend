@@ -11,6 +11,7 @@ const slice = createSlice({
   initialState: {
     loading: false,
     place: {},
+    photoURL: null,
   },
   reducers: {
     requestStarted: (place, action) => {
@@ -19,7 +20,18 @@ const slice = createSlice({
 
     placeFetched: (place, action) => {
       const { result } = action.payload;
+      console.log("SETTING PLACE DETAILS");
       place.place = result;
+    },
+
+    placePhotoFetched: (place, action) => {
+      const { responseURL } = action.payload;
+      place.photoURL = responseURL;
+      place.loading = false;
+    },
+
+    placePhotoEmptied: (place, action) => {
+      place.photoURL = null;
     },
 
     requestFailed: (place, action) => {
@@ -34,7 +46,7 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, placeFetched, requestFailed } = slice.actions;
+export const { requestStarted, placeFetched, placePhotoFetched, placePhotoEmptied, requestFailed } = slice.actions;
 export default slice.reducer;
 
 export const fetchPlace = (placeId) => (dispatch) => {
@@ -49,4 +61,23 @@ export const fetchPlace = (placeId) => (dispatch) => {
       onError: requestFailed.type,
     }),
   );
+};
+
+export const fetchPlacePhoto = (photoreference) => (dispatch) => {
+  console.log("GIVEN PHOTO REFERENCE", photoreference);
+  dispatch(
+    apiCallBegan({
+      url: "https://maps.googleapis.com/maps/api/place/photo",
+      method: "GET",
+      data: "",
+      params: { maxwidth: 1000, photoreference, key: GOOGLE_API_KEY },
+      onStart: requestStarted.type,
+      onSuccess: placePhotoFetched.type,
+      onError: requestFailed.type,
+    }),
+  );
+};
+
+export const setEmptyPlacePhoto = () => (dispatch) => {
+  dispatch({ type: placePhotoEmptied.type });
 };
