@@ -20,7 +20,6 @@ const slice = createSlice({
 
     placeFetched: (place, action) => {
       const { result } = action.payload;
-      console.log("SETTING PLACE DETAILS");
       place.place = result;
     },
 
@@ -64,7 +63,6 @@ export const fetchPlace = (placeId) => (dispatch) => {
 };
 
 export const fetchPlacePhoto = (photoreference) => (dispatch) => {
-  console.log("GIVEN PHOTO REFERENCE", photoreference);
   dispatch(
     apiCallBegan({
       url: "https://maps.googleapis.com/maps/api/place/photo",
