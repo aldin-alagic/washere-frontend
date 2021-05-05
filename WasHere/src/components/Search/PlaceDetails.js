@@ -97,20 +97,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginVertical: 10,
   },
-
   contact: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10,
     fontSize: 14,
   },
-  contactIcon: { marginRight: 5 },
-  locationInfoContainer: { marginVertical: 5 },
+  contactIcon: {
+    marginRight: 5,
+  },
+  locationInfoContainer: {
+    marginVertical: 5,
+  },
   locationInformation: {
     color: colors.mediumlight,
     fontSize: 14,
   },
-
   divider: {
     borderBottomColor: "#D8D8D8",
     borderBottomWidth: StyleSheet.hairlineWidth,
