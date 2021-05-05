@@ -7,4 +7,5 @@ export default Object.freeze({
   RESET_CHANGE_PASSWORD_FORM: "ResetChangePasswordForm",
   MAP: "Map",
   TAG_FEED: "TagFeed",
+  PLACE_DETAILS: "PlaceDetails",
 });

@@ -3,7 +3,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import SearchScreen from "../../screens/user/Search";
 import Tags from "../../components/Search/Tags";
+import Places from "../../components/Search/Places";
 import TagFeed from "../../components/Search/TagFeed";
+import PlaceDetails from "../../components/Search/PlaceDetails";
 import { navigatorOptions, stackScreenOptions } from "./navigatorSettings";
 
 const SearchStack = createStackNavigator();
@@ -14,6 +16,8 @@ const Search = () => {
       <SearchStack.Screen name="Search" component={SearchScreen} options={stackScreenOptions} />
       <SearchStack.Screen name="SearchTags" component={Tags} />
       <SearchStack.Screen name="TagFeed" component={TagFeed} />
+      <SearchStack.Screen name="SearchPlaces" component={Places} />
+      <SearchStack.Screen name="PlaceDetails" component={PlaceDetails} options={stackScreenOptions} />
     </SearchStack.Navigator>
   );
 };

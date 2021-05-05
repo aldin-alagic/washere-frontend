@@ -10,7 +10,7 @@ const MyProfileStack = createStackNavigator();
 const MyProfile = () => {
   return (
     <MyProfileStack.Navigator screenOptions={navigatorOptions}>
-      <MyProfileStack.Screen name="Search" component={MyProfileScreen} options={stackScreenOptions} />
+      <MyProfileStack.Screen name="MyProfile" component={MyProfileScreen} options={stackScreenOptions} />
       <MyProfileStack.Screen name="Settings" component={Settings} options={{ ...stackScreenOptions, title: "Settings" }} />
     </MyProfileStack.Navigator>
   );
