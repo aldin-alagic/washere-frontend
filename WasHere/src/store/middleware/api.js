@@ -24,7 +24,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
     // General
     dispatch(actions.apiCallSuccess(response.data));
     // Specific
-    if (onSuccess) dispatch({ type: onSuccess, payload: { ...response.data, ...passData } });
+    if (onSuccess) dispatch({ type: onSuccess, payload: { ...response.data, responseURL: response.request.responseURL, ...passData } });
   } catch (error) {
     // General
     dispatch(actions.apiCallFailed(error.message));
