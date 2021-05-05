@@ -38,7 +38,7 @@ const EditProfile = ({ editProfileRef }) => {
         <CloseButton onPress={() => editProfileRef.current.close()} />
       </View>
       <View style={styles.photoInformation}>
-        <ProfilePhoto photoKey={user.user.profile_photo} size={100} />
+        <ProfilePhoto photoKey={user.profile_photo} size={100} />
 
         <BlankSpacer height={15} />
         <TouchableOpacity>
