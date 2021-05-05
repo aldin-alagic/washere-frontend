@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, memo } from "react";
 import { View, StyleSheet } from "react-native";
 import Slider from "rn-range-slider";
 import dayjs from "dayjs";
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SliderScreen;
+export default memo(SliderScreen);
