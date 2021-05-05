@@ -6,13 +6,11 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Text from "../../components/Text";
 import Screen from "../../components/Screen";
-import FeedList from "../../components/FeedList";
+
 import EditProfile from "../../components/Profile/EditProfile";
 import MyConnections from "../../components/Profile/MyConnections";
 import BottomSheet from "../../components/BottomSheet";
 import ConnectionSimple from "../../components/Profile/ConnectionSimple";
-import TelegramIcon from "../../assets/images/telegram.svg";
-import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
 import { fetchUser, requestConnection } from "../../store/user";
 import colors from "../../config/colors";
 import Post from "../../components/Post";

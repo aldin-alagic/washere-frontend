@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView, ActivityIndicator } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import { useFormik } from "formik";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import TelegramIcon from "../../assets/images/telegram.svg";
@@ -13,6 +14,7 @@ import Button from "../Button";
 
 import colors from "../../config/colors";
 import ProfilePhoto from "../ProfilePhoto";
+import { updateProfile, updateProfilePhoto } from "../../store/user";
 
 const options = {
   mediaType: "photo",
@@ -20,8 +22,19 @@ const options = {
 };
 
 const EditProfile = ({ editProfileRef }) => {
-  const [text, setText] = useState("");
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.myProfile);
+
+  const formik = useFormik({
+    initialValues: {},
+    onSubmit: (values) => {
+      console.log("VALUES", values);
+      Object.keys(values).length != 0 && dispatch(updateProfile(values));
+      image && dispatch(updateProfilePhoto(image.data));
+      editProfileRef.current.close();
+    },
+  });
+
   console.log("MY PROFILE", user);
   const [image, setImage] = useState(null);
 
@@ -45,10 +58,6 @@ const EditProfile = ({ editProfileRef }) => {
       });
     });
 
-  useEffect(() => {
-    console.log(user.user);
-  }, [user]);
-
   return (
     <ScrollView>
       <View style={styles.heading}>
@@ -71,32 +80,60 @@ const EditProfile = ({ editProfileRef }) => {
       <View style={styles.profileInformation}>
         <Text style={([styles.text], { color: colors.medium })}>Bio</Text>
         <View style={styles.bioContainer}>
-          <TextInput multiline={true} onChangeText={(text) => setText(text)} value={text} />
+          <TextInput
+            multiline={true}
+            id="about"
+            name="about"
+            type="text"
+            placeholder={user.about}
+            value={formik.values.about}
+            onChangeText={formik.handleChange("about")}
+          />
         </View>
         <BlankSpacer height={6} />
         <Text style={([styles.text], { color: colors.medium })}>My contact information</Text>
         <View style={styles.socialMediaContactContainer}>
           <TelegramIcon style={styles.socialMediaIcon} />
-          <Text style={[{ textAlign: "justify" }, styles.text]}>{user.contact_telegram}</Text>
+          {/* <Text style={[{ textAlign: "justify" }, styles.text]}>{user.contact_telegram}</Text> */}
+          <TextInput
+            style={[{ textAlign: "justify" }, styles.text]}
+            id="contact_telegram"
+            name="contact_telegram"
+            type="text"
+            onChangeText={formik.handleChange("contact_telegram")}
+            placeholder={user.contact_telegram}
+            value={formik.values.contact_telegram}
+          />
         </View>
         <BlankSpacer height={18} />
         <View style={styles.socialMediaContactContainer}>
           <FacebookMessengerIcon style={styles.socialMediaIcon} />
-          <Text style={[{ textAlign: "justify" }, styles.text]}>{user.contact_telegram}</Text>
+          <TextInput
+            style={[{ textAlign: "justify" }, styles.text]}
+            id="contact_messenger"
+            name="contact_messenger"
+            type="text"
+            onChangeText={formik.handleChange("contact_messenger")}
+            placeholder={user.contact_messenger}
+            value={formik.values.contact_messenger}
+          />
         </View>
-        <Text style={[styles.text, styles.actions, { textAlign: "right", marginTop: 10 }]}>Add other</Text>
-        <BlankSpacer height={8} />
+
+        <BlankSpacer height={20} />
         <Text style={([styles.text], { color: colors.medium, marginBottom: 10 })}>Account settings</Text>
         <View style={styles.mailContainer}>
           <Icon name="mail-outline" color={colors.mediumlight} size={28} style={{ marginRight: 10 }} />
-          <Text style={[styles.text]}>{user.email}</Text>
+          <TextInput
+            style={[{ textAlign: "justify" }, styles.text]}
+            id="email"
+            name="email"
+            type="text"
+            onChangeText={formik.handleChange("email")}
+            placeholder={user.email}
+            value={formik.values.email}
+          />
         </View>
-        <Button
-          title="Save changes"
-          onPress={() => {
-            console.log("Clicked");
-          }}
-        />
+        <Button title="Save changes" onPress={formik.handleSubmit} />
       </View>
     </ScrollView>
   );
@@ -134,7 +171,7 @@ const styles = StyleSheet.create({
   },
   bioContainer: {
     backgroundColor: "#FAFAFAFA",
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
   },
   mailContainer: {

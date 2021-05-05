@@ -34,6 +34,26 @@ const slice = createSlice({
       }
     },
 
+    profileUpdated: (user, action) => {
+      const { success, data, message } = action.payload;
+
+      user.loading = false;
+      user.myProfile = data;
+      showMessage({
+        message,
+        icon: "success",
+        type: success ? "success" : "warning",
+        autoHide: true,
+      });
+    },
+
+    profilePhotoUpdated: (user, action) => {
+      user.loading = false;
+      const { data } = action.payload;
+
+      user.myProfile.profile_photo = data.photo_key;
+    },
+
     myConnectionsFetched: (user, action) => {
       const { success, data } = action.payload;
       user.loading = false;
@@ -68,7 +88,16 @@ const slice = createSlice({
   },
 });
 
-export const { requestStarted, userFetched, myConnectionsFetched, myProfileFetched, requestConnectionSent, requestFailed } = slice.actions;
+export const {
+  requestStarted,
+  userFetched,
+  myConnectionsFetched,
+  myProfileFetched,
+  profileUpdated,
+  profilePhotoUpdated,
+  requestConnectionSent,
+  requestFailed,
+} = slice.actions;
 export default slice.reducer;
 
 export const fetchMyProfile = () =>
@@ -90,6 +119,36 @@ export const fetchUser = (userId) =>
     onSuccess: userFetched.type,
     onError: requestFailed.type,
   });
+
+export const updateProfile = (values) => (dispatch, getState) => {
+  const userId = getState().auth.user.id;
+
+  dispatch(
+    apiCallBegan({
+      url: `/user/${userId}/`,
+      method: "PATCH",
+      data: values,
+      onStart: requestStarted.type,
+      onSuccess: profileUpdated.type,
+      onError: requestFailed.type,
+    }),
+  );
+};
+
+export const updateProfilePhoto = (photo) => (dispatch, getState) => {
+  const userId = getState().auth.user.id;
+
+  dispatch(
+    apiCallBegan({
+      url: `/user/${userId}/profile-photo`,
+      method: "POST",
+      data: { photo },
+      onStart: requestStarted.type,
+      onSuccess: profilePhotoUpdated.type,
+      onError: requestFailed.type,
+    }),
+  );
+};
 
 export const fetchMyConnections = () =>
   apiCallBegan({
