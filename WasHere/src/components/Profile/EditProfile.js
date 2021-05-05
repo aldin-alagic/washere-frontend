@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, TextInput, ScrollView } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector } from "react-redux";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import TelegramIcon from "../../assets/images/telegram.svg";
@@ -13,19 +14,36 @@ import Button from "../Button";
 import colors from "../../config/colors";
 import ProfilePhoto from "../ProfilePhoto";
 
-const user = {
-  fullname: "John Wick",
-  username: "carla.smith",
-  email: "carla.smith@gmail.com",
-  photoURL: "https://i.pravatar.cc/150?img=27",
-  contact_telegram: "+385 99 123 456",
-  contact_messenger: "+385 99 123 456",
-  about: "Lorem ipsum et in dolor es sit amet, consectetur adipiscing elit, sed do eiusmod consectetur lorem.",
+const options = {
+  mediaType: "photo",
+  includeBase64: true,
 };
 
 const EditProfile = ({ editProfileRef }) => {
   const [text, setText] = useState("");
   const user = useSelector((state) => state.user.myProfile);
+  console.log("MY PROFILE", user);
+  const [image, setImage] = useState(null);
+
+  const handleAddImage = (image) => {
+    setImage(image);
+  };
+
+  const cameraLaunch = () =>
+    launchCamera(options, (res) => {
+      handleAddImage({
+        data: res.base64,
+        uri: res.uri,
+      });
+    });
+
+  const imageGalleryLaunch = () =>
+    launchImageLibrary(options, (res) => {
+      handleAddImage({
+        data: res.base64,
+        uri: res.uri,
+      });
+    });
 
   useEffect(() => {
     console.log(user.user);
@@ -38,15 +56,15 @@ const EditProfile = ({ editProfileRef }) => {
         <CloseButton onPress={() => editProfileRef.current.close()} />
       </View>
       <View style={styles.photoInformation}>
-        <ProfilePhoto photoKey={user.profile_photo} size={100} />
+        {image ? <Image style={styles.userImage} source={{ uri: image.uri }} /> : <ProfilePhoto photoKey={user.profile_photo} size={100} />}
 
         <BlankSpacer height={15} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={cameraLaunch}>
           <Text style={[styles.text, styles.actions]}>Take photo</Text>
         </TouchableOpacity>
 
         <BlankSpacer height={6} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={imageGalleryLaunch}>
           <Text style={[styles.text, styles.actions]}>Choose from Library</Text>
         </TouchableOpacity>
       </View>
@@ -112,7 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 100,
     width: 100,
-    marginBottom: 5,
+    marginRight: 15,
   },
   bioContainer: {
     backgroundColor: "#FAFAFAFA",
