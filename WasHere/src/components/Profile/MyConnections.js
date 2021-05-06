@@ -29,7 +29,11 @@ const MyConnections = ({ myConnectionsRef }) => {
         <TextInput style={[styles.text]} placeholder="Search by name" onChangeText={(text) => setText(text)} value={text} />
       </View>
 
-      <FlatList style={styles.connectionsList} data={connections} renderItem={({ item }) => <Connection connection={item} />} />
+      <FlatList
+        style={styles.connectionsList}
+        data={connections.filter((connection) => connection.user.fullname.toLowerCase().includes(text.toLowerCase()))}
+        renderItem={({ item }) => <Connection connection={item} />}
+      />
     </View>
   );
 };
