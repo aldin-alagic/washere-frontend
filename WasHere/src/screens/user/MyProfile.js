@@ -14,13 +14,13 @@ import ConnectionSimple from "../../components/Profile/ConnectionSimple";
 import { fetchMyProfile, fetchMyConnections } from "../../store/user";
 import Post from "../../components/Post";
 import ProfilePhoto from "../../components/ProfilePhoto";
+import SettingsButton from "../../components/SettingsButton";
+import EditProfileButton from "../../components/EditProfileButton";
+import { getPosts } from "../../store/posts";
 
 import colors from "../../config/colors";
 import TelegramIcon from "../../assets/images/telegram.svg";
 import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
-import SettingsButton from "../../components/SettingsButton";
-import EditProfileButton from "../../components/EditProfileButton";
-import { getPosts } from "../../store/posts";
 
 const MyProfile = ({ navigation }) => {
   const editProfileRef = useRef(null);
