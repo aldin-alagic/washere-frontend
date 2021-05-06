@@ -88,8 +88,6 @@ const EditProfile = ({ editProfileRef }) => {
         <View style={styles.aboutMeContainer}>
           <TextInput
             multiline={true}
-            id="about"
-            name="about"
             type="text"
             placeholder="About you"
             value={formik.values.about}
@@ -103,8 +101,6 @@ const EditProfile = ({ editProfileRef }) => {
 
           <TextInput
             style={[{ textAlign: "justify" }, styles.text]}
-            id="contact_telegram"
-            name="contact_telegram"
             type="text"
             onChangeText={formik.handleChange("contact_telegram")}
             placeholder="Telegram contact"
@@ -116,8 +112,6 @@ const EditProfile = ({ editProfileRef }) => {
           <FacebookMessengerIcon style={styles.socialMediaIcon} />
           <TextInput
             style={[{ textAlign: "justify" }, styles.text]}
-            id="contact_messenger"
-            name="contact_messenger"
             type="text"
             onChangeText={formik.handleChange("contact_messenger")}
             placeholder="Facebook Messenger contact"
@@ -131,8 +125,6 @@ const EditProfile = ({ editProfileRef }) => {
           <Icon name="mail-outline" color={colors.mediumlight} size={28} style={{ marginRight: 10 }} />
           <TextInput
             style={[{ textAlign: "justify" }, styles.text]}
-            id="email"
-            name="email"
             type="text"
             onChangeText={formik.handleChange("email")}
             placeholder={user.email}
