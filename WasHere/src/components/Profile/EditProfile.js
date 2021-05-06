@@ -35,10 +35,13 @@ const EditProfile = ({ editProfileRef }) => {
       about: user.about,
     },
     onSubmit: (values) => {
-      if (Object.keys(values).length != 0) dispatch(updateProfile(values));
       if (image) dispatch(updateProfilePhoto(image.data));
 
-      editProfileRef.current.close();
+      dispatch(updateProfile(values));
+
+      if (!loading) {
+        editProfileRef.current.close();
+      }
     },
   });
 
