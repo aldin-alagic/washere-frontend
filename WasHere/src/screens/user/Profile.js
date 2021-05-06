@@ -5,16 +5,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Text from "../../components/Text";
 import Screen from "../../components/Screen";
-
 import ConnectionSimple from "../../components/Profile/ConnectionSimple";
-import TelegramIcon from "../../assets/images/telegram.svg";
-import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
 import { fetchUser, requestConnection } from "../../store/user";
-import colors from "../../config/colors";
 import Post from "../../components/Post";
 import AppButton from "../../components/Button";
 import PlacesCarousel from "../../components/PlacesCarousel";
 import ProfilePhoto from "../../components/ProfilePhoto";
+
+import TelegramIcon from "../../assets/images/telegram.svg";
+import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
+import colors from "../../config/colors";
 
 const Profile = ({ route, navigation }) => {
   const profile = useSelector((state) => state.user.profile);
