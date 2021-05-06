@@ -7,8 +7,6 @@ import { apiCallBegan } from "./api";
 import * as RootNavigation from "../navigation/RootNavigation";
 import routes from "../navigation/routes";
 
-import { API_ERROR_MESSAGE } from "../config/config.json";
-
 const slice = createSlice({
   name: "auth",
   initialState: {
