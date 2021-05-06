@@ -110,7 +110,7 @@ const Profile = ({ navigation }) => {
 
                 <View style={styles.socialMediaPlatform}>
                   <FacebookMessengerIcon style={styles.socialMediaIcon} />
-                  <Text style={styles.text}>{user.contact_telegram}</Text>
+                  <Text style={styles.text}>{user.contact_messenger}</Text>
                 </View>
               </View>
 
