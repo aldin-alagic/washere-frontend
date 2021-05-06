@@ -29,8 +29,11 @@ const EditProfile = ({ editProfileRef }) => {
     initialValues: {},
     onSubmit: (values) => {
       console.log("VALUES", values);
-      Object.keys(values).length != 0 && dispatch(updateProfile(values));
-      image && dispatch(updateProfilePhoto(image.data));
+
+      if (Object.keys(values).length != 0) dispatch(updateProfile(values));
+
+      if (image) dispatch(updateProfilePhoto(image.data));
+
       editProfileRef.current.close();
     },
   });
