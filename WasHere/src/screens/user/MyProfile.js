@@ -127,10 +127,12 @@ const MyProfile = ({ navigation }) => {
                   data={connections}
                   renderItem={({ item }) => <ConnectionSimple data={item} />}
                 />
-                <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
-                  <Text style={styles.moreConnections}>23 more</Text>
-                  <Icon name="chevron-forward-outline" color={colors.primary} size={30} />
-                </TouchableOpacity>
+                {myConnections.length > 4 && (
+                  <TouchableOpacity style={styles.moreConnectionsContainer} onPress={onOpenMyConnections}>
+                    <Text style={styles.moreConnections}>{myConnections.length > 4 && `${myConnections.length - 4} more`} </Text>
+                    <Icon name="chevron-forward-outline" color={colors.primary} size={30} />
+                  </TouchableOpacity>
+                )}
               </View>
               <View style={styles.divider} />
             </View>
