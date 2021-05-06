@@ -54,6 +54,30 @@ const Profile = ({ route, navigation }) => {
                 </View>
               </View>
 
+              {(profile.user.contact_telegram || profile.user.contact_messenger) && (
+                <>
+                  <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
+                  <BlankSpacer height={8} />
+                  <View style={styles.socials}>
+                    {profile.user.contact_telegram && (
+                      <View style={styles.socialMediaPlatform}>
+                        <TelegramIcon style={styles.socialMediaIcon} />
+                        <Text style={styles.text}>{profile.user.contact_telegram}</Text>
+                      </View>
+                    )}
+
+                    {profile.user.contact_messenger && (
+                      <View style={styles.socialMediaPlatform}>
+                        <FacebookMessengerIcon style={styles.socialMediaIcon} />
+                        <Text style={styles.text}>{profile.user.contact_messenger}</Text>
+                      </View>
+                    )}
+                  </View>
+                </>
+              )}
+
+              <View style={styles.divider} />
+
               {profile.mutualConnections.length !== 0 && (
                 <>
                   <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>Mutual connections</Text>
