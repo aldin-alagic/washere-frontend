@@ -28,17 +28,13 @@ const EditProfile = ({ editProfileRef }) => {
   const formik = useFormik({
     initialValues: {},
     onSubmit: (values) => {
-      console.log("VALUES", values);
-
       if (Object.keys(values).length != 0) dispatch(updateProfile(values));
-
       if (image) dispatch(updateProfilePhoto(image.data));
 
       editProfileRef.current.close();
     },
   });
 
-  console.log("MY PROFILE", user);
   const [image, setImage] = useState(null);
 
   const handleAddImage = (image) => {
