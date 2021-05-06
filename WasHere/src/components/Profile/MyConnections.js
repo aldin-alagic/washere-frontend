@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TextInput, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-
 import Icon from "react-native-vector-icons/Ionicons";
+
 import CloseButton from "../CloseButton";
 import Text from "../Text";
 import Connection from "./Connection";
