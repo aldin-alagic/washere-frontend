@@ -35,9 +35,9 @@ const slice = createSlice({
     },
 
     profileUpdated: (user, action) => {
+      user.loading = false;
       const { success, data, message } = action.payload;
 
-      user.loading = false;
       user.myProfile = data;
       showMessage({
         message,

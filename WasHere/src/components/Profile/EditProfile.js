@@ -4,6 +4,7 @@ import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import { useFormik } from "formik";
+import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import TelegramIcon from "../../assets/images/telegram.svg";
@@ -83,8 +84,8 @@ const EditProfile = ({ editProfileRef }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.profileInformation}>
-        <Text style={([styles.text], { color: colors.medium })}>Bio</Text>
-        <View style={styles.bioContainer}>
+        <Text style={([styles.text], { color: colors.medium })}>About me</Text>
+        <View style={styles.aboutMeContainer}>
           <TextInput
             multiline={true}
             id="about"
@@ -178,10 +179,11 @@ const styles = StyleSheet.create({
     width: 100,
     marginRight: 15,
   },
-  bioContainer: {
+  aboutMeContainer: {
     backgroundColor: "#FAFAFAFA",
     padding: 10,
     borderRadius: 10,
+    height: hp("10%"),
   },
   mailContainer: {
     backgroundColor: "#FAFAFAFA",
