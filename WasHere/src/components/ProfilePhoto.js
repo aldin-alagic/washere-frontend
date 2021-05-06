@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { profilePhoto } from "../utils/getPhotoURI";
 import { navigate } from "../navigation/RootNavigation";
+import colors from "../config/colors";
 
 const ProfilePhoto = ({ profileId, photoKey, size, style }) => {
   const handleNavigateToProfile = () => {
@@ -18,7 +19,7 @@ const ProfilePhoto = ({ profileId, photoKey, size, style }) => {
           source={{ uri: profilePhoto(photoKey) }}
         />
       ) : (
-        <Icon name="user-circle" size={size} style={{ marginRight: 15, ...style }} solid />
+        <Icon name="user-circle" size={size} style={{ marginRight: 15, ...style }} color={colors.mediumlight} solid />
       )}
     </TouchableOpacity>
   );
