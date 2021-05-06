@@ -116,7 +116,7 @@ const Profile = ({ route, navigation }) => {
                 </Text>
               )}
 
-              {profile.posts.length == 0 && (
+              {profile.connected && profile.posts.length == 0 && (
                 <>
                   <BlankSpacer height={15} />
                   <Text style={[styles.text]}>No posts to see here, please check back later!</Text>
