@@ -87,7 +87,7 @@ const EditProfile = ({ editProfileRef }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.profileInformation}>
-        <Text style={([styles.text], { color: colors.medium })}>About me</Text>
+        <Text style={styles.label}>About me</Text>
         <View style={styles.aboutMeContainer}>
           <TextInput
             multiline={true}
@@ -98,7 +98,7 @@ const EditProfile = ({ editProfileRef }) => {
           />
         </View>
         <BlankSpacer height={6} />
-        <Text style={([styles.text], { color: colors.medium })}>My contact information</Text>
+        <Text style={styles.label}>My contact information</Text>
         <View style={styles.socialMediaContactContainer}>
           <TelegramIcon style={styles.socialMediaIcon} />
 
@@ -123,7 +123,7 @@ const EditProfile = ({ editProfileRef }) => {
         </View>
 
         <BlankSpacer height={20} />
-        <Text style={([styles.text], { color: colors.medium, marginBottom: 10 })}>Email</Text>
+        <Text style={styles.label}>Email</Text>
         <View style={styles.mailContainer}>
           <Icon name="mail-outline" color={colors.mediumlight} size={28} style={{ marginRight: 10 }} />
           <TextInput
@@ -152,13 +152,21 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
-  profileInformation: { marginHorizontal: 20 },
+  profileInformation: {
+    marginHorizontal: 20,
+  },
   actions: {
     color: colors.primary,
     fontWeight: "bold",
   },
   center: {
     textAlign: "center",
+  },
+  label: {
+    fontSize: 15,
+    marginBottom: 8,
+    marginTop: 5,
+    color: colors.medium,
   },
   heading: {
     flexDirection: "row",
@@ -167,7 +175,10 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
   },
-  headingText: { fontWeight: "bold", fontSize: 24 },
+  headingText: {
+    fontWeight: "bold",
+    fontSize: 24,
+  },
   userImage: {
     borderRadius: 50,
     height: 100,
