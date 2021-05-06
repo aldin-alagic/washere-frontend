@@ -11,7 +11,7 @@ import EditProfile from "../../components/Profile/EditProfile";
 import MyConnections from "../../components/Profile/MyConnections";
 import BottomSheet from "../../components/BottomSheet";
 import ConnectionSimple from "../../components/Profile/ConnectionSimple";
-import { fetchMyProfile } from "../../store/user";
+import { fetchMyProfile, fetchMyConnections } from "../../store/user";
 import Post from "../../components/Post";
 import ProfilePhoto from "../../components/ProfilePhoto";
 
@@ -53,18 +53,20 @@ const connections = [
   },
 ];
 
-const Profile = ({ navigation }) => {
+const MyProfile = ({ navigation }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
 
   const userId = useSelector((state) => state.auth.user.id);
   const user = useSelector((state) => state.user.myProfile);
+  const myConnections = useSelector((state) => state.user.myConnections);
   const posts = useSelector((state) => state.posts.user.posts);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!userId) return;
     dispatch(fetchMyProfile());
+    dispatch(fetchMyConnections());
     dispatch(getPosts(userId));
   }, [userId]);
 
@@ -116,7 +118,7 @@ const Profile = ({ navigation }) => {
 
               <View style={styles.divider} />
 
-              <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections (27)</Text>
+              <Text style={[{ color: colors.mediumlight, marginTop: 10 }, styles.text]}>My connections ({myConnections.length})</Text>
 
               <View style={styles.connections}>
                 <FlatList
@@ -240,4 +242,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default MyProfile;
