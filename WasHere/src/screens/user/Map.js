@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
 import Geolocation from "@react-native-community/geolocation";
+import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 import PostMarker from "../../components/PostMarker";
@@ -13,6 +14,7 @@ const Map = ({ navigation }) => {
   const mapRef = useRef();
   const socket = useRef();
   const [posts, setPosts] = useState([]);
+  const token = useSelector((state) => state.auth.token);
 
   // Keeps track of the region the user is viewing on the map and time range he has selected
   const [postsQuery, setPostsQuery] = useState({
@@ -45,22 +47,22 @@ const Map = ({ navigation }) => {
     );
 
     // Connect to the websocket server
-    socket.current = io(API);
-    socket.current.on("posts", (posts) => setPosts(posts));
-    socket.current.on("new post", (post) => {
-      console.log(post);
-      setPosts((old) => [...old, post]);
+    socket.current = io(API, {
+      auth: {
+        token,
+      },
     });
+    socket.current.on("posts", (posts) => setPosts(posts));
+    socket.current.on("new post", (post) => setPosts((old) => [...old, post]));
 
     return () => socket.current.close();
-  }, []);
+  }, [token]);
 
   // When post query changes, fetch new posts for that query
   useEffect(() => socket.current.emit("fetch near me", postsQuery), [postsQuery]);
 
   // Updates posts query when time range is changed
   const handleTimeRangeChange = useCallback((from, to) => {
-    console.log("CHANBGED");
     setPostsQuery((old) => ({ ...old, time: { from, to } }));
   }, []);
 
