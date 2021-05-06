@@ -22,37 +22,6 @@ import SettingsButton from "../../components/SettingsButton";
 import EditProfileButton from "../../components/EditProfileButton";
 import { getPosts } from "../../store/posts";
 
-const connections = [
-  {
-    id: "1",
-    user: {
-      name: "John Wick",
-      photoURL: "https://i.pravatar.cc/150?img=52",
-    },
-  },
-  {
-    id: "2",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-  {
-    id: "3",
-    user: {
-      name: "Carla Smith",
-      photoURL: "https://i.pravatar.cc/150?img=27",
-    },
-  },
-  {
-    id: "4",
-    user: {
-      name: "Jane Doe",
-      photoURL: "https://i.pravatar.cc/150?img=26",
-    },
-  },
-];
-
 const MyProfile = ({ navigation }) => {
   const editProfileRef = useRef(null);
   const myConnectionsRef = useRef(null);
