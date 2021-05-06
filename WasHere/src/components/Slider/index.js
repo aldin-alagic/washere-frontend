@@ -1,4 +1,4 @@
-import React, { useCallback, memo } from "react";
+import React, { useCallback, memo, useState, useEffect, useRef, createRef } from "react";
 import { View, StyleSheet } from "react-native";
 import Slider from "rn-range-slider";
 import dayjs from "dayjs";
@@ -13,6 +13,17 @@ const SliderScreen = ({ handleValueChange }) => {
   const renderRail = useCallback(() => <Rail />, []);
   const renderRailSelected = useCallback(() => <RailSelected />, []);
   const renderLabel = useCallback((value) => <Label text={value} />, []);
+
+  const [boundaries, setBoundaries] = useState({ min: dayjs().unix() - 86400, max: dayjs().unix() });
+
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setBoundaries({
+  //       min: dayjs().unix() - 86400,
+  //       max: dayjs().unix(),
+  //     });
+  //   }, 1000);
+  // }, []);
 
   return (
     <View style={styles.root}>

@@ -47,6 +47,10 @@ const Map = ({ navigation }) => {
     // Connect to the websocket server
     socket.current = io(API);
     socket.current.on("posts", (posts) => setPosts(posts));
+    socket.current.on("new post", (post) => {
+      console.log(post);
+      setPosts((old) => [...old, post]);
+    });
 
     return () => socket.current.close();
   }, []);
@@ -56,6 +60,7 @@ const Map = ({ navigation }) => {
 
   // Updates posts query when time range is changed
   const handleTimeRangeChange = useCallback((from, to) => {
+    console.log("CHANBGED");
     setPostsQuery((old) => ({ ...old, time: { from, to } }));
   }, []);
 
