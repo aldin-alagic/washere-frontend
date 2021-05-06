@@ -24,9 +24,15 @@ const options = {
 const EditProfile = ({ editProfileRef }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.myProfile);
+  const { loading } = useSelector((state) => state.user);
 
   const formik = useFormik({
-    initialValues: {},
+    initialValues: {
+      email: user.email,
+      contact_telegram: user.contact_telegram,
+      contact_messenger: user.contact_messenger,
+      about: user.about,
+    },
     onSubmit: (values) => {
       if (Object.keys(values).length != 0) dispatch(updateProfile(values));
       if (image) dispatch(updateProfilePhoto(image.data));
@@ -84,7 +90,7 @@ const EditProfile = ({ editProfileRef }) => {
             id="about"
             name="about"
             type="text"
-            placeholder={user.about}
+            placeholder="About you"
             value={formik.values.about}
             onChangeText={formik.handleChange("about")}
           />
@@ -93,14 +99,14 @@ const EditProfile = ({ editProfileRef }) => {
         <Text style={([styles.text], { color: colors.medium })}>My contact information</Text>
         <View style={styles.socialMediaContactContainer}>
           <TelegramIcon style={styles.socialMediaIcon} />
-          {/* <Text style={[{ textAlign: "justify" }, styles.text]}>{user.contact_telegram}</Text> */}
+
           <TextInput
             style={[{ textAlign: "justify" }, styles.text]}
             id="contact_telegram"
             name="contact_telegram"
             type="text"
             onChangeText={formik.handleChange("contact_telegram")}
-            placeholder={user.contact_telegram}
+            placeholder="Telegram contact"
             value={formik.values.contact_telegram}
           />
         </View>
@@ -113,13 +119,13 @@ const EditProfile = ({ editProfileRef }) => {
             name="contact_messenger"
             type="text"
             onChangeText={formik.handleChange("contact_messenger")}
-            placeholder={user.contact_messenger}
+            placeholder="Facebook Messenger contact"
             value={formik.values.contact_messenger}
           />
         </View>
 
         <BlankSpacer height={20} />
-        <Text style={([styles.text], { color: colors.medium, marginBottom: 10 })}>Account settings</Text>
+        <Text style={([styles.text], { color: colors.medium, marginBottom: 10 })}>Email</Text>
         <View style={styles.mailContainer}>
           <Icon name="mail-outline" color={colors.mediumlight} size={28} style={{ marginRight: 10 }} />
           <TextInput
@@ -132,7 +138,11 @@ const EditProfile = ({ editProfileRef }) => {
             value={formik.values.email}
           />
         </View>
-        <Button title="Save changes" onPress={formik.handleSubmit} />
+        {loading ? (
+          <ActivityIndicator style={{ marginTop: 10 }} size="large" color={colors.primary} />
+        ) : (
+          <Button title="Save changes" onPress={formik.handleSubmit} loading={loading} />
+        )}
       </View>
     </ScrollView>
   );
