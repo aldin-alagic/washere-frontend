@@ -11,7 +11,7 @@ import { fetchMyConnections } from "../../store/user";
 import colors from "../../config/colors";
 
 const MyConnections = ({ myConnectionsRef }) => {
-  const [text, setText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const connections = useSelector((state) => state.user.myConnections);
   const dispatch = useDispatch();
 
@@ -26,12 +26,12 @@ const MyConnections = ({ myConnectionsRef }) => {
 
       <View style={styles.searchContainer}>
         <Icon name="search-sharp" color={colors.dark} size={26} style={{ marginRight: 10 }} />
-        <TextInput style={[styles.text]} placeholder="Search by name" onChangeText={(text) => setText(text)} value={text} />
+        <TextInput style={[styles.text]} placeholder="Search by name" onChangeText={(text) => setSearchQuery(text)} value={searchQuery} />
       </View>
 
       <FlatList
         style={styles.connectionsList}
-        data={connections.filter((connection) => connection.user.fullname.toLowerCase().includes(text.toLowerCase()))}
+        data={connections.filter((connection) => connection.user.fullname.toLowerCase().includes(searchQuery.toLowerCase()))}
         renderItem={({ item }) => <Connection connection={item} />}
       />
     </View>
