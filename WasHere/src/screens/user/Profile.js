@@ -1,26 +1,22 @@
-import React, { useRef, useEffect } from "react";
-import { View, StyleSheet, FlatList, Animated } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, FlatList } from "react-native";
 import BlankSpacer from "react-native-blank-spacer";
 import { useSelector, useDispatch } from "react-redux";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 import Text from "../../components/Text";
 import Screen from "../../components/Screen";
-
-import EditProfile from "../../components/Profile/EditProfile";
-import MyConnections from "../../components/Profile/MyConnections";
-import BottomSheet from "../../components/BottomSheet";
 import ConnectionSimple from "../../components/Profile/ConnectionSimple";
 import { fetchUser, requestConnection } from "../../store/user";
-import colors from "../../config/colors";
 import Post from "../../components/Post";
 import AppButton from "../../components/Button";
 import PlacesCarousel from "../../components/PlacesCarousel";
 import ProfilePhoto from "../../components/ProfilePhoto";
 
+import TelegramIcon from "../../assets/images/telegram.svg";
+import FacebookMessengerIcon from "../../assets/images/fb-messenger.svg";
+import colors from "../../config/colors";
+
 const Profile = ({ route, navigation }) => {
-  const editProfileRef = useRef(null);
-  const myConnectionsRef = useRef(null);
   const profile = useSelector((state) => state.user.profile);
   const dispatch = useDispatch();
   const { profileId } = route.params;
@@ -51,6 +47,30 @@ const Profile = ({ route, navigation }) => {
                   )}
                 </View>
               </View>
+
+              {(profile.user.contact_telegram || profile.user.contact_messenger) && (
+                <>
+                  <Text style={[{ color: colors.mediumlight }, styles.text]}>Contact me</Text>
+                  <BlankSpacer height={8} />
+                  <View style={styles.socials}>
+                    {profile.user.contact_telegram && (
+                      <View style={styles.socialMediaPlatform}>
+                        <TelegramIcon style={styles.socialMediaIcon} />
+                        <Text style={styles.text}>{profile.user.contact_telegram}</Text>
+                      </View>
+                    )}
+
+                    {profile.user.contact_messenger && (
+                      <View style={styles.socialMediaPlatform}>
+                        <FacebookMessengerIcon style={styles.socialMediaIcon} />
+                        <Text style={styles.text}>{profile.user.contact_messenger}</Text>
+                      </View>
+                    )}
+                  </View>
+                </>
+              )}
+
+              <View style={styles.divider} />
 
               {profile.mutualConnections.length !== 0 && (
                 <>
@@ -95,41 +115,18 @@ const Profile = ({ route, navigation }) => {
                   Connect with {profile.user.fullname} in order to be able to see her contact information and places where she has been to.
                 </Text>
               )}
+
+              {profile.posts.length == 0 && (
+                <>
+                  <BlankSpacer height={15} />
+                  <Text style={[styles.text]}>No posts to see here, please check back later!</Text>
+                </>
+              )}
             </View>
           }
           renderItem={({ item }) => <Post data={item} />}
         />
       </Screen>
-      <BottomSheet
-        bottomSheetRef={editProfileRef}
-        modalHeight={hp("75%")}
-        disableScrollIfPossible={false}
-        keyboardAvoidingBehavior="padding"
-        overlayStyle={{
-          borderRadius: 15,
-        }}>
-        <EditProfile editProfileRef={editProfileRef} />
-      </BottomSheet>
-      <BottomSheet
-        bottomSheetRef={myConnectionsRef}
-        modalHeight={hp("60%")}
-        keyboardAvoidingBehavior="padding"
-        modalStyle={{
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 12,
-          },
-          shadowOpacity: 0.58,
-          shadowRadius: 16.0,
-          elevation: 24,
-        }}
-        customRenderer={() => (
-          <Animated.View>
-            <MyConnections myConnectionsRef={myConnectionsRef} />
-          </Animated.View>
-        )}
-      />
     </>
   );
 };
@@ -179,14 +176,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 15,
-  },
-  moreConnectionsContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  moreConnections: {
-    color: "#39C555",
-    fontSize: 15,
   },
   connectionsList: {
     marginTop: 10,

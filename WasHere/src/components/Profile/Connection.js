@@ -1,8 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 import colors from "../../config/colors";
 import ProfilePhoto from "../ProfilePhoto";
+
+dayjs.extend(relativeTime);
 
 const Connection = ({ connection }) => {
   return (
@@ -10,7 +14,7 @@ const Connection = ({ connection }) => {
       <ProfilePhoto profileId={connection.user.id} size={50} photoKey={connection.user.profile_photo} />
       <View style={styles.connectionInfo}>
         <Text style={styles.fullName}>{connection.user.fullname}</Text>
-        <Text style={styles.date}>Connection since July 8th</Text>
+        <Text style={styles.date}>Connection since {dayjs(connection.accepted_at).format("MMM DD, YYYY")}</Text>
       </View>
     </View>
   );
