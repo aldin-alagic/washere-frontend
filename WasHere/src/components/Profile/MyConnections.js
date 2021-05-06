@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TextInput, FlatList } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import CloseButton from "../CloseButton";
 import Text from "../Text";
 import Connection from "./Connection";
-import { fetchMyConnections } from "../../store/user";
 
 import colors from "../../config/colors";
 
 const MyConnections = ({ myConnectionsRef }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const connections = useSelector((state) => state.user.myConnections);
-  const dispatch = useDispatch();
-
-  useEffect(() => dispatch(fetchMyConnections()), []);
 
   return (
     <View>
