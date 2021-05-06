@@ -124,7 +124,7 @@ const MyProfile = ({ navigation }) => {
                 <FlatList
                   style={styles.connectionsList}
                   horizontal={true}
-                  data={connections}
+                  data={myConnections}
                   renderItem={({ item }) => <ConnectionSimple data={item} />}
                 />
                 {myConnections.length > 4 && (
