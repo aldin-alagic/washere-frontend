@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 import { profilePhoto } from "../utils/getPhotoURI";
 import { navigate } from "../navigation/RootNavigation";
+
 import colors from "../config/colors";
 
 const ProfilePhoto = ({ profileId, photoKey, size, style }) => {
