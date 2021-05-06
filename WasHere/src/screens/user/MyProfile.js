@@ -28,6 +28,7 @@ const MyProfile = ({ navigation }) => {
 
   const userId = useSelector((state) => state.auth.user.id);
   const user = useSelector((state) => state.user.myProfile);
+  const loading = useSelector((state) => state.user.loading);
   const myConnections = useSelector((state) => state.user.myConnections);
   const posts = useSelector((state) => state.posts.user.posts);
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const MyProfile = ({ navigation }) => {
     myConnectionsRef.current.open();
   };
 
-  if (!user) return null;
+  if (loading) return null;
 
   return (
     <>
