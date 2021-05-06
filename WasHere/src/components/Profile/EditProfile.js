@@ -122,7 +122,7 @@ const EditProfile = ({ editProfileRef }) => {
           />
         </View>
 
-        <BlankSpacer height={20} />
+        <BlankSpacer height={15} />
         <Text style={styles.label}>Email</Text>
         <View style={styles.mailContainer}>
           <Icon name="mail-outline" color={colors.mediumlight} size={28} style={{ marginRight: 10 }} />
@@ -134,10 +134,11 @@ const EditProfile = ({ editProfileRef }) => {
             value={formik.values.email}
           />
         </View>
+        <BlankSpacer height={5} />
         {loading ? (
           <ActivityIndicator style={{ marginTop: 10 }} size="large" color={colors.primary} />
         ) : (
-          <Button title="Save changes" onPress={formik.handleSubmit} loading={loading} />
+          <Button title="Save changes" onPress={formik.handleSubmit} loading={loading} customStyle={{ padding: 9 }} />
         )}
       </View>
     </ScrollView>
