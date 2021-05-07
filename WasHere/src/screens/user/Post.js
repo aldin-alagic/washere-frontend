@@ -34,8 +34,8 @@ const Post = ({ route }) => {
       mapRef.current.animateToRegion({
         latitude: post.latitude,
         longitude: post.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.0022,
+        longitudeDelta: 0.0022,
       });
   }, [post]);
 
