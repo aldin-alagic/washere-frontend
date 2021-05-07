@@ -71,7 +71,14 @@ const Post = ({ route }) => {
             <Comment key={comment.id} data={comment} />
           ))}
           <Form initialValues={{ text: "" }} onSubmit={handleAddComment}>
-            <FormField autoCapitalize="sentences" autoCorrect={false} name="text" placeholder="Add comment" submitOnEnter />
+            <FormField
+              autoCapitalize="sentences"
+              autoCorrect={false}
+              name="text"
+              placeholder="Add comment"
+              returnKeyType="done"
+              submitOnEnter
+            />
           </Form>
         </View>
       </BottomSheet>
@@ -108,7 +115,6 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 30,
     paddingTop: 10,
-    paddingBottom: 25,
   },
   imagesContainer: {
     flexDirection: "row",
