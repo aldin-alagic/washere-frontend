@@ -4,6 +4,7 @@ import { StyleSheet, View, TouchableOpacity, Image, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Geolocation from "@react-native-community/geolocation";
 import MapView from "react-native-maps";
+import { useFocusEffect } from "@react-navigation/native";
 
 import BottomSheet from "../../components/BottomSheet";
 import { Form, FormField, SubmitButton } from "../../components/form";
@@ -50,6 +51,8 @@ const NewPost = () => {
       (error) => console.log(error),
     );
   }, []);
+
+  useFocusEffect(() => bottomSheetRef.current.open());
 
   const handleAddImage = (image) => {
     setImages([image, ...images]);
