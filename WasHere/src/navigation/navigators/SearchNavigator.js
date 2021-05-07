@@ -15,7 +15,7 @@ const Search = () => {
     <SearchStack.Navigator mode="modal" screenOptions={navigatorOptions}>
       <SearchStack.Screen name="Search" component={SearchScreen} options={stackScreenOptions} />
       <SearchStack.Screen name="SearchTags" component={Tags} />
-      <SearchStack.Screen name="TagFeed" component={TagFeed} />
+      <SearchStack.Screen name="TagFeed" component={TagFeed} options={stackScreenOptions} />
       <SearchStack.Screen name="SearchPlaces" component={Places} />
       <SearchStack.Screen name="PlaceDetails" component={PlaceDetails} options={stackScreenOptions} />
     </SearchStack.Navigator>
