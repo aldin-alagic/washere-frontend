@@ -51,6 +51,7 @@ const Post = ({ route }) => {
         modalTopOffset={60}
         onClose={() => RootNavigation.goBack()}
         childrenStyle={styles.content}
+        adjustToContentHeight={true}
         bottomSheetRef={bottomSheetRef}
         openOnLoad>
         <View style={styles.sheet}>
