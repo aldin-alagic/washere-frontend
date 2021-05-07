@@ -52,8 +52,6 @@ const MyProfile = ({ navigation }) => {
     myConnectionsRef.current.open();
   };
 
-  if (loading) return null;
-
   return (
     <>
       <Screen style={styles.container}>
