@@ -76,7 +76,7 @@ const Post = ({ route }) => {
               autoCorrect={false}
               name="text"
               placeholder="Add comment"
-              returnKeyType="done"
+              returnKeyType="send"
               submitOnEnter
             />
           </Form>
