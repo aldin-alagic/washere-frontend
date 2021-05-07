@@ -23,7 +23,7 @@ const NewPost = () => {
   const user = useSelector((state) => state.auth.user);
   const { loading } = useSelector((state) => state.posts);
   const [images, setImages] = useState([]);
-  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
+  const [location, setLocation] = useState();
   const [address, setAddress] = useState("Loading...");
   const mapRef = useRef();
   const bottomSheetRef = useRef(null);
@@ -40,13 +40,6 @@ const NewPost = () => {
 
         const locationAddress = await getAddress(latitude, longitude);
         setAddress(locationAddress);
-
-        mapRef.current.animateToRegion({
-          latitude: latitude,
-          longitude: longitude,
-          latitudeDelta: 0.0022,
-          longitudeDelta: 0.0022,
-        });
       },
       (error) => console.log(error),
     );
@@ -82,7 +75,20 @@ const NewPost = () => {
 
   return (
     <View style={styles.screen}>
-      <MapView style={styles.map} ref={mapRef} showsUserLocation={true} mapPadding={{ bottom: 380 }} />
+      {location && (
+        <MapView
+          style={styles.map}
+          ref={mapRef}
+          showsUserLocation={true}
+          initialRegion={{
+            latitude: location.latitude,
+            longitude: location.longitude,
+            latitudeDelta: 0.0022,
+            longitudeDelta: 0.0022,
+          }}
+          mapPadding={{ bottom: 380 }}
+        />
+      )}
       <BottomSheet
         onClose={() => RootNavigation.goBack()}
         childrenStyle={styles.content}
