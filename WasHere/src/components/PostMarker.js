@@ -13,8 +13,9 @@ const PostMarker = ({ post, onPress }) => {
       coordinate={{
         latitude: parseFloat(post.latitude),
         longitude: parseFloat(post.longitude),
-      }}>
-      <TouchableOpacity style={[styles.button, defaultStyles.shadow]} onPress={onPress}>
+      }}
+      onPress={onPress}>
+      <View style={[styles.button, defaultStyles.shadow]}>
         <View style={styles.container}>
           <Image style={styles.userImage} source={{ uri: profilePhoto(post.user.profile_photo) }} />
           <View style={styles.textContainer}>
@@ -22,7 +23,7 @@ const PostMarker = ({ post, onPress }) => {
             <Text>{dayjs(post.created_at).format("HH:mm")}</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     </Marker>
   );
 };
