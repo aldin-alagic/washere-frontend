@@ -39,8 +39,8 @@ const Map = ({ navigation }) => {
         mapRef.current.animateToRegion({
           latitude: coords.latitude,
           longitude: coords.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.0122,
+          longitudeDelta: 0.0121,
         });
       },
       (error) => console.log(error),
