@@ -26,6 +26,7 @@ const EditProfile = ({ editProfileRef }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.myProfile);
   const { loading } = useSelector((state) => state.user);
+  const [image, setImage] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -35,17 +36,13 @@ const EditProfile = ({ editProfileRef }) => {
       about: user.about,
     },
     onSubmit: (values) => {
+      editProfileRef.current.close();
+
       if (image) dispatch(updateProfilePhoto(image.data));
 
       dispatch(updateProfile(values));
-
-      if (!loading) {
-        editProfileRef.current.close();
-      }
     },
   });
-
-  const [image, setImage] = useState(null);
 
   const handleAddImage = (image) => {
     setImage(image);

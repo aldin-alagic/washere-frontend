@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Keyboard } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
@@ -36,7 +36,12 @@ const SearchBox = () => {
         <Icon name="search-sharp" color={colors.dark} size={26} style={styles.searchIcon} />
         <TextInput style={[styles.text]} placeholder="Search" onChangeText={handleTextChange} value={text} />
       </View>
-      <TouchableOpacity style={styles.cancelButton} onPress={() => handleTextChange("")}>
+      <TouchableOpacity
+        style={styles.cancelButton}
+        onPress={() => {
+          Keyboard.dismiss();
+          handleTextChange("");
+        }}>
         <Text>Cancel</Text>
       </TouchableOpacity>
     </View>
