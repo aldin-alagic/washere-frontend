@@ -19,6 +19,8 @@ const Tags = ({ navigation }) => {
 
   const tags = useSelector((state) => state.search.tags);
 
+  console.log("TAGS in search", tags);
+
   return (
     <View style={styles.container}>
       {tags.length != 0 ? (

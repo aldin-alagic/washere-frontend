@@ -21,6 +21,9 @@ const slice = createSlice({
       posts: [],
       lastPostId: null,
     },
+    tagFeed: {
+      posts: [],
+    },
   },
   reducers: {
     requestStarted: (search, action) => {
@@ -48,29 +51,24 @@ const slice = createSlice({
     },
 
     feedFetched: (search, action) => {
-      const { data, isReload } = action.payload;
-      if (isReload) {
-        search.feed.posts = data.posts;
-      } else {
-        search.feed.posts = search.feed.posts.concat(data.posts);
-      }
+      const { data } = action.payload;
+
+      search.feed.posts = data.posts;
+
       search.feed.lastPostId = data.lastPostId;
       search.loading = false;
     },
 
-    recentQueryChanged: (search, action) => {
-      const { query } = action.payload;
-      search.recentPostsQuery = query;
+    tagFeedFetched: (search, action) => {
+      const { data } = action.payload;
+
+      search.tagFeed.posts = data.posts;
+
+      search.loading = false;
     },
 
     requestFailed: (search, action) => {
       search.loading = false;
-      showMessage({
-        message: API_ERROR_MESSAGE,
-        description: action.payload,
-        type: "warning",
-        autoHide: true,
-      });
     },
   },
 });
@@ -80,10 +78,10 @@ export const {
   tabRouteChanged,
   requestFailed,
   placesSearched,
+  tagFeedFetched,
   peopleSearched,
   tagsSearched,
   feedFetched,
-  recentQueryChanged,
 } = slice.actions;
 export default slice.reducer;
 
@@ -129,9 +127,8 @@ export const getFeedByTag = (query, lastPostId) => (dispatch) => {
       data: "",
       params: { number: 5, query, lastPostId },
       onStart: requestStarted.type,
-      onSuccess: feedFetched.type,
+      onSuccess: tagFeedFetched.type,
       onError: requestFailed.type,
-      passData: { isReload: lastPostId ? false : true },
     }),
   );
 };
@@ -167,10 +164,6 @@ export const getRecentFeed = (filter, lastPostId) => (dispatch, getState) => {
       onError: requestFailed.type,
     }),
   );
-};
-
-export const changeRecentQuery = (query) => (dispatch) => {
-  dispatch({ type: recentQueryChanged.type, payload: { query } });
 };
 
 export const changeTabRoute = (query) => (dispatch) => {

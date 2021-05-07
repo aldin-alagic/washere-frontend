@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from "react-nativ
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import { searchPlaces, searchPeople, searchTags, getRecentFeed, changeRecentQuery } from "../../store/search";
+import { searchPlaces, searchPeople, searchTags, getRecentFeed } from "../../store/search";
 
 import colors from "../../config/colors";
 
@@ -16,10 +16,7 @@ const SearchBox = () => {
     setText(text);
     switch (activeTabRoute) {
       case "Recent":
-        if (text != "") {
-          dispatch(changeRecentQuery(text));
-          dispatch(getRecentFeed(text));
-        }
+        dispatch(getRecentFeed(text));
         break;
       case "Places":
         dispatch(searchPlaces(text));
