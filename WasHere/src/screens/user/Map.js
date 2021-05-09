@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView from "react-native-maps";
+import MapView from "react-native-map-clustering";
 import Geolocation from "@react-native-community/geolocation";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
@@ -9,10 +9,12 @@ import PostMarker from "../../components/PostMarker";
 import Slider from "../../components/Slider";
 
 import { API } from "../../config/config.json";
+import colors from "../../config/colors";
 
 const Map = ({ navigation }) => {
   const mapRef = useRef();
   const socket = useRef();
+  const [initialRegion, setInitialRegion] = useState(null);
   const [posts, setPosts] = useState([]);
   const token = useSelector((state) => state.auth.token);
 
@@ -36,7 +38,7 @@ const Map = ({ navigation }) => {
     // Navigate to the current location on map
     Geolocation.getCurrentPosition(
       ({ coords }) => {
-        mapRef.current.animateToRegion({
+        setInitialRegion({
           latitude: coords.latitude,
           longitude: coords.longitude,
           latitudeDelta: 0.0122,
@@ -86,11 +88,26 @@ const Map = ({ navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <MapView style={styles.map} ref={mapRef} onRegionChangeComplete={handleRegionChange}>
-        {posts.map((post) => (
-          <PostMarker key={post.id} post={post} onPress={() => handleOpenPost(post)} />
-        ))}
-      </MapView>
+      {initialRegion && (
+        <MapView
+          style={styles.map}
+          ref={mapRef}
+          clusterColor={colors.primary}
+          initialRegion={initialRegion}
+          onRegionChangeComplete={handleRegionChange}>
+          {posts.map((post) => (
+            <PostMarker
+              key={post.id}
+              coordinate={{
+                latitude: parseFloat(post.latitude),
+                longitude: parseFloat(post.longitude),
+              }}
+              post={post}
+              onPress={() => handleOpenPost(post)}
+            />
+          ))}
+        </MapView>
+      )}
       <View style={styles.sliderContainer}>
         <Slider handleValueChange={handleTimeRangeChange} />
       </View>
