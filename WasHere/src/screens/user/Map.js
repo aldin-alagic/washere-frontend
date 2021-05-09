@@ -9,6 +9,7 @@ import PostMarker from "../../components/PostMarker";
 import Slider from "../../components/Slider";
 
 import { API } from "../../config/config.json";
+import colors from "../../config/colors";
 
 const Map = ({ navigation }) => {
   const mapRef = useRef();
@@ -88,7 +89,12 @@ const Map = ({ navigation }) => {
   return (
     <View style={styles.screen}>
       {initialRegion && (
-        <MapView style={styles.map} ref={mapRef} initialRegion={initialRegion} onRegionChangeComplete={handleRegionChange}>
+        <MapView
+          style={styles.map}
+          ref={mapRef}
+          clusterColor={colors.primary}
+          initialRegion={initialRegion}
+          onRegionChangeComplete={handleRegionChange}>
           {posts.map((post) => (
             <PostMarker
               key={post.id}
