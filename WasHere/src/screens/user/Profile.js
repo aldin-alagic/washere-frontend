@@ -80,7 +80,7 @@ const Profile = ({ route, navigation }) => {
                       style={styles.connectionsList}
                       horizontal={true}
                       data={profile.mutualConnections}
-                      renderItem={({ item }) => <ConnectionSimple data={item} />}
+                      renderItem={({ item }) => <ConnectionSimple data={{ user: item }} />}
                     />
                   </View>
                   <View style={styles.divider} />
