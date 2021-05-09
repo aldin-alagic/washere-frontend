@@ -7,14 +7,9 @@ import colors from "../config/colors";
 import defaultStyles from "../config/styles";
 import { profilePhoto } from "../utils/getPhotoURI";
 
-const PostMarker = ({ post, onPress }) => {
+const PostMarker = ({ post, onPress, coordinate }) => {
   return (
-    <Marker
-      coordinate={{
-        latitude: parseFloat(post.latitude),
-        longitude: parseFloat(post.longitude),
-      }}
-      onPress={onPress}>
+    <Marker coordinate={coordinate} onPress={onPress}>
       <View style={[styles.button, defaultStyles.shadow]}>
         <View style={styles.container}>
           <Image style={styles.userImage} source={{ uri: profilePhoto(post.user.profile_photo) }} />
