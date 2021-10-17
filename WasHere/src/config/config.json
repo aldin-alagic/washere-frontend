@@ -1,4 +1,4 @@
 {
-  "API": "https://api.washere.rocks",
+  "API": "http://188.166.160.176:8080",
   "API_ERROR_MESSAGE": "There was a problem with your request!"
 }

@@ -91,7 +91,7 @@ export const searchPlaces = (input) => (dispatch) => {
       url: "https://maps.googleapis.com/maps/api/place/autocomplete/json",
       method: "GET",
       data: "",
-      params: { inputtype: "textquery", input, key: GOOGLE_API_KEY },
+      params: { inputtype: "textquery", input, key: "AIzaSyCzkKCHOQHnIz2rrOk7chuPaLYC80R86iE" },
       onStart: requestStarted.type,
       onSuccess: placesSearched.type,
       onError: requestFailed.type,
